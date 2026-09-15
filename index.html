@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0c0b">
+
+  <title>MXANGEL GEAR</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <a class="brand" href="#inicio">
+    <span>MXANGEL</span>
+    <b>GEAR</b>
+  </a>
+
+  <nav>
+    <a href="#inicio">INICIO</a>
+    <a href="#tienda">TIENDA</a>
+    <a href="#colecciones">COLECCIONES</a>
+    <a href="#nosotros">NOSOTROS</a>
+  </nav>
+
+  <button class="cart-btn" id="cartBtn">
+    CARRITO
+    <span id="cartCount">0</span>
+  </button>
+
+</header>
+
+
+<main>
+
+<section class="hero" id="inicio">
+
+  <div class="noise"></div>
+
+  <div class="hero-content">
+
+    <p class="eyebrow">
+      MXANGELYT2311 PRESENTA
+    </p>
+
+    <h1>
+      MXANGEL<br>
+      <span>GEAR</span>
+    </h1>
+
+    <p class="tagline">
+      ACTITUD TÁCTICA.<br>
+      ESTILO SIN LÍMITES.
+    </p>
+
+    <p class="hero-copy">
+      Una marca nacida entre videojuegos,
+      simulación y comunidad.
+      Diseñada para usarse dentro y fuera
+      de la partida.
+    </p>
+
+    <a class="primary" href="#tienda">
+      VER COLECCIÓN →
+    </a>
+
+  </div>
+
+  <div class="hero-mark">
+    MX<br>AG
+  </div>
+
+  <div class="scroll">
+    DESPLÁZATE PARA EXPLORAR ↓
+  </div>
+
+</section>
+
+
+<section class="trust">
+
+  <div>
+    <strong>ENVÍOS</strong>
+    <span>A TODO MÉXICO</span>
+  </div>
+
+  <div>
+    <strong>PAGOS</strong>
+    <span>SEGUROS*</span>
+  </div>
+
+  <div>
+    <strong>DROP 01</strong>
+    <span>PRÓXIMAMENTE</span>
+  </div>
+
+</section>
+
+
+<section class="shop section" id="tienda">
+
+  <div class="section-head">
+
+    <div>
+      <p class="eyebrow">
+        DROP 01 / DEMO
+      </p>
+
+      <h2>
+        PRENDAS DESTACADAS
+      </h2>
+    </div>
+
+    <p>
+      Primera maqueta del catálogo.
+      Los nombres, precios, fotografías
+      y diseños se pueden cambiar después.
+    </p>
+
+  </div>
+
+  <div
+    class="products"
+    id="productGrid">
+  </div>
+
+</section>
+
+
+<section
+  class="collections section"
+  id="colecciones">
+
+  <article class="collection-card c1">
+
+    <div>
+
+      <span>
+        COLECCIÓN 01
+      </span>
+
+      <h3>
+        ORIGEN
+      </h3>
+
+      <p>
+        La identidad de MXANGEL
+        llevada a prendas de uso diario.
+      </p>
+
+    </div>
+
+  </article>
+
+
+  <article class="collection-card c2">
+
+    <div>
+
+      <span>
+        COLECCIÓN 02
+      </span>
+
+      <h3>
+        SIMULACIÓN
+      </h3>
+
+      <p>
+        Inspirada en el ambiente militar
+        de tu contenido sin convertir
+        la ropa en uniforme táctico.
+      </p>
+
+    </div>
+
+  </article>
+
+</section>
+
+
+<section
+  class="about section"
+  id="nosotros">
+
+  <div class="big-code">
+    MX//01
+  </div>
+
+  <div>
+
+    <p class="eyebrow">
+      NUESTRA IDENTIDAD
+    </p>
+
+    <h2>
+      DEL JUEGO<br>
+      A LA CALLE.
+    </h2>
+
+    <p>
+      MXANGEL GEAR mezcla una estética
+      táctica e industrial con ropa comercial.
+
+      La marca puede crecer junto con tu
+      contenido sin depender de un solo
+      videojuego, servidor o colección.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="cta">
+
+  <p>
+    MXANGEL GEAR
+  </p>
+
+  <h2>
+    PRÓXIMO DROP<br>
+    EN PREPARACIÓN.
+  </h2>
+
+  <a
+    class="primary"
+    href="#tienda">
+
+    EXPLORAR DEMO →
+
+  </a>
+
+</section>
+
+</main>
+
+
+<footer>
+
+  <div class="brand">
+
+    <span>
+      MXANGEL
+    </span>
+
+    <b>
+      GEAR
+    </b>
+
+  </div>
+
+  <p>
+    © 2026 MXANGEL GEAR
+  </p>
+
+  <p class="small">
+    *Los pagos y envíos mostrados
+    son demostrativos hasta conectar
+    una pasarela y proveedor reales.
+  </p>
+
+</footer>
+
+
+<!-- CARRITO -->
+
+<aside
+  class="drawer"
+  id="drawer">
+
+  <div class="drawer-head">
+
+    <h2>
+      TU CARRITO
+    </h2>
+
+    <button id="closeCart">
+      ✕
+    </button>
+
+  </div>
+
+  <div
+    id="cartItems"
+    class="cart-items">
+  </div>
+
+
+  <div class="cart-footer">
+
+    <div class="total">
+
+      <span>
+        TOTAL
+      </span>
+
+      <strong id="cartTotal">
+        $0 MXN
+      </strong>
+
+    </div>
+
+    <button
+      class="checkout"
+      id="checkoutBtn">
+
+      CONTINUAR AL PAGO
+
+    </button>
+
+    <small>
+      Modo demo:
+      todavía no realiza cobros reales.
+    </small>
+
+  </div>
+
+</aside>
+
+
+<div
+  class="overlay"
+  id="overlay">
+</div>
+
+
+<div
+  class="toast"
+  id="toast">
+
+  Producto agregado al carrito
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
