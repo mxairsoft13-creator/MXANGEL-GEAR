@@ -1,350 +1,2210 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0a0c0b">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>MXANGEL GEAR</title>
+<title>MXANGEL GEAR</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+<style>
+
+/* =========================
+   CONFIGURACIÓN
+========================= */
+
+:root{
+    --negro:#070907;
+    --negro2:#0c0f0c;
+    --panel:#101410;
+    --linea:#293029;
+
+    --blanco:#f1f2ed;
+    --gris:#a1a69f;
+
+    --verde:#aebb68;
+    --verde2:#c4d078;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:var(--negro);
+    color:var(--blanco);
+    font-family:Inter,Arial,sans-serif;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+
+    height:74px;
+
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:100;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 7%;
+
+    background:rgba(5,7,5,.95);
+
+    backdrop-filter:blur(10px);
+
+    border-bottom:
+    1px solid var(--linea);
+}
+
+
+/* LOGO */
+
+.logo{
+
+    display:flex;
+    align-items:baseline;
+
+    font-family:
+    "Barlow Condensed",
+    sans-serif;
+}
+
+.logo strong{
+
+    font-size:27px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+}
+
+.logo span{
+
+    margin-left:8px;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    letter-spacing:6px;
+
+    color:var(--verde);
+}
+
+
+/* MENÚ */
+
+nav{
+
+    display:flex;
+
+    gap:42px;
+}
+
+nav a{
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:16px;
+
+    font-weight:800;
+
+    letter-spacing:1.5px;
+
+    transition:.2s;
+}
+
+nav a:hover{
+    color:var(--verde);
+}
+
+
+/* CARRITO */
+
+.cart-button{
+
+    padding:11px 15px;
+
+    border:
+    1px solid #343b34;
+
+    background:transparent;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:16px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+}
+
+.cart-button span{
+
+    margin-left:7px;
+
+    padding:2px 8px;
+
+    background:var(--verde);
+
+    color:#080a08;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    position:relative;
+
+    min-height:720px;
+
+    padding-top:74px;
+
+    overflow:hidden;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        rgba(4,6,4,.98) 0%,
+        rgba(4,6,4,.90) 25%,
+        rgba(4,6,4,.55) 48%,
+        rgba(4,6,4,.12) 72%
+    ),
+
+    url("hero.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+}
+
+
+/*
+IMPORTANTE:
+
+La imagen se debe llamar:
+
+hero.jpg
+
+y estar junto al index.html
+*/
+
+
+/* Textura */
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.18;
+
+    background-image:
+
+    repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(255,255,255,.015) 4px
+    );
+}
+
+
+/* =========================
+   TEXTO HERO
+========================= */
+
+.hero-content{
+
+    position:relative;
+
+    z-index:5;
+
+    max-width:630px;
+
+    margin-left:8%;
+
+    padding-top:90px;
+}
+
+
+.presenta{
+
+    color:var(--verde);
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:14px;
+
+    font-weight:800;
+
+    letter-spacing:4px;
+}
+
+
+/* MXANGEL */
+
+.hero h1{
+
+    margin:
+    25px 0 0;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:
+    clamp(90px,10vw,145px);
+
+    font-weight:900;
+
+    line-height:.72;
+
+    letter-spacing:-3px;
+}
+
+
+/* GEAR */
+
+.hero h1 span{
+
+    display:block;
+
+    margin-top:30px;
+
+    color:transparent;
+
+    -webkit-text-stroke:
+    1.5px var(--verde);
+
+    font-weight:600;
+}
+
+
+/* FRASE */
+
+.hero h2{
+
+    margin-top:42px;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:30px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    line-height:1.1;
+}
+
+
+.hero-description{
+
+    color:#c0c5bf;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    max-width:530px;
+}
+
+
+/* BOTÓN */
+
+.hero-button{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:16px 25px;
+
+    background:var(--verde);
+
+    color:#080a08;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:17px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    transition:.2s;
+}
+
+.hero-button:hover{
+
+    background:var(--verde2);
+
+    transform:
+    translateY(-2px);
+}
+
+
+/* =========================
+   DETALLES LATERALES
+========================= */
+
+.left-detail{
+
+    position:absolute;
+
+    left:2%;
+
+    top:180px;
+
+    z-index:5;
+
+    color:#697168;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+    line-height:1.5;
+}
+
+
+.left-line{
+
+    width:1px;
+
+    height:210px;
+
+    margin-top:18px;
+
+    background:#555d55;
+}
+
+
+.right-detail{
+
+    position:absolute;
+
+    right:2%;
+
+    top:260px;
+
+    z-index:5;
+
+    writing-mode:vertical-rl;
+
+    color:#737b72;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:12px;
+
+    letter-spacing:4px;
+}
+
+
+/* =========================
+   BENEFICIOS
+========================= */
+
+.benefits{
+
+    position:relative;
+
+    z-index:10;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    background:#080b08;
+
+    border-top:
+    1px solid var(--linea);
+
+    border-bottom:
+    1px solid var(--linea);
+}
+
+
+.benefit{
+
+    min-height:90px;
+
+    padding:
+    22px 7%;
+
+    display:grid;
+
+    grid-template-columns:
+    55px 1fr;
+
+    align-items:center;
+
+    border-right:
+    1px solid var(--linea);
+}
+
+
+.benefit-icon{
+
+    font-size:30px;
+
+    color:white;
+}
+
+
+.benefit strong{
+
+    display:block;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:18px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+}
+
+
+.benefit small{
+
+    color:#929990;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   TIENDA
+========================= */
+
+.shop{
+
+    padding:
+    80px 8%;
+}
+
+
+.shop-header{
+
+    display:flex;
+
+    align-items:end;
+
+    justify-content:
+    space-between;
+
+    gap:40px;
+}
+
+
+.section-small{
+
+    color:var(--verde);
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:13px;
+
+    font-weight:800;
+
+    letter-spacing:4px;
+}
+
+
+.shop h2{
+
+    margin:7px 0;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:
+    clamp(52px,6vw,80px);
+
+    font-weight:900;
+}
+
+
+.shop-header p{
+
+    max-width:430px;
+
+    color:#989f97;
+
+    line-height:1.6;
+
+    font-size:14px;
+}
+
+
+/* =========================
+   PRODUCTOS
+========================= */
+
+.products{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:18px;
+
+    margin-top:35px;
+}
+
+
+.product{
+
+    overflow:hidden;
+
+    background:#0e120f;
+
+    border:
+    1px solid var(--linea);
+
+    transition:.25s;
+}
+
+
+.product:hover{
+
+    transform:
+    translateY(-5px);
+
+    border-color:#4d574a;
+}
+
+
+/* FOTO PRODUCTO */
+
+.product-image{
+
+    height:330px;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+
+    radial-gradient(
+        circle,
+        #252b24,
+        #0b0e0c
+    );
+}
+
+
+.product-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+}
+
+
+/*
+Mientras no tengas fotos,
+sale este logo.
+*/
+
+.product-placeholder{
+
+    text-align:center;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:28px;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    color:var(--verde);
+}
+
+
+.product-info{
+
+    padding:20px;
+}
+
+
+.product-info h3{
+
+    margin:0;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:28px;
+
+    font-weight:800;
+}
+
+
+.product-info p{
+
+    color:#959c94;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+
+/* TALLAS */
+
+.sizes{
+
+    display:flex;
+
+    gap:7px;
+
+    margin:
+    15px 0;
+}
+
+
+.size{
+
+    padding:
+    7px 10px;
+
+    border:
+    1px solid #3b433a;
+
+    background:transparent;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+
+.size.selected{
+
+    background:var(--verde);
+
+    color:#080a08;
+}
+
+
+/* PRECIO */
+
+.product-bottom{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:
+    space-between;
+
+    gap:10px;
+}
+
+
+.price{
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:25px;
+
+    font-weight:800;
+}
+
+
+.add{
+
+    padding:
+    11px 14px;
+
+    border:
+    1px solid var(--verde);
+
+    background:transparent;
+
+    color:var(--verde2);
+
+    cursor:pointer;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+
+.add:hover{
+
+    background:var(--verde);
+
+    color:#080a08;
+}
+
+
+/* =========================
+   COLECCIONES
+========================= */
+
+.collections{
+
+    padding:
+    30px 8% 90px;
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:18px;
+}
+
+
+.collection{
+
+    min-height:350px;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:end;
+
+    padding:35px;
+
+    overflow:hidden;
+
+    border:
+    1px solid var(--linea);
+
+    background:
+
+    radial-gradient(
+        circle at 75% 20%,
+        rgba(174,187,104,.13),
+        transparent 28%
+    ),
+
+    linear-gradient(
+        135deg,
+        #171c17,
+        #090c09
+    );
+}
+
+
+.collection h3{
+
+    margin:5px 0;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:65px;
+
+    font-weight:900;
+}
+
+
+.collection p{
+
+    color:#9ca39b;
+}
+
+
+/* =========================
+   NOSOTROS
+========================= */
+
+.about{
+
+    padding:
+    100px 8%;
+
+    border-top:
+    1px solid var(--linea);
+
+    background:#090c09;
+}
+
+
+.about h2{
+
+    margin:
+    10px 0 20px;
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:
+    clamp(55px,7vw,95px);
+
+    font-weight:900;
+}
+
+
+.about p{
+
+    max-width:650px;
+
+    color:#9ba29a;
+
+    line-height:1.8;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    padding:
+    35px 8%;
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    border-top:
+    1px solid var(--linea);
+
+    color:#7d847c;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   CARRITO LATERAL
+========================= */
+
+.cart-drawer{
+
+    position:fixed;
+
+    z-index:500;
+
+    top:0;
+
+    right:-450px;
+
+    width:
+    min(430px,94vw);
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    background:#0d110e;
+
+    border-left:
+    1px solid var(--linea);
+
+    transition:.3s;
+}
+
+
+.cart-drawer.open{
+    right:0;
+}
+
+
+.cart-header{
+
+    height:74px;
+
+    padding:
+    0 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:
+    space-between;
+
+    border-bottom:
+    1px solid var(--linea);
+}
+
+
+.cart-header h2{
+
+    font-family:
+    "Barlow Condensed";
+
+    font-size:30px;
+}
+
+
+.close-cart{
+
+    border:0;
+
+    background:none;
+
+    color:white;
+
+    font-size:25px;
+
+    cursor:pointer;
+}
+
+
+.cart-items{
+
+    flex:1;
+
+    overflow:auto;
+
+    padding:20px;
+}
+
+
+.cart-item{
+
+    padding:
+    15px 0;
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    border-bottom:
+    1px solid var(--linea);
+}
+
+
+.cart-item small{
+
+    color:#969d95;
+}
+
+
+.remove{
+
+    border:0;
+
+    background:none;
+
+    color:#999;
+
+    cursor:pointer;
+}
+
+
+.cart-footer{
+
+    padding:20px;
+
+    border-top:
+    1px solid var(--linea);
+}
+
+
+.cart-total{
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    margin-bottom:15px;
+
+    font-weight:800;
+}
+
+
+.checkout{
+
+    width:100%;
+
+    padding:15px;
+
+    border:0;
+
+    background:var(--verde);
+
+    color:#080a08;
+
+    cursor:pointer;
+
+    font-weight:900;
+}
+
+
+.cart-note{
+
+    display:block;
+
+    margin-top:10px;
+
+    color:#858c84;
+
+    font-size:10px;
+}
+
+
+/* OSCURECER PÁGINA */
+
+.overlay{
+
+    position:fixed;
+
+    z-index:400;
+
+    inset:0;
+
+    display:none;
+
+    background:
+    rgba(0,0,0,.72);
+}
+
+
+.overlay.show{
+    display:block;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media(max-width:850px){
+
+    header{
+
+        padding:
+        0 5%;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+
+        min-height:680px;
+
+        background-position:
+        65% center;
+    }
+
+    .hero-content{
+
+        margin-left:7%;
+
+        padding-top:80px;
+
+        max-width:88%;
+    }
+
+    .hero h1{
+
+        font-size:
+        clamp(75px,22vw,110px);
+    }
+
+    .left-detail,
+    .right-detail{
+
+        display:none;
+    }
+
+    .benefits{
+
+        grid-template-columns:
+        1fr;
+    }
+
+    .benefit{
+
+        border-bottom:
+        1px solid var(--linea);
+    }
+
+    .shop-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .products{
+
+        grid-template-columns:
+        1fr;
+    }
+
+    .collections{
+
+        grid-template-columns:
+        1fr;
+    }
+
+    footer{
+
+        flex-direction:column;
+
+        gap:15px;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-<header class="topbar">
 
-  <a class="brand" href="#inicio">
-    <span>MXANGEL</span>
-    <b>GEAR</b>
-  </a>
+<!-- =========================
+     HEADER
+========================= -->
 
-  <nav>
-    <a href="#inicio">INICIO</a>
-    <a href="#tienda">TIENDA</a>
-    <a href="#colecciones">COLECCIONES</a>
-    <a href="#nosotros">NOSOTROS</a>
-  </nav>
+<header>
 
-  <button class="cart-btn" id="cartBtn">
+<a class="logo" href="#inicio">
+
+    <strong>
+        MXANGEL
+    </strong>
+
+    <span>
+        GEAR
+    </span>
+
+</a>
+
+
+<nav>
+
+    <a href="#inicio">
+        INICIO
+    </a>
+
+    <a href="#tienda">
+        TIENDA
+    </a>
+
+    <a href="#colecciones">
+        COLECCIONES
+    </a>
+
+    <a href="#nosotros">
+        NOSOTROS
+    </a>
+
+</nav>
+
+
+<button
+class="cart-button"
+id="openCart">
+
     CARRITO
-    <span id="cartCount">0</span>
-  </button>
+
+    <span id="cartCount">
+        0
+    </span>
+
+</button>
 
 </header>
 
 
-<main>
+<!-- =========================
+     PORTADA
+========================= -->
 
-<section class="hero" id="inicio">
+<section
+class="hero"
+id="inicio">
 
-  <div class="noise"></div>
 
-  <div class="hero-content">
+<div class="left-detail">
 
-    <p class="eyebrow">
-      MXANGELYT2311 PRESENTA
-    </p>
+    DISCIPLINA<br>
+    ESTRATEGIA<br>
+    COMUNIDAD
 
-    <h1>
-      MXANGEL<br>
-      <span>GEAR</span>
-    </h1>
+    <div class="left-line"></div>
 
-    <p class="tagline">
-      ACTITUD TÁCTICA.<br>
-      ESTILO SIN LÍMITES.
-    </p>
+</div>
 
-    <p class="hero-copy">
-      Una marca nacida entre videojuegos,
-      simulación y comunidad.
-      Diseñada para usarse dentro y fuera
-      de la partida.
-    </p>
 
-    <a class="primary" href="#tienda">
-      VER COLECCIÓN →
-    </a>
+<div class="right-detail">
 
-  </div>
+    MXANGEL GEAR
 
-  <div class="hero-mark">
-    MX<br>AG
-  </div>
+</div>
 
-  <div class="scroll">
-    DESPLÁZATE PARA EXPLORAR ↓
-  </div>
+
+<div class="hero-content">
+
+<p class="presenta">
+
+    MXANGELYT2311 PRESENTA
+
+</p>
+
+
+<h1>
+
+    MXANGEL
+
+    <span>
+        GEAR
+    </span>
+
+</h1>
+
+
+<h2>
+
+    ACTITUD TÁCTICA.<br>
+    ESTILO SIN LÍMITES.
+
+</h2>
+
+
+<p class="hero-description">
+
+    Una marca nacida entre videojuegos,
+    simulación y comunidad.
+
+    <br>
+
+    Diseñada para usarse dentro
+    y fuera de la partida.
+
+</p>
+
+
+<a
+class="hero-button"
+href="#tienda">
+
+    VER COLECCIÓN →
+
+</a>
+
+</div>
 
 </section>
 
 
-<section class="trust">
+<!-- =========================
+     BENEFICIOS
+========================= -->
 
-  <div>
-    <strong>ENVÍOS</strong>
-    <span>A TODO MÉXICO</span>
-  </div>
-
-  <div>
-    <strong>PAGOS</strong>
-    <span>SEGUROS*</span>
-  </div>
-
-  <div>
-    <strong>DROP 01</strong>
-    <span>PRÓXIMAMENTE</span>
-  </div>
-
-</section>
+<section class="benefits">
 
 
-<section class="shop section" id="tienda">
+<div class="benefit">
 
-  <div class="section-head">
+    <div class="benefit-icon">
+        ▣
+    </div>
 
     <div>
-      <p class="eyebrow">
+
+        <strong>
+            ENVÍOS
+        </strong>
+
+        <small>
+            A TODO MÉXICO
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="benefit">
+
+    <div class="benefit-icon">
+        ▰
+    </div>
+
+    <div>
+
+        <strong>
+            PAGOS
+        </strong>
+
+        <small>
+            SEGUROS*
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="benefit">
+
+    <div class="benefit-icon">
+        ◇
+    </div>
+
+    <div>
+
+        <strong>
+            DROP 01
+        </strong>
+
+        <small>
+            PRÓXIMAMENTE
+        </small>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     TIENDA
+========================= -->
+
+<section
+class="shop"
+id="tienda">
+
+
+<div class="shop-header">
+
+<div>
+
+    <span class="section-small">
+
         DROP 01 / DEMO
-      </p>
 
-      <h2>
-        PRENDAS DESTACADAS
-      </h2>
-    </div>
+    </span>
 
-    <p>
-      Primera maqueta del catálogo.
-      Los nombres, precios, fotografías
-      y diseños se pueden cambiar después.
-    </p>
-
-  </div>
-
-  <div
-    class="products"
-    id="productGrid">
-  </div>
-
-</section>
-
-
-<section
-  class="collections section"
-  id="colecciones">
-
-  <article class="collection-card c1">
-
-    <div>
-
-      <span>
-        COLECCIÓN 01
-      </span>
-
-      <h3>
-        ORIGEN
-      </h3>
-
-      <p>
-        La identidad de MXANGEL
-        llevada a prendas de uso diario.
-      </p>
-
-    </div>
-
-  </article>
-
-
-  <article class="collection-card c2">
-
-    <div>
-
-      <span>
-        COLECCIÓN 02
-      </span>
-
-      <h3>
-        SIMULACIÓN
-      </h3>
-
-      <p>
-        Inspirada en el ambiente militar
-        de tu contenido sin convertir
-        la ropa en uniforme táctico.
-      </p>
-
-    </div>
-
-  </article>
-
-</section>
-
-
-<section
-  class="about section"
-  id="nosotros">
-
-  <div class="big-code">
-    MX//01
-  </div>
-
-  <div>
-
-    <p class="eyebrow">
-      NUESTRA IDENTIDAD
-    </p>
 
     <h2>
-      DEL JUEGO<br>
-      A LA CALLE.
+
+        PRENDAS DESTACADAS
+
     </h2>
 
-    <p>
-      MXANGEL GEAR mezcla una estética
-      táctica e industrial con ropa comercial.
+</div>
 
-      La marca puede crecer junto con tu
-      contenido sin depender de un solo
-      videojuego, servidor o colección.
-    </p>
 
-  </div>
+<p>
+
+    Primera maqueta del catálogo.
+
+    Los nombres, precios,
+    fotografías y diseños
+    se pueden cambiar después.
+
+</p>
+
+</div>
+
+
+<div
+class="products"
+id="products">
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     COLECCIONES
+========================= -->
+
+<section
+class="collections"
+id="colecciones">
+
+
+<article class="collection">
+
+<div>
+
+<span class="section-small">
+
+    COLECCIÓN 01
+
+</span>
+
+<h3>
+    ORIGEN
+</h3>
+
+<p>
+
+    La identidad de MXANGEL
+    llevada a prendas
+    para el día a día.
+
+</p>
+
+</div>
+
+</article>
+
+
+<article class="collection">
+
+<div>
+
+<span class="section-small">
+
+    COLECCIÓN 02
+
+</span>
+
+<h3>
+    SIMULACIÓN
+</h3>
+
+<p>
+
+    Inspirada en la estética
+    y ambiente de tu contenido.
+
+</p>
+
+</div>
+
+</article>
 
 </section>
 
 
-<section class="cta">
+<!-- =========================
+     NOSOTROS
+========================= -->
 
-  <p>
-    MXANGEL GEAR
-  </p>
+<section
+class="about"
+id="nosotros">
 
-  <h2>
-    PRÓXIMO DROP<br>
-    EN PREPARACIÓN.
-  </h2>
+<span class="section-small">
 
-  <a
-    class="primary"
-    href="#tienda">
+    NUESTRA IDENTIDAD
 
-    EXPLORAR DEMO →
+</span>
 
-  </a>
+
+<h2>
+
+    DEL JUEGO<br>
+    A LA CALLE.
+
+</h2>
+
+
+<p>
+
+MXANGEL GEAR mezcla una identidad
+visual táctica con ropa comercial.
+
+La idea es que la marca pueda crecer
+junto con el contenido de MXANGELYT2311,
+sin depender de un solo videojuego,
+servidor o estilo de prenda.
+
+</p>
 
 </section>
 
-</main>
 
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
-  <div class="brand">
+<div>
 
-    <span>
-      MXANGEL
-    </span>
+    MXANGEL GEAR © 2026
 
-    <b>
-      GEAR
-    </b>
+</div>
 
-  </div>
+<div>
 
-  <p>
-    © 2026 MXANGEL GEAR
-  </p>
+    DEMO DE TIENDA
 
-  <p class="small">
-    *Los pagos y envíos mostrados
-    son demostrativos hasta conectar
-    una pasarela y proveedor reales.
-  </p>
+</div>
 
 </footer>
 
 
-<!-- CARRITO -->
+<!-- =========================
+     CARRITO
+========================= -->
+
+<div
+class="overlay"
+id="overlay">
+</div>
+
 
 <aside
-  class="drawer"
-  id="drawer">
-
-  <div class="drawer-head">
-
-    <h2>
-      TU CARRITO
-    </h2>
-
-    <button id="closeCart">
-      ✕
-    </button>
-
-  </div>
-
-  <div
-    id="cartItems"
-    class="cart-items">
-  </div>
+class="cart-drawer"
+id="cartDrawer">
 
 
-  <div class="cart-footer">
+<div class="cart-header">
 
-    <div class="total">
+<h2>
+    TU CARRITO
+</h2>
 
-      <span>
-        TOTAL
-      </span>
+<button
+class="close-cart"
+id="closeCart">
 
-      <strong id="cartTotal">
-        $0 MXN
-      </strong>
+    ×
 
-    </div>
+</button>
 
-    <button
-      class="checkout"
-      id="checkoutBtn">
+</div>
 
-      CONTINUAR AL PAGO
 
-    </button>
+<div
+class="cart-items"
+id="cartItems">
+</div>
 
-    <small>
-      Modo demo:
-      todavía no realiza cobros reales.
-    </small>
 
-  </div>
+<div class="cart-footer">
+
+
+<div class="cart-total">
+
+<span>
+    TOTAL
+</span>
+
+<strong id="cartTotal">
+
+    $0 MXN
+
+</strong>
+
+</div>
+
+
+<button
+class="checkout"
+id="checkout">
+
+    CONTINUAR AL PAGO
+
+</button>
+
+
+<small class="cart-note">
+
+    Modo demo:
+    todavía no realiza cobros reales.
+
+</small>
+
+</div>
 
 </aside>
 
 
-<div
-  class="overlay"
-  id="overlay">
+<script>
+
+/* =========================
+   PRODUCTOS
+========================= */
+
+const products = [
+
+{
+    id:1,
+
+    name:
+    "PLAYERA MXANGEL / CORE",
+
+    price:449,
+
+    description:
+    "Playera comercial de corte urbano.",
+
+    sizes:[
+        "S",
+        "M",
+        "L",
+        "XL"
+    ]
+},
+
+
+{
+    id:2,
+
+    name:
+    "HOODIE / ORIGEN",
+
+    price:799,
+
+    description:
+    "Sudadera de la colección MXANGEL.",
+
+    sizes:[
+        "S",
+        "M",
+        "L",
+        "XL"
+    ]
+},
+
+
+{
+    id:3,
+
+    name:
+    "PLAYERA / SIMULATION",
+
+    price:499,
+
+    description:
+    "Diseño inspirado en simulación.",
+
+    sizes:[
+        "S",
+        "M",
+        "L",
+        "XL"
+    ]
+}
+
+];
+
+
+
+/* =========================
+   CARRITO
+========================= */
+
+let cart =
+JSON.parse(
+    localStorage.getItem(
+        "mxangelCart"
+    )
+    || "[]"
+);
+
+
+
+const money = value =>
+
+new Intl.NumberFormat(
+
+    "es-MX",
+
+    {
+
+        style:"currency",
+
+        currency:"MXN",
+
+        maximumFractionDigits:0
+
+    }
+
+).format(value);
+
+
+
+/* =========================
+   MOSTRAR PRODUCTOS
+========================= */
+
+const productsContainer =
+document.getElementById(
+    "products"
+);
+
+
+productsContainer.innerHTML =
+
+products.map(product => `
+
+
+<article class="product">
+
+
+<div class="product-image">
+
+<div class="product-placeholder">
+
+    MXANGEL
+    <br>
+    GEAR
+
+</div>
+
 </div>
 
 
-<div
-  class="toast"
-  id="toast">
+<div class="product-info">
 
-  Producto agregado al carrito
+
+<h3>
+
+${product.name}
+
+</h3>
+
+
+<p>
+
+${product.description}
+
+</p>
+
+
+<div class="sizes">
+
+${product.sizes.map(size => `
+
+<button
+class="size"
+onclick="selectSize(this)">
+
+${size}
+
+</button>
+
+`).join("")}
 
 </div>
 
 
-<script src="app.js"></script>
+<div class="product-bottom">
+
+
+<span class="price">
+
+${money(product.price)}
+
+</span>
+
+
+<button
+class="add"
+onclick="addProduct(${product.id})">
+
+AGREGAR +
+
+</button>
+
+
+</div>
+
+</div>
+
+</article>
+
+
+`).join("");
+
+
+
+/* =========================
+   SELECCIONAR TALLA
+========================= */
+
+function selectSize(button){
+
+const container =
+button.parentElement;
+
+
+container
+.querySelectorAll(".size")
+.forEach(size =>
+
+    size.classList.remove(
+        "selected"
+    )
+
+);
+
+
+button.classList.add(
+    "selected"
+);
+
+}
+
+
+
+/* =========================
+   AGREGAR PRODUCTO
+========================= */
+
+function addProduct(id){
+
+const existing =
+cart.find(
+    item =>
+    item.id === id
+);
+
+
+if(existing){
+
+    existing.quantity++;
+
+}else{
+
+    cart.push({
+
+        id:id,
+
+        quantity:1
+
+    });
+
+}
+
+
+saveCart();
+
+openCart();
+
+}
+
+
+
+/* =========================
+   QUITAR PRODUCTO
+========================= */
+
+function removeProduct(id){
+
+cart =
+cart.filter(
+    item =>
+    item.id !== id
+);
+
+
+saveCart();
+
+}
+
+
+
+/* =========================
+   GUARDAR
+========================= */
+
+function saveCart(){
+
+localStorage.setItem(
+
+    "mxangelCart",
+
+    JSON.stringify(cart)
+
+);
+
+
+renderCart();
+
+}
+
+
+
+/* =========================
+   MOSTRAR CARRITO
+========================= */
+
+function renderCart(){
+
+const container =
+document.getElementById(
+    "cartItems"
+);
+
+
+let total = 0;
+
+let count = 0;
+
+
+if(cart.length === 0){
+
+container.innerHTML = `
+
+<p style="
+color:#929990;
+">
+
+Tu carrito está vacío.
+
+</p>
+
+`;
+
+}else{
+
+
+container.innerHTML =
+
+cart.map(item => {
+
+
+const product =
+products.find(
+    p =>
+    p.id === item.id
+);
+
+
+const subtotal =
+product.price *
+item.quantity;
+
+
+total += subtotal;
+
+count += item.quantity;
+
+
+return `
+
+
+<div class="cart-item">
+
+
+<div>
+
+<strong>
+
+${product.name}
+
+</strong>
+
+<br>
+
+
+<small>
+
+${item.quantity}
+×
+${money(product.price)}
+
+</small>
+
+</div>
+
+
+<button
+class="remove"
+onclick="
+removeProduct(${product.id})
+">
+
+QUITAR
+
+</button>
+
+
+</div>
+
+
+`;
+
+
+}).join("");
+
+}
+
+
+document.getElementById(
+    "cartCount"
+).textContent =
+count;
+
+
+document.getElementById(
+    "cartTotal"
+).textContent =
+money(total);
+
+}
+
+
+
+/* =========================
+   ABRIR / CERRAR
+========================= */
+
+const drawer =
+document.getElementById(
+    "cartDrawer"
+);
+
+
+const overlay =
+document.getElementById(
+    "overlay"
+);
+
+
+
+function openCart(){
+
+drawer.classList.add(
+    "open"
+);
+
+overlay.classList.add(
+    "show"
+);
+
+}
+
+
+
+function closeCart(){
+
+drawer.classList.remove(
+    "open"
+);
+
+overlay.classList.remove(
+    "show"
+);
+
+}
+
+
+
+document.getElementById(
+    "openCart"
+).onclick =
+openCart;
+
+
+document.getElementById(
+    "closeCart"
+).onclick =
+closeCart;
+
+
+overlay.onclick =
+closeCart;
+
+
+
+/* =========================
+   CHECKOUT DEMO
+========================= */
+
+document.getElementById(
+    "checkout"
+).onclick = function(){
+
+alert(
+
+`MXANGEL GEAR
+
+El carrito ya funciona.
+
+Aquí conectaremos después
+el sistema de pagos y
+envíos reales.`
+
+);
+
+};
+
+
+
+renderCart();
+
+</script>
 
 </body>
 </html>
