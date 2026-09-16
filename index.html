@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MXANGEL GEAR</title>
 
-<!-- SDK de PayPal con tu clave configurada -->
+<!-- SDK de PayPal -->
 <script src="https://www.paypal.com/sdk/js?client-id=BAAhrZ-Cf3OAJOkgfhmQNTwc-Jscn8mmHgpGHLlHD9o85KH9FvUpt4S18--VlNLbGofQaS7rVG1V6BMubE&currency=MXN"></script>
 
 <style>
@@ -98,6 +98,7 @@ nav a:hover{
     display:flex;
     align-items:center;
     overflow:hidden;
+
     background:
     linear-gradient(
         90deg,
@@ -107,6 +108,7 @@ nav a:hover{
         rgba(4,6,4,.12) 72%
     ),
     url("ChatGPT Image 16 sept 2026, 03_45_48 a.m..png");
+
     background-size:cover;
     background-position:center;
 }
@@ -382,15 +384,15 @@ footer p{
 .cart-drawer{
     position:fixed;
     top:0;
-    right:-420px;
-    width:400px;
-    max-width:90%;
+    right:-440px;
+    width:420px;
+    max-width:92%;
     height:100vh;
     background:#101310;
     z-index:2000;
-    padding:30px;
+    padding:24px;
     transition:.4s;
-    box-shadow:-10px 0 40px rgba(0,0,0,.5);
+    box-shadow:-10px 0 40px rgba(0,0,0,.6);
     display:flex;
     flex-direction:column;
 }
@@ -403,32 +405,36 @@ footer p{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
+    margin-bottom:15px;
+    padding-bottom:12px;
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .cart-header h2{
-    font-size:24px;
+    font-size:22px;
+    letter-spacing:1px;
 }
 
 .close-cart{
     background:none;
     border:none;
     color:#fff;
-    font-size:25px;
+    font-size:26px;
     cursor:pointer;
 }
 
 .cart-items{
     flex:1;
     overflow-y:auto;
-    margin-bottom:15px;
+    padding-right:5px;
 }
 
 .cart-item{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     gap:15px;
-    padding:15px 0;
+    padding:12px 0;
     border-bottom:1px solid rgba(255,255,255,.08);
 }
 
@@ -439,7 +445,7 @@ footer p{
 .cart-item p{
     color:#9cff00;
     font-size:13px;
-    margin-top:5px;
+    margin-top:4px;
 }
 
 .remove-item{
@@ -447,6 +453,7 @@ footer p{
     border:none;
     color:#888;
     cursor:pointer;
+    font-size:12px;
 }
 
 .remove-item:hover{
@@ -454,17 +461,40 @@ footer p{
 }
 
 .cart-total{
-    margin-top:10px;
-    margin-bottom:15px;
+    margin:15px 0;
     display:flex;
     justify-content:space-between;
     font-size:18px;
     font-weight:bold;
+    border-top:1px solid rgba(255,255,255,.08);
+    padding-top:12px;
 }
 
-#paypal-button-container{
-    margin-top:10px;
-    min-height:45px;
+/* ============================================================
+   ESTILIZADO MODO OSCURO PARA LOS CAMPOS INTEGRADOS DE PAYPAL
+============================================================ */
+.checkout-dark-container{
+    max-height:48vh;
+    overflow-y:auto;
+    padding-right:4px;
+    border-radius:4px;
+}
+
+/* Invierte los colores de los iframes de tarjeta de blanco a oscuro táctico */
+#paypal-button-container iframe{
+    filter: invert(0.92) hue-rotate(180deg) contrast(1.15) !important;
+    border-radius: 4px !important;
+}
+
+/* Barra de scroll discreta */
+.checkout-dark-container::-webkit-scrollbar,
+.cart-items::-webkit-scrollbar {
+    width: 5px;
+}
+.checkout-dark-container::-webkit-scrollbar-thumb,
+.cart-items::-webkit-scrollbar-thumb {
+    background: rgba(156,255,0,0.3);
+    border-radius: 4px;
 }
 
 .overlay{
@@ -564,7 +594,10 @@ footer p{
         <span id="cart-total">$0 MXN</span>
     </div>
 
-    <div id="paypal-button-container"></div>
+    <!-- Contenedor con scroll y adaptación a tema oscuro -->
+    <div class="checkout-dark-container">
+        <div id="paypal-button-container"></div>
+    </div>
 
 </div>
 
@@ -778,7 +811,6 @@ footer p{
 </footer>
 
 <script>
-
 let cart = JSON.parse(localStorage.getItem("mxangelCart")) || [];
 
 function saveCart(){
@@ -813,7 +845,6 @@ function updateCart(){
 
     if (cartItems) {
         cartItems.innerHTML = "";
-
         let total = 0;
 
         cart.forEach((item, index) => {
@@ -853,6 +884,7 @@ function closeCart(){
     if (overlay) overlay.classList.remove("active");
 }
 
+// INICIALIZACIÓN CON FORMULARIO COMPLETO PERO OSCURECIDO
 window.addEventListener("load", function() {
     updateCart();
 
@@ -860,7 +892,7 @@ window.addEventListener("load", function() {
         paypal.Buttons({
             onClick: function(data, actions) {
                 if (cart.length === 0) {
-                    alert("Tu carrito está vacío. Agrega al menos un producto.");
+                    alert("Tu carrito está vacío. Agrega una prenda antes de pagar.");
                     return actions.reject();
                 }
                 return actions.resolve();
@@ -870,7 +902,7 @@ window.addEventListener("load", function() {
                 const currentTotal = getCartTotal();
                 return actions.order.create({
                     purchase_units: [{
-                        description: "Compra en MXANGEL GEAR",
+                        description: "Pedido MXANGEL GEAR",
                         amount: {
                             currency_code: "MXN",
                             value: currentTotal.toFixed(2)
@@ -881,7 +913,7 @@ window.addEventListener("load", function() {
 
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    alert("¡Pago realizado con éxito! Gracias por tu compra, " + details.payer.name.given_name + ".");
+                    alert("¡Compra exitosa! Gracias por tu compra, " + details.payer.name.given_name + ".");
                     cart = [];
                     saveCart();
                     updateCart();
@@ -898,7 +930,6 @@ window.addEventListener("load", function() {
 });
 
 updateCart();
-
 </script>
 
 </body>
