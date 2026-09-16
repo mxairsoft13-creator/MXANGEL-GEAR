@@ -470,6 +470,7 @@ footer p{
     padding-top:12px;
 }
 
+/* Formulario con scroll y tema táctico oscuro */
 .checkout-dark-container{
     max-height:48vh;
     overflow-y:auto;
@@ -895,7 +896,7 @@ window.addEventListener("load", function() {
                 const currentTotal = getCartTotal();
                 return actions.order.create({
                     application_context: {
-                        shipping_preference: 'NO_SHIPPING' // Evita solicitar datos de dirección o apartamento
+                        shipping_preference: 'GET_FROM_FILE' // Solicita la dirección de entrega obligatoria
                     },
                     purchase_units: [{
                         description: "Pedido MXANGEL GEAR",
