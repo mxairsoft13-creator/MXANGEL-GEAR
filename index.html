@@ -470,9 +470,6 @@ footer p{
     padding-top:12px;
 }
 
-/* ============================================================
-   ESTILIZADO MODO OSCURO PARA LOS CAMPOS INTEGRADOS DE PAYPAL
-============================================================ */
 .checkout-dark-container{
     max-height:48vh;
     overflow-y:auto;
@@ -480,13 +477,11 @@ footer p{
     border-radius:4px;
 }
 
-/* Invierte los colores de los iframes de tarjeta de blanco a oscuro táctico */
 #paypal-button-container iframe{
     filter: invert(0.92) hue-rotate(180deg) contrast(1.15) !important;
     border-radius: 4px !important;
 }
 
-/* Barra de scroll discreta */
 .checkout-dark-container::-webkit-scrollbar,
 .cart-items::-webkit-scrollbar {
     width: 5px;
@@ -594,7 +589,6 @@ footer p{
         <span id="cart-total">$0 MXN</span>
     </div>
 
-    <!-- Contenedor con scroll y adaptación a tema oscuro -->
     <div class="checkout-dark-container">
         <div id="paypal-button-container"></div>
     </div>
@@ -884,7 +878,6 @@ function closeCart(){
     if (overlay) overlay.classList.remove("active");
 }
 
-// INICIALIZACIÓN CON FORMULARIO COMPLETO PERO OSCURECIDO
 window.addEventListener("load", function() {
     updateCart();
 
@@ -901,6 +894,9 @@ window.addEventListener("load", function() {
             createOrder: function(data, actions) {
                 const currentTotal = getCartTotal();
                 return actions.order.create({
+                    application_context: {
+                        shipping_preference: 'NO_SHIPPING' // Evita solicitar datos de dirección o apartamento
+                    },
                     purchase_units: [{
                         description: "Pedido MXANGEL GEAR",
                         amount: {
