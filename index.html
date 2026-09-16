@@ -3,28 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MXANGEL GEAR</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
-
-:root{
-    --negro:#070907;
-    --negro2:#0c0f0c;
-    --panel:#101410;
-    --linea:#293029;
-    --blanco:#f1f2ed;
-    --gris:#a1a69f;
-    --verde:#aebb68;
-    --verde2:#c4d078;
-}
-
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
 }
 
@@ -33,10 +17,9 @@ html{
 }
 
 body{
-    margin:0;
-    background:var(--negro);
-    color:var(--blanco);
-    font-family:Inter,Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#080a08;
+    color:#f2f2f2;
 }
 
 a{
@@ -49,84 +32,68 @@ button{
 }
 
 header{
-    height:74px;
     position:fixed;
     top:0;
     left:0;
-    right:0;
-    z-index:100;
+    width:100%;
+    height:74px;
+    z-index:1000;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 7%;
-    background:rgba(5,7,5,.95);
+    padding:0 6%;
+    background:rgba(5,7,5,.94);
+    border-bottom:1px solid rgba(255,255,255,.08);
     backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--linea);
 }
 
 .logo{
-    display:flex;
-    align-items:baseline;
-    font-family:"Barlow Condensed",sans-serif;
-}
-
-.logo strong{
-    font-size:27px;
+    font-size:24px;
     font-weight:900;
-    letter-spacing:1px;
+    letter-spacing:2px;
 }
 
 .logo span{
-    margin-left:8px;
-    font-size:12px;
-    font-weight:800;
-    letter-spacing:6px;
-    color:var(--verde);
+    color:#9cff00;
 }
 
 nav{
     display:flex;
-    gap:42px;
+    gap:30px;
 }
 
 nav a{
-    font-family:"Barlow Condensed";
-    font-size:16px;
-    font-weight:800;
-    letter-spacing:1.5px;
-    transition:.2s;
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:1px;
+    transition:.3s;
 }
 
 nav a:hover{
-    color:var(--verde);
+    color:#9cff00;
 }
 
-.cart-button{
-    padding:11px 15px;
-    border:1px solid #343b34;
+.cart-btn{
+    border:1px solid #9cff00;
     background:transparent;
-    color:white;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:4px;
     cursor:pointer;
-    font-family:"Barlow Condensed";
-    font-size:16px;
-    font-weight:800;
-    letter-spacing:1px;
+    font-weight:bold;
 }
 
-.cart-button span{
-    margin-left:7px;
-    padding:2px 8px;
-    background:var(--verde);
-    color:#080a08;
+.cart-btn:hover{
+    background:#9cff00;
+    color:#000;
 }
-
-
-/* HERO */
 
 .hero{
     position:relative;
     min-height:720px;
-    padding-top:74px;
+    padding:170px 8% 80px;
+    display:flex;
+    align-items:center;
     overflow:hidden;
 
     background:
@@ -137,531 +104,386 @@ nav a:hover{
         rgba(4,6,4,.55) 48%,
         rgba(4,6,4,.12) 72%
     ),
-    url("ChatGPT Image 16 sept 2026, 03 45 48 a.m..png");
+    url("ChatGPT Image 16 sept 2026, 03_45_48 a.m..png");
 
     background-size:cover;
     background-position:center;
 }
 
-.hero::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    opacity:.18;
-
-    background-image:
-    repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(255,255,255,.015) 4px
-    );
-}
-
 .hero-content{
+    max-width:650px;
     position:relative;
-    z-index:5;
-    max-width:630px;
-    margin-left:8%;
-    padding-top:90px;
+    z-index:2;
 }
 
-.presenta{
-    color:var(--verde);
-    font-family:"Barlow Condensed";
+.hero-small{
+    color:#9cff00;
     font-size:14px;
-    font-weight:800;
+    font-weight:bold;
     letter-spacing:4px;
+    margin-bottom:18px;
 }
 
 .hero h1{
-    margin:25px 0 0;
-    font-family:"Barlow Condensed";
-    font-size:clamp(90px,10vw,145px);
-    font-weight:900;
-    line-height:.72;
-    letter-spacing:-3px;
+    font-size:clamp(55px,9vw,110px);
+    line-height:.85;
+    font-weight:1000;
+    letter-spacing:-5px;
+    margin-bottom:25px;
 }
 
 .hero h1 span{
-    display:block;
-    margin-top:30px;
-    color:transparent;
-    -webkit-text-stroke:1.5px var(--verde);
-    font-weight:600;
+    color:#9cff00;
 }
 
-.hero h2{
-    margin-top:42px;
-    font-family:"Barlow Condensed";
-    font-size:30px;
-    font-weight:800;
-    letter-spacing:2px;
-    line-height:1.1;
+.hero p{
+    font-size:18px;
+    line-height:1.6;
+    color:#d1d1d1;
+    max-width:520px;
+    margin-bottom:35px;
 }
 
-.hero-description{
-    color:#c0c5bf;
-    font-size:15px;
-    line-height:1.7;
-    max-width:530px;
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
 }
 
-.hero-button{
+.btn{
     display:inline-block;
-    margin-top:20px;
-    padding:16px 25px;
-    background:var(--verde);
-    color:#080a08;
-    font-family:"Barlow Condensed";
-    font-size:17px;
-    font-weight:900;
+    padding:15px 25px;
+    font-size:13px;
+    font-weight:bold;
     letter-spacing:1px;
-    transition:.2s;
+    border:1px solid #9cff00;
+    transition:.3s;
 }
 
-.hero-button:hover{
-    background:var(--verde2);
-    transform:translateY(-2px);
+.btn-primary{
+    background:#9cff00;
+    color:#000;
 }
 
-.left-detail{
-    position:absolute;
-    left:2%;
-    top:180px;
-    z-index:5;
-    color:#697168;
-    font-family:"Barlow Condensed";
-    font-size:11px;
-    letter-spacing:2px;
-    line-height:1.5;
+.btn-primary:hover{
+    background:#fff;
+    border-color:#fff;
 }
 
-.left-line{
-    width:1px;
-    height:210px;
-    margin-top:18px;
-    background:#555d55;
+.btn-secondary{
+    background:transparent;
+    color:#fff;
 }
 
-.right-detail{
-    position:absolute;
-    right:2%;
-    top:260px;
-    z-index:5;
-    writing-mode:vertical-rl;
-    color:#737b72;
-    font-family:"Barlow Condensed";
-    font-size:12px;
-    letter-spacing:4px;
+.btn-secondary:hover{
+    background:#fff;
+    color:#000;
 }
-
-
-/* BENEFICIOS */
 
 .benefits{
-    position:relative;
-    z-index:10;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    background:#080b08;
-    border-top:1px solid var(--linea);
-    border-bottom:1px solid var(--linea);
+    border-top:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .benefit{
-    min-height:90px;
-    padding:22px 7%;
-    display:grid;
-    grid-template-columns:55px 1fr;
-    align-items:center;
-    border-right:1px solid var(--linea);
+    padding:30px;
+    text-align:center;
+    border-right:1px solid rgba(255,255,255,.08);
 }
 
-.benefit-icon{
-    font-size:30px;
-    color:white;
+.benefit:last-child{
+    border-right:none;
 }
 
-.benefit strong{
-    display:block;
-    font-family:"Barlow Condensed";
-    font-size:18px;
-    font-weight:900;
-    letter-spacing:2px;
+.benefit h3{
+    color:#9cff00;
+    font-size:15px;
+    margin-bottom:8px;
 }
 
-.benefit small{
-    color:#929990;
-    font-size:11px;
-}
-
-
-/* TIENDA */
-
-.shop{
-    padding:80px 8%;
-}
-
-.shop-header{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    gap:40px;
-}
-
-.section-small{
-    color:var(--verde);
-    font-family:"Barlow Condensed";
+.benefit p{
+    color:#aaa;
     font-size:13px;
-    font-weight:800;
-    letter-spacing:4px;
 }
 
-.shop h2{
-    margin:7px 0;
-    font-family:"Barlow Condensed";
-    font-size:clamp(52px,6vw,80px);
-    font-weight:900;
+section{
+    padding:100px 8%;
 }
 
-.shop-header p{
-    max-width:430px;
-    color:#989f97;
-    line-height:1.6;
-    font-size:14px;
+.section-title{
+    margin-bottom:50px;
+}
+
+.section-title small{
+    color:#9cff00;
+    font-size:12px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+.section-title h2{
+    font-size:50px;
+    margin-top:10px;
+    letter-spacing:-2px;
 }
 
 .products{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    margin-top:35px;
+    gap:25px;
 }
 
 .product{
+    background:#111411;
+    border:1px solid rgba(255,255,255,.08);
     overflow:hidden;
-    background:#0e120f;
-    border:1px solid var(--linea);
-    transition:.25s;
+    transition:.3s;
 }
 
 .product:hover{
     transform:translateY(-5px);
-    border-color:#4d574a;
+    border-color:#9cff00;
 }
 
-.product-image{
-    height:330px;
-    position:relative;
+.product-img{
+    height:380px;
+    background:#1a1d1a;
     display:flex;
     align-items:center;
     justify-content:center;
-
-    background:
-    radial-gradient(
-        circle,
-        #252b24,
-        #0b0e0c
-    );
-}
-
-.product-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.product-placeholder{
-    text-align:center;
-    font-family:"Barlow Condensed";
-    font-size:28px;
-    font-weight:900;
-    letter-spacing:3px;
-    color:var(--verde);
+    color:#666;
+    font-size:14px;
 }
 
 .product-info{
-    padding:20px;
+    padding:25px;
 }
 
 .product-info h3{
-    margin:0;
-    font-family:"Barlow Condensed";
-    font-size:28px;
-    font-weight:800;
+    font-size:18px;
+    margin-bottom:8px;
 }
 
 .product-info p{
-    color:#959c94;
+    color:#888;
     font-size:13px;
-    line-height:1.5;
-}
-
-.sizes{
-    display:flex;
-    gap:7px;
-    margin:15px 0;
-}
-
-.size{
-    padding:7px 10px;
-    border:1px solid #3b433a;
-    background:transparent;
-    color:white;
-    cursor:pointer;
-}
-
-.size.selected{
-    background:var(--verde);
-    color:#080a08;
-}
-
-.product-bottom{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
+    margin-bottom:15px;
 }
 
 .price{
-    font-family:"Barlow Condensed";
-    font-size:25px;
-    font-weight:800;
+    color:#9cff00;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:20px;
 }
 
-.add{
-    padding:11px 14px;
-    border:1px solid var(--verde);
+.add-cart{
+    width:100%;
+    padding:13px;
+    border:1px solid #9cff00;
     background:transparent;
-    color:var(--verde2);
+    color:#fff;
     cursor:pointer;
-    font-weight:800;
-    transition:.2s;
+    font-weight:bold;
 }
 
-.add:hover{
-    background:var(--verde);
-    color:#080a08;
+.add-cart:hover{
+    background:#9cff00;
+    color:#000;
 }
-
-
-/* COLECCIONES */
 
 .collections{
-    padding:30px 8% 90px;
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
 }
 
 .collection{
     min-height:350px;
-    position:relative;
+    padding:40px;
     display:flex;
-    align-items:end;
-    padding:35px;
+    flex-direction:column;
+    justify-content:flex-end;
+    background:linear-gradient(135deg,#171b17,#080a08);
+    border:1px solid rgba(255,255,255,.08);
+    position:relative;
     overflow:hidden;
-    border:1px solid var(--linea);
+}
 
-    background:
-    radial-gradient(
-        circle at 75% 20%,
-        rgba(174,187,104,.13),
-        transparent 28%
-    ),
-    linear-gradient(
-        135deg,
-        #171c17,
-        #090c09
-    );
+.collection:before{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:#9cff00;
+    opacity:.08;
+    right:-80px;
+    top:-80px;
 }
 
 .collection h3{
-    margin:5px 0;
-    font-family:"Barlow Condensed";
-    font-size:65px;
-    font-weight:900;
+    font-size:38px;
+    position:relative;
+    z-index:2;
 }
 
 .collection p{
-    color:#9ca39b;
+    color:#aaa;
+    max-width:400px;
+    margin-top:10px;
+    line-height:1.6;
+    position:relative;
+    z-index:2;
 }
-
-
-/* NOSOTROS */
 
 .about{
-    padding:100px 8%;
-    border-top:1px solid var(--linea);
-    background:#090c09;
+    background:#0d100d;
 }
 
-.about h2{
-    margin:10px 0 20px;
-    font-family:"Barlow Condensed";
-    font-size:clamp(55px,7vw,95px);
-    font-weight:900;
+.about-content{
+    max-width:850px;
 }
 
-.about p{
-    max-width:650px;
-    color:#9ba29a;
+.about-content p{
+    color:#bbb;
+    font-size:18px;
     line-height:1.8;
+    margin-top:20px;
 }
-
-
-/* FOOTER */
 
 footer{
-    padding:35px 8%;
+    padding:50px 8%;
+    background:#050605;
+    border-top:1px solid rgba(255,255,255,.08);
     display:flex;
     justify-content:space-between;
-    border-top:1px solid var(--linea);
-    color:#7d847c;
-    font-size:11px;
+    align-items:center;
+    gap:30px;
 }
 
+footer p{
+    color:#777;
+    font-size:13px;
+}
 
-/* CARRITO */
+.footer-logo{
+    font-weight:900;
+    font-size:20px;
+}
+
+.footer-logo span{
+    color:#9cff00;
+}
 
 .cart-drawer{
     position:fixed;
-    z-index:500;
     top:0;
-    right:-450px;
-    width:min(430px,94vw);
+    right:-420px;
+    width:400px;
+    max-width:90%;
     height:100vh;
-    display:flex;
-    flex-direction:column;
-    background:#0d110e;
-    border-left:1px solid var(--linea);
-    transition:.3s;
+    background:#101310;
+    z-index:2000;
+    padding:30px;
+    transition:.4s;
+    box-shadow:-10px 0 40px rgba(0,0,0,.5);
 }
 
-.cart-drawer.open{
+.cart-drawer.active{
     right:0;
 }
 
 .cart-header{
-    height:74px;
-    padding:0 20px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    border-bottom:1px solid var(--linea);
+    align-items:center;
+    margin-bottom:30px;
 }
 
 .cart-header h2{
-    font-family:"Barlow Condensed";
-    font-size:30px;
+    font-size:24px;
 }
 
 .close-cart{
-    border:0;
     background:none;
-    color:white;
+    border:none;
+    color:#fff;
     font-size:25px;
     cursor:pointer;
 }
 
 .cart-items{
-    flex:1;
-    overflow:auto;
-    padding:20px;
+    max-height:65vh;
+    overflow-y:auto;
 }
 
 .cart-item{
-    padding:15px 0;
     display:flex;
     justify-content:space-between;
-    border-bottom:1px solid var(--linea);
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.cart-item small{
-    color:#969d95;
+.cart-item h4{
+    font-size:14px;
 }
 
-.remove{
-    border:0;
+.cart-item p{
+    color:#9cff00;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.remove-item{
     background:none;
-    color:#999;
+    border:none;
+    color:#888;
     cursor:pointer;
 }
 
-.cart-footer{
-    padding:20px;
-    border-top:1px solid var(--linea);
-}
-
 .cart-total{
+    margin-top:25px;
     display:flex;
     justify-content:space-between;
-    margin-bottom:15px;
-    font-weight:800;
+    font-size:18px;
+    font-weight:bold;
 }
 
 .checkout{
     width:100%;
+    margin-top:20px;
     padding:15px;
-    border:0;
-    background:var(--verde);
-    color:#080a08;
+    background:#9cff00;
+    color:#000;
+    border:none;
+    font-weight:bold;
     cursor:pointer;
-    font-weight:900;
-}
-
-.cart-note{
-    display:block;
-    margin-top:10px;
-    color:#858c84;
-    font-size:10px;
 }
 
 .overlay{
     position:fixed;
-    z-index:400;
     inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:1500;
     display:none;
-    background:rgba(0,0,0,.72);
 }
 
-.overlay.show{
+.overlay.active{
     display:block;
 }
 
-
-/* CELULAR */
-
-@media(max-width:850px){
-
-    header{
-        padding:0 5%;
-    }
+@media(max-width:900px){
 
     nav{
         display:none;
     }
 
-    .hero{
-        min-height:680px;
-        background-position:65% center;
-    }
-
-    .hero-content{
-        margin-left:7%;
-        padding-top:80px;
-        max-width:88%;
-    }
-
-    .hero h1{
-        font-size:clamp(75px,22vw,110px);
-    }
-
-    .left-detail,
-    .right-detail{
-        display:none;
+    .products{
+        grid-template-columns:1fr 1fr;
     }
 
     .benefits{
@@ -669,12 +491,39 @@ footer{
     }
 
     .benefit{
-        border-bottom:1px solid var(--linea);
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.08);
     }
 
-    .shop-header{
-        flex-direction:column;
-        align-items:flex-start;
+    .benefit:last-child{
+        border-bottom:none;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .hero{
+        min-height:650px;
+        padding:130px 6% 60px;
+        background-position:center;
+    }
+
+    .hero h1{
+        font-size:55px;
+        letter-spacing:-3px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    section{
+        padding:70px 6%;
+    }
+
+    .section-title h2{
+        font-size:38px;
     }
 
     .products{
@@ -687,859 +536,367 @@ footer{
 
     footer{
         flex-direction:column;
-        gap:15px;
+        text-align:center;
     }
 
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
+    <a href="#inicio" class="logo">MXANGEL <span>GEAR</span></a>
 
-<a class="logo" href="#inicio">
+    <nav>
+        <a href="#inicio">INICIO</a>
+        <a href="#tienda">TIENDA</a>
+        <a href="#colecciones">COLECCIONES</a>
+        <a href="#nosotros">NOSOTROS</a>
+    </nav>
 
-    <strong>
-        MXANGEL
-    </strong>
-
-    <span>
-        GEAR
-    </span>
-
-</a>
-
-<nav>
-
-    <a href="#inicio">
-        INICIO
-    </a>
-
-    <a href="#tienda">
-        TIENDA
-    </a>
-
-    <a href="#colecciones">
-        COLECCIONES
-    </a>
-
-    <a href="#nosotros">
-        NOSOTROS
-    </a>
-
-</nav>
-
-<button
-class="cart-button"
-id="openCart">
-
-    CARRITO
-
-    <span id="cartCount">
-        0
-    </span>
-
-</button>
-
+    <button class="cart-btn" onclick="openCart()">
+        CARRITO (<span id="cart-count">0</span>)
+    </button>
 </header>
 
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
 
-<section
-class="hero"
-id="inicio">
+<div class="cart-drawer" id="cart-drawer">
 
-<div class="left-detail">
+    <div class="cart-header">
+        <h2>Tu carrito</h2>
+        <button class="close-cart" onclick="closeCart()">×</button>
+    </div>
 
-    DISCIPLINA<br>
-    ESTRATEGIA<br>
-    COMUNIDAD
+    <div class="cart-items" id="cart-items"></div>
 
-    <div class="left-line"></div>
+    <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total">$0 MXN</span>
+    </div>
 
-</div>
-
-<div class="right-detail">
-
-    MXANGEL GEAR
-
-</div>
-
-<div class="hero-content">
-
-<p class="presenta">
-
-    MXANGELYT2311 PRESENTA
-
-</p>
-
-<h1>
-
-    MXANGEL
-
-    <span>
-        GEAR
-    </span>
-
-</h1>
-
-<h2>
-
-    ACTITUD TÁCTICA.<br>
-    ESTILO SIN LÍMITES.
-
-</h2>
-
-<p class="hero-description">
-
-    Una marca nacida entre videojuegos,
-    simulación y comunidad.
-
-    <br>
-
-    Diseñada para usarse dentro
-    y fuera de la partida.
-
-</p>
-
-<a
-class="hero-button"
-href="#tienda">
-
-    VER COLECCIÓN →
-
-</a>
+    <button class="checkout" onclick="checkout()">
+        FINALIZAR COMPRA
+    </button>
 
 </div>
+
+<section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+            MXANGELYT2311 PRESENTA
+        </div>
+
+        <h1>
+            MXANGEL<br>
+            <span>GEAR</span>
+        </h1>
+
+        <p>
+            ACTITUD TÁCTICA. ESTILO SIN LÍMITES.
+            Una marca creada para quienes llevan su estilo
+            más allá de lo convencional.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#tienda" class="btn btn-primary">
+                VER TIENDA
+            </a>
+
+            <a href="#colecciones" class="btn btn-secondary">
+                COLECCIONES
+            </a>
+        </div>
+
+    </div>
 
 </section>
 
+<div class="benefits">
 
-<section class="benefits">
-
-<div class="benefit">
-
-    <div class="benefit-icon">
-        ▣
+    <div class="benefit">
+        <h3>CALIDAD</h3>
+        <p>Prendas pensadas para acompañarte.</p>
     </div>
 
-    <div>
+    <div class="benefit">
+        <h3>ESTILO</h3>
+        <p>Diseños inspirados en el mundo táctico.</p>
+    </div>
 
-        <strong>
-            ENVÍOS
-        </strong>
-
-        <small>
-            A TODO MÉXICO
-        </small>
-
+    <div class="benefit">
+        <h3>ACTITUD</h3>
+        <p>Vístete diferente. Marca la diferencia.</p>
     </div>
 
 </div>
 
-<div class="benefit">
+<section id="tienda">
 
-    <div class="benefit-icon">
-        ▰
+    <div class="section-title">
+        <small>PRODUCTOS</small>
+        <h2>TIENDA</h2>
     </div>
 
-    <div>
+    <div class="products">
 
-        <strong>
-            PAGOS
-        </strong>
+        <div class="product">
 
-        <small>
-            SEGUROS*
-        </small>
+            <div class="product-img">
+                PLAYERA MXANGEL
+            </div>
+
+            <div class="product-info">
+                <h3>PLAYERA MXANGEL / CORE</h3>
+                <p>Diseño clásico MXANGEL GEAR.</p>
+
+                <div class="price">
+                    $449 MXN
+                </div>
+
+                <button
+                    class="add-cart"
+                    onclick="addToCart('PLAYERA MXANGEL / CORE',449)"
+                >
+                    AGREGAR AL CARRITO
+                </button>
+            </div>
+
+        </div>
+
+        <div class="product">
+
+            <div class="product-img">
+                HOODIE ORIGEN
+            </div>
+
+            <div class="product-info">
+                <h3>HOODIE / ORIGEN</h3>
+                <p>Comodidad y estilo para cualquier ocasión.</p>
+
+                <div class="price">
+                    $799 MXN
+                </div>
+
+                <button
+                    class="add-cart"
+                    onclick="addToCart('HOODIE / ORIGEN',799)"
+                >
+                    AGREGAR AL CARRITO
+                </button>
+            </div>
+
+        </div>
+
+        <div class="product">
+
+            <div class="product-img">
+                SIMULATION
+            </div>
+
+            <div class="product-info">
+                <h3>PLAYERA / SIMULATION</h3>
+                <p>Inspirada en el universo táctico.</p>
+
+                <div class="price">
+                    $499 MXN
+                </div>
+
+                <button
+                    class="add-cart"
+                    onclick="addToCart('PLAYERA / SIMULATION',499)"
+                >
+                    AGREGAR AL CARRITO
+                </button>
+            </div>
+
+        </div>
 
     </div>
-
-</div>
-
-<div class="benefit">
-
-    <div class="benefit-icon">
-        ◇
-    </div>
-
-    <div>
-
-        <strong>
-            DROP 01
-        </strong>
-
-        <small>
-            PRÓXIMAMENTE
-        </small>
-
-    </div>
-
-</div>
 
 </section>
 
+<section id="colecciones">
 
-<section
-class="shop"
-id="tienda">
+    <div class="section-title">
+        <small>MXANGEL GEAR</small>
+        <h2>COLECCIONES</h2>
+    </div>
 
-<div class="shop-header">
+    <div class="collections">
 
-<div>
+        <div class="collection">
 
-    <span class="section-small">
+            <h3>ORIGEN</h3>
 
-        DROP 01 / DEMO
+            <p>
+                Una colección que representa la esencia
+                de MXANGEL GEAR y el comienzo de todo.
+            </p>
 
-    </span>
+        </div>
 
-    <h2>
+        <div class="collection">
 
-        PRENDAS DESTACADAS
+            <h3>SIMULACIÓN</h3>
 
-    </h2>
+            <p>
+                Inspirada en videojuegos, operaciones
+                tácticas y el mundo militar.
+            </p>
 
-</div>
+        </div>
 
-<p>
-
-    Primera maqueta del catálogo.
-
-    Los nombres, precios,
-    fotografías y diseños
-    se pueden cambiar después.
-
-</p>
-
-</div>
-
-<div
-class="products"
-id="products">
-
-</div>
+    </div>
 
 </section>
 
+<section class="about" id="nosotros">
 
-<section
-class="collections"
-id="colecciones">
+    <div class="section-title">
+        <small>SOBRE NOSOTROS</small>
+        <h2>MXANGEL GEAR</h2>
+    </div>
 
-<article class="collection">
+    <div class="about-content">
 
-<div>
+        <p>
+            MXANGEL GEAR nace de la pasión por el estilo,
+            los videojuegos, el mundo táctico y la cultura
+            que rodea a quienes buscan algo diferente.
+        </p>
 
-<span class="section-small">
+        <p>
+            Nuestra misión es crear prendas que no solamente
+            se vean bien, sino que representen una actitud.
+            Porque vestir también es una forma de expresarse.
+        </p>
 
-    COLECCIÓN 01
-
-</span>
-
-<h3>
-    ORIGEN
-</h3>
-
-<p>
-
-    La identidad de MXANGEL
-    llevada a prendas
-    para el día a día.
-
-</p>
-
-</div>
-
-</article>
-
-<article class="collection">
-
-<div>
-
-<span class="section-small">
-
-    COLECCIÓN 02
-
-</span>
-
-<h3>
-    SIMULACIÓN
-</h3>
-
-<p>
-
-    Inspirada en la estética
-    y ambiente de tu contenido.
-
-</p>
-
-</div>
-
-</article>
+    </div>
 
 </section>
-
-
-<section
-class="about"
-id="nosotros">
-
-<span class="section-small">
-
-    NUESTRA IDENTIDAD
-
-</span>
-
-<h2>
-
-    DEL JUEGO<br>
-    A LA CALLE.
-
-</h2>
-
-<p>
-
-MXANGEL GEAR mezcla una identidad
-visual táctica con ropa comercial.
-
-La idea es que la marca pueda crecer
-junto con el contenido de MXANGELYT2311,
-sin depender de un solo videojuego,
-servidor o estilo de prenda.
-
-</p>
-
-</section>
-
 
 <footer>
 
-<div>
+    <div class="footer-logo">
+        MXANGEL <span>GEAR</span>
+    </div>
 
-    MXANGEL GEAR ©️ 2026
-
-</div>
-
-<div>
-
-    DEMO DE TIENDA
-
-</div>
+    <p>
+        © 2026 MXANGEL GEAR. Todos los derechos reservados.
+    </p>
 
 </footer>
 
-
-<div
-class="overlay"
-id="overlay">
-</div>
-
-
-<aside
-class="cart-drawer"
-id="cartDrawer">
-
-<div class="cart-header">
-
-<h2>
-    TU CARRITO
-</h2>
-
-<button
-class="close-cart"
-id="closeCart">
-
-    ×
-
-</button>
-
-</div>
-
-
-<div
-class="cart-items"
-id="cartItems">
-</div>
-
-
-<div class="cart-footer">
-
-<div class="cart-total">
-
-<span>
-    TOTAL
-</span>
-
-<strong id="cartTotal">
-
-    $0 MXN
-
-</strong>
-
-</div>
-
-
-<button
-class="checkout"
-id="checkout">
-
-    CONTINUAR AL PAGO
-
-</button>
-
-
-<small class="cart-note">
-
-    Modo demo:
-    todavía no realiza cobros reales.
-
-</small>
-
-</div>
-
-</aside>
-
-
 <script>
 
-const products = [
+let cart = JSON.parse(localStorage.getItem("mxangelCart")) || [];
 
-{
-    id:1,
-
-    name:
-    "PLAYERA MXANGEL / CORE",
-
-    price:449,
-
-    description:
-    "Playera comercial de corte urbano.",
-
-    sizes:[
-        "S",
-        "M",
-        "L",
-        "XL"
-    ]
-},
-
-{
-    id:2,
-
-    name:
-    "HOODIE / ORIGEN",
-
-    price:799,
-
-    description:
-    "Sudadera de la colección MXANGEL.",
-
-    sizes:[
-        "S",
-        "M",
-        "L",
-        "XL"
-    ]
-},
-
-{
-    id:3,
-
-    name:
-    "PLAYERA / SIMULATION",
-
-    price:499,
-
-    description:
-    "Diseño inspirado en simulación.",
-
-    sizes:[
-        "S",
-        "M",
-        "L",
-        "XL"
-    ]
+function saveCart(){
+    localStorage.setItem("mxangelCart", JSON.stringify(cart));
 }
 
-];
-
-
-let cart =
-JSON.parse(
-    localStorage.getItem(
-        "mxangelCart"
-    )
-    || "[]"
-);
-
-
-const money = value =>
-
-new Intl.NumberFormat(
-
-    "es-MX",
-
-    {
-
-        style:"currency",
-
-        currency:"MXN",
-
-        maximumFractionDigits:0
-
-    }
-
-).format(value);
-
-
-const productsContainer =
-document.getElementById(
-    "products"
-);
-
-
-productsContainer.innerHTML =
-
-products.map(product => `
-
-<article class="product">
-
-<div class="product-image">
-
-<div class="product-placeholder">
-
-    MXANGEL
-    <br>
-    GEAR
-
-</div>
-
-</div>
-
-
-<div class="product-info">
-
-<h3>
-
-${product.name}
-
-</h3>
-
-
-<p>
-
-${product.description}
-
-</p>
-
-
-<div class="sizes">
-
-${product.sizes.map(size => `
-
-<button
-class="size"
-onclick="selectSize(this)">
-
-${size}
-
-</button>
-
-`).join("")}
-
-</div>
-
-
-<div class="product-bottom">
-
-<span class="price">
-
-${money(product.price)}
-
-</span>
-
-
-<button
-class="add"
-onclick="addProduct(${product.id})">
-
-AGREGAR +
-
-</button>
-
-</div>
-
-</div>
-
-</article>
-
-`).join("");
-
-
-function selectSize(button){
-
-const container =
-button.parentElement;
-
-container
-.querySelectorAll(".size")
-.forEach(size =>
-
-    size.classList.remove(
-        "selected"
-    )
-
-);
-
-button.classList.add(
-    "selected"
-);
-
-}
-
-
-function addProduct(id){
-
-const existing =
-cart.find(
-    item =>
-    item.id === id
-);
-
-
-if(existing){
-
-    existing.quantity++;
-
-}else{
+function addToCart(name, price){
 
     cart.push({
+        name:name,
+        price:price
+    });
 
-        id:id,
+    saveCart();
+    updateCart();
 
-        quantity:1
+    openCart();
+}
+
+function removeFromCart(index){
+
+    cart.splice(index,1);
+
+    saveCart();
+    updateCart();
+}
+
+function updateCart(){
+
+    const cartItems = document.getElementById("cart-items");
+    const cartCount = document.getElementById("cart-count");
+    const cartTotal = document.getElementById("cart-total");
+
+    cartItems.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((item,index)=>{
+
+        total += item.price;
+
+        const div = document.createElement("div");
+
+        div.className = "cart-item";
+
+        div.innerHTML = `
+            <div>
+                <h4>${item.name}</h4>
+                <p>$${item.price} MXN</p>
+            </div>
+
+            <button
+                class="remove-item"
+                onclick="removeFromCart(${index})"
+            >
+                ELIMINAR
+            </button>
+        `;
+
+        cartItems.appendChild(div);
 
     });
 
+    cartCount.textContent = cart.length;
+    cartTotal.textContent = "$" + total + " MXN";
 }
-
-
-saveCart();
-
-openCart();
-
-}
-
-
-function removeProduct(id){
-
-cart =
-cart.filter(
-    item =>
-    item.id !== id
-);
-
-saveCart();
-
-}
-
-
-function saveCart(){
-
-localStorage.setItem(
-
-    "mxangelCart",
-
-    JSON.stringify(cart)
-
-);
-
-renderCart();
-
-}
-
-
-function renderCart(){
-
-const container =
-document.getElementById(
-    "cartItems"
-);
-
-let total = 0;
-
-let count = 0;
-
-
-if(cart.length === 0){
-
-container.innerHTML = `
-
-<p style="
-color:#929990;
-">
-
-Tu carrito está vacío.
-
-</p>
-
-`;
-
-}else{
-
-container.innerHTML =
-
-cart.map(item => {
-
-const product =
-products.find(
-    p =>
-    p.id === item.id
-);
-
-const subtotal =
-product.price *
-item.quantity;
-
-total += subtotal;
-
-count += item.quantity;
-
-
-return `
-
-<div class="cart-item">
-
-<div>
-
-<strong>
-
-${product.name}
-
-</strong>
-
-<br>
-
-<small>
-
-${item.quantity}
-×
-${money(product.price)}
-
-</small>
-
-</div>
-
-
-<button
-class="remove"
-onclick="
-removeProduct(${product.id})
-">
-
-QUITAR
-
-</button>
-
-</div>
-
-`;
-
-}).join("");
-
-}
-
-
-document.getElementById(
-    "cartCount"
-).textContent =
-count;
-
-
-document.getElementById(
-    "cartTotal"
-).textContent =
-money(total);
-
-}
-
-
-const drawer =
-document.getElementById(
-    "cartDrawer"
-);
-
-
-const overlay =
-document.getElementById(
-    "overlay"
-);
-
 
 function openCart(){
 
-drawer.classList.add(
-    "open"
-);
+    document.getElementById("cart-drawer")
+        .classList.add("active");
 
-overlay.classList.add(
-    "show"
-);
+    document.getElementById("overlay")
+        .classList.add("active");
 
 }
-
 
 function closeCart(){
 
-drawer.classList.remove(
-    "open"
-);
+    document.getElementById("cart-drawer")
+        .classList.remove("active");
 
-overlay.classList.remove(
-    "show"
-);
+    document.getElementById("overlay")
+        .classList.remove("active");
 
 }
 
+function checkout(){
 
-document.getElementById(
-    "openCart"
-).onclick =
-openCart;
+    if(cart.length === 0){
 
+        alert("Tu carrito está vacío.");
 
-document.getElementById(
-    "closeCart"
-).onclick =
-closeCart;
+        return;
+    }
 
+    alert(
+        "Checkout de demostración. " +
+        "Aquí podremos conectar PayPal u otro método de pago."
+    );
 
-overlay.onclick =
-closeCart;
+}
 
-
-document.getElementById(
-    "checkout"
-).onclick = function(){
-
-alert(
-
-`MXANGEL GEAR
-
-El carrito ya funciona.
-
-Aquí conectaremos después
-el sistema de pagos y
-envíos reales.`
-
-);
-
-};
-
-
-renderCart();
+updateCart();
 
 </script>
 
