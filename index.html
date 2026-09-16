@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MXANGEL GEAR</title>
 
-<!-- SDK DE PAYPAL -->
+<!-- SDK de PayPal con tu clave configurada -->
 <script src="https://www.paypal.com/sdk/js?client-id=BAAhrZ-Cf3OAJOkgfhmQNTwc-Jscn8mmHgpGHLlHD9o85KH9FvUpt4S18--VlNLbGofQaS7rVG1V6BMubE&currency=MXN"></script>
 
 <style>
@@ -98,4 +98,808 @@ nav a:hover{
     display:flex;
     align-items:center;
     overflow:hidden;
-... (799 líneas restantes)
+    background:
+    linear-gradient(
+        90deg,
+        rgba(4,6,4,.98) 0%,
+        rgba(4,6,4,.90) 25%,
+        rgba(4,6,4,.55) 48%,
+        rgba(4,6,4,.12) 72%
+    ),
+    url("ChatGPT Image 16 sept 2026, 03_45_48 a.m..png");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:650px;
+    position:relative;
+    z-index:2;
+}
+
+.hero-small{
+    color:#9cff00;
+    font-size:14px;
+    font-weight:bold;
+    letter-spacing:4px;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:clamp(55px,9vw,110px);
+    line-height:.85;
+    font-weight:1000;
+    letter-spacing:-5px;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:#9cff00;
+}
+
+.hero p{
+    font-size:18px;
+    line-height:1.6;
+    color:#d1d1d1;
+    max-width:520px;
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 25px;
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:1px;
+    border:1px solid #9cff00;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:#9cff00;
+    color:#000;
+}
+
+.btn-primary:hover{
+    background:#fff;
+    border-color:#fff;
+}
+
+.btn-secondary{
+    background:transparent;
+    color:#fff;
+}
+
+.btn-secondary:hover{
+    background:#fff;
+    color:#000;
+}
+
+.benefits{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.benefit{
+    padding:30px;
+    text-align:center;
+    border-right:1px solid rgba(255,255,255,.08);
+}
+
+.benefit:last-child{
+    border-right:none;
+}
+
+.benefit h3{
+    color:#9cff00;
+    font-size:15px;
+    margin-bottom:8px;
+}
+
+.benefit p{
+    color:#aaa;
+    font-size:13px;
+}
+
+section{
+    padding:100px 8%;
+}
+
+.section-title{
+    margin-bottom:50px;
+}
+
+.section-title small{
+    color:#9cff00;
+    font-size:12px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+.section-title h2{
+    font-size:50px;
+    margin-top:10px;
+    letter-spacing:-2px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.product{
+    background:#111411;
+    border:1px solid rgba(255,255,255,.08);
+    overflow:hidden;
+    transition:.3s;
+}
+
+.product:hover{
+    transform:translateY(-5px);
+    border-color:#9cff00;
+}
+
+.product-img{
+    height:380px;
+    background:#1a1d1a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#666;
+    font-size:14px;
+}
+
+.product-info{
+    padding:25px;
+}
+
+.product-info h3{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.product-info p{
+    color:#888;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.price{
+    color:#9cff00;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.add-cart{
+    width:100%;
+    padding:13px;
+    border:1px solid #9cff00;
+    background:transparent;
+    color:#fff;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.add-cart:hover{
+    background:#9cff00;
+    color:#000;
+}
+
+.collections{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.collection{
+    min-height:350px;
+    padding:40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    background:linear-gradient(135deg,#171b17,#080a08);
+    border:1px solid rgba(255,255,255,.08);
+    position:relative;
+    overflow:hidden;
+}
+
+.collection:before{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:#9cff00;
+    opacity:.08;
+    right:-80px;
+    top:-80px;
+}
+
+.collection h3{
+    font-size:38px;
+    position:relative;
+    z-index:2;
+}
+
+.collection p{
+    color:#aaa;
+    max-width:400px;
+    margin-top:10px;
+    line-height:1.6;
+    position:relative;
+    z-index:2;
+}
+
+.about{
+    background:#0d100d;
+}
+
+.about-content{
+    max-width:850px;
+}
+
+.about-content p{
+    color:#bbb;
+    font-size:18px;
+    line-height:1.8;
+    margin-top:20px;
+}
+
+footer{
+    padding:50px 8%;
+    background:#050605;
+    border-top:1px solid rgba(255,255,255,.08);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+}
+
+footer p{
+    color:#777;
+    font-size:13px;
+}
+
+.footer-logo{
+    font-weight:900;
+    font-size:20px;
+}
+
+.footer-logo span{
+    color:#9cff00;
+}
+
+.cart-drawer{
+    position:fixed;
+    top:0;
+    right:-420px;
+    width:400px;
+    max-width:90%;
+    height:100vh;
+    background:#101310;
+    z-index:2000;
+    padding:30px;
+    transition:.4s;
+    box-shadow:-10px 0 40px rgba(0,0,0,.5);
+    display:flex;
+    flex-direction:column;
+}
+
+.cart-drawer.active{
+    right:0;
+}
+
+.cart-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.cart-header h2{
+    font-size:24px;
+}
+
+.close-cart{
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.cart-items{
+    flex:1;
+    overflow-y:auto;
+    margin-bottom:15px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.cart-item h4{
+    font-size:14px;
+}
+
+.cart-item p{
+    color:#9cff00;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.remove-item{
+    background:none;
+    border:none;
+    color:#888;
+    cursor:pointer;
+}
+
+.remove-item:hover{
+    color:#ff4444;
+}
+
+.cart-total{
+    margin-top:10px;
+    margin-bottom:15px;
+    display:flex;
+    justify-content:space-between;
+    font-size:18px;
+    font-weight:bold;
+}
+
+#paypal-button-container{
+    margin-top:10px;
+    min-height:45px;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:1500;
+    display:none;
+}
+
+.overlay.active{
+    display:block;
+}
+
+@media(max-width:900px){
+    nav{
+        display:none;
+    }
+    .products{
+        grid-template-columns:1fr 1fr;
+    }
+    .benefits{
+        grid-template-columns:1fr;
+    }
+    .benefit{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .benefit:last-child{
+        border-bottom:none;
+    }
+}
+
+@media(max-width:600px){
+    .hero{
+        min-height:650px;
+        padding:130px 6% 60px;
+        background-position:center;
+    }
+    .hero h1{
+        font-size:55px;
+        letter-spacing:-3px;
+    }
+    .hero p{
+        font-size:16px;
+    }
+    section{
+        padding:70px 6%;
+    }
+    .section-title h2{
+        font-size:38px;
+    }
+    .products{
+        grid-template-columns:1fr;
+    }
+    .collections{
+        grid-template-columns:1fr;
+    }
+    footer{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="#inicio" class="logo">MXANGEL <span>GEAR</span></a>
+
+    <nav>
+        <a href="#inicio">INICIO</a>
+        <a href="#tienda">TIENDA</a>
+        <a href="#colecciones">COLECCIONES</a>
+        <a href="#nosotros">NOSOTROS</a>
+    </nav>
+
+    <button class="cart-btn" onclick="openCart()">
+        CARRITO (<span id="cart-count">0</span>)
+    </button>
+</header>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<div class="cart-drawer" id="cart-drawer">
+
+    <div class="cart-header">
+        <h2>Tu carrito</h2>
+        <button class="close-cart" onclick="closeCart()">×</button>
+    </div>
+
+    <div class="cart-items" id="cart-items"></div>
+
+    <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total">$0 MXN</span>
+    </div>
+
+    <div id="paypal-button-container"></div>
+
+</div>
+
+<section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+            MXANGELYT2311 PRESENTA
+        </div>
+
+        <h1>
+            MXANGEL<br>
+            <span>GEAR</span>
+        </h1>
+
+        <p>
+            ACTITUD TÁCTICA. ESTILO SIN LÍMITES.
+            Una marca creada para quienes llevan su estilo
+            más allá de lo convencional.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#tienda" class="btn btn-primary">
+                VER TIENDA
+            </a>
+
+            <a href="#colecciones" class="btn btn-secondary">
+                COLECCIONES
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+<div class="benefits">
+
+    <div class="benefit">
+        <h3>CALIDAD</h3>
+        <p>Prendas pensadas para acompañarte.</p>
+    </div>
+
+    <div class="benefit">
+        <h3>ESTILO</h3>
+        <p>Diseños inspirados en el mundo táctico.</p>
+    </div>
+
+    <div class="benefit">
+        <h3>ACTITUD</h3>
+        <p>Vístete diferente. Marca la diferencia.</p>
+    </div>
+
+</div>
+
+<section id="tienda">
+
+    <div class="section-title">
+        <small>PRODUCTOS</small>
+        <h2>TIENDA</h2>
+    </div>
+
+    <div class="products">
+
+        <div class="product">
+
+            <div class="product-img">
+                PLAYERA MXANGEL
+            </div>
+
+            <div class="product-info">
+                <h3>PLAYERA MXANGEL / CORE</h3>
+                <p>Diseño clásico MXANGEL GEAR.</p>
+
+                <div class="price">
+                    $449 MXN
+                </div>
+
+                <button
+                    class="add-cart"
+                    onclick="addToCart('PLAYERA MXANGEL / CORE', 449)"
+                >
+                    AGREGAR AL CARRITO
+                </button>
+            </div>
+
+        </div>
+
+        <div class="product">
+
+            <div class="product-img">
+                HOODIE ORIGEN
+            </div>
+
+            <div class="product-info">
+                <h3>HOODIE / ORIGEN</h3>
+                <p>Comodidad y estilo para cualquier ocasión.</p>
+
+                <div class="price">
+                    $799 MXN
+                </div>
+
+                <button
+                    class="add-cart"
+                    onclick="addToCart('HOODIE / ORIGEN', 799)"
+                >
+                    AGREGAR AL CARRITO
+                </button>
+            </div>
+
+        </div>
+
+        <div class="product">
+
+            <div class="product-img">
+                SIMULATION
+            </div>
+
+            <div class="product-info">
+                <h3>PLAYERA / SIMULATION</h3>
+                <p>Inspirada en el universo táctico.</p>
+
+                <div class="price">
+                    $499 MXN
+                </div>
+
+                <button
+                    class="add-cart"
+                    onclick="addToCart('PLAYERA / SIMULATION', 499)"
+                >
+                    AGREGAR AL CARRITO
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="colecciones">
+
+    <div class="section-title">
+        <small>MXANGEL GEAR</small>
+        <h2>COLECCIONES</h2>
+    </div>
+
+    <div class="collections">
+
+        <div class="collection">
+
+            <h3>ORIGEN</h3>
+
+            <p>
+                Una colección que representa la esencia
+                de MXANGEL GEAR y el comienzo de todo.
+            </p>
+
+        </div>
+
+        <div class="collection">
+
+            <h3>SIMULACIÓN</h3>
+
+            <p>
+                Inspirada en videojuegos, operaciones
+                tácticas y el mundo militar.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="about" id="nosotros">
+
+    <div class="section-title">
+        <small>SOBRE NOSOTROS</small>
+        <h2>MXANGEL GEAR</h2>
+    </div>
+
+    <div class="about-content">
+
+        <p>
+            MXANGEL GEAR nace de la pasión por el estilo,
+            los videojuegos, el mundo táctico y la cultura
+            que rodea a quienes buscan algo diferente.
+        </p>
+
+        <p>
+            Nuestra misión es crear prendas que no solamente
+            se vean bien, sino que representen una actitud.
+            Porque vestir también es una forma de expresarse.
+        </p>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <div class="footer-logo">
+        MXANGEL <span>GEAR</span>
+    </div>
+
+    <p>
+        © 2026 MXANGEL GEAR. Todos los derechos reservados.
+    </p>
+
+</footer>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("mxangelCart")) || [];
+
+function saveCart(){
+    localStorage.setItem("mxangelCart", JSON.stringify(cart));
+}
+
+function getCartTotal(){
+    return cart.reduce((sum, item) => sum + item.price, 0);
+}
+
+function addToCart(name, price){
+    cart.push({
+        name: name,
+        price: price
+    });
+
+    saveCart();
+    updateCart();
+    openCart();
+}
+
+function removeFromCart(index){
+    cart.splice(index, 1);
+    saveCart();
+    updateCart();
+}
+
+function updateCart(){
+    const cartItems = document.getElementById("cart-items");
+    const cartCount = document.getElementById("cart-count");
+    const cartTotal = document.getElementById("cart-total");
+
+    if (cartItems) {
+        cartItems.innerHTML = "";
+
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            total += item.price;
+
+            const div = document.createElement("div");
+            div.className = "cart-item";
+            div.innerHTML = `
+                <div>
+                    <h4>${item.name}</h4>
+                    <p>$${item.price} MXN</p>
+                </div>
+                <button class="remove-item" onclick="removeFromCart(${index})">
+                    ELIMINAR
+                </button>
+            `;
+
+            cartItems.appendChild(div);
+        });
+
+        if (cartCount) cartCount.textContent = cart.length;
+        if (cartTotal) cartTotal.textContent = "$" + total + " MXN";
+    }
+}
+
+function openCart(){
+    const drawer = document.getElementById("cart-drawer");
+    const overlay = document.getElementById("overlay");
+    if (drawer) drawer.classList.add("active");
+    if (overlay) overlay.classList.add("active");
+}
+
+function closeCart(){
+    const drawer = document.getElementById("cart-drawer");
+    const overlay = document.getElementById("overlay");
+    if (drawer) drawer.classList.remove("active");
+    if (overlay) overlay.classList.remove("active");
+}
+
+window.addEventListener("load", function() {
+    updateCart();
+
+    if (window.paypal && window.paypal.Buttons) {
+        paypal.Buttons({
+            onClick: function(data, actions) {
+                if (cart.length === 0) {
+                    alert("Tu carrito está vacío. Agrega al menos un producto.");
+                    return actions.reject();
+                }
+                return actions.resolve();
+            },
+
+            createOrder: function(data, actions) {
+                const currentTotal = getCartTotal();
+                return actions.order.create({
+                    purchase_units: [{
+                        description: "Compra en MXANGEL GEAR",
+                        amount: {
+                            currency_code: "MXN",
+                            value: currentTotal.toFixed(2)
+                        }
+                    }]
+                });
+            },
+
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert("¡Pago realizado con éxito! Gracias por tu compra, " + details.payer.name.given_name + ".");
+                    cart = [];
+                    saveCart();
+                    updateCart();
+                    closeCart();
+                });
+            },
+
+            onError: function(err) {
+                console.error("Error en PayPal:", err);
+                alert("Ocurrió un error al procesar tu pago con PayPal.");
+            }
+        }).render('#paypal-button-container');
+    }
+});
+
+updateCart();
+
+</script>
+
+</body>
+</html>
