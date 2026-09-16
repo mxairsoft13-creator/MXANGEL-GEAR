@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MXANGEL GEAR</title>
 
-<!-- SDK de PayPal configurado con moneda MXN e idioma forzado a Español de México (locale=es_MX) -->
+<!-- SDK de PayPal -->
 <script src="https://www.paypal.com/sdk/js?client-id=BAAhrZ-Cf3OAJOkgfhmQNTwc-Jscn8mmHgpGHLlHD9o85KH9FvUpt4S18--VlNLbGofQaS7rVG1V6BMubE&currency=MXN&locale=es_MX"></script>
 
 <style>
@@ -461,7 +461,7 @@ footer p{
 }
 
 .cart-total{
-    margin:15px 0;
+    margin:12px 0;
     display:flex;
     justify-content:space-between;
     font-size:18px;
@@ -470,8 +470,44 @@ footer p{
     padding-top:12px;
 }
 
+/* ====================================
+   CAMPO ÚNICO DE DIRECCIÓN
+==================================== */
+.custom-address-box{
+    margin-bottom:14px;
+}
+
+.custom-address-box label{
+    display:block;
+    font-size:12px;
+    font-weight:bold;
+    color:#9cff00;
+    letter-spacing:1px;
+    margin-bottom:6px;
+    text-transform:uppercase;
+}
+
+.custom-address-box textarea{
+    width:100%;
+    height:64px;
+    background:#161a16;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:4px;
+    color:#fff;
+    padding:8px 10px;
+    font-family:inherit;
+    font-size:13px;
+    resize:none;
+    outline:none;
+    transition:.2s;
+}
+
+.custom-address-box textarea:focus{
+    border-color:#9cff00;
+}
+
 .checkout-dark-container{
-    max-height:48vh;
+    max-height:42vh;
     overflow-y:auto;
     padding-right:4px;
     border-radius:4px;
@@ -587,6 +623,12 @@ footer p{
     <div class="cart-total">
         <span>Total</span>
         <span id="cart-total">$0 MXN</span>
+    </div>
+
+    <!-- CAMPO ÚNICO DE DIRECCIÓN DE ENTREGA -->
+    <div class="custom-address-box">
+        <label for="full-address">Dirección completa de entrega:</label>
+        <textarea id="full-address" placeholder="Calle, número ext/int, colonia, C.P., ciudad y estado"></textarea>
     </div>
 
     <div class="checkout-dark-container">
@@ -884,8 +926,14 @@ window.addEventListener("load", function() {
     if (window.paypal && window.paypal.Buttons) {
         paypal.Buttons({
             onClick: function(data, actions) {
+                const addressInput = document.getElementById("full-address");
                 if (cart.length === 0) {
                     alert("Tu carrito está vacío. Agrega una prenda antes de pagar.");
+                    return actions.reject();
+                }
+                if (!addressInput || !addressInput.value.trim()) {
+                    alert("Por favor ingresa tu dirección completa de entrega antes de pagar.");
+                    addressInput.focus();
                     return actions.reject();
                 }
                 return actions.resolve();
@@ -893,12 +941,15 @@ window.addEventListener("load", function() {
 
             createOrder: function(data, actions) {
                 const currentTotal = getCartTotal();
+                const userAddress = document.getElementById("full-address").value.trim();
+
                 return actions.order.create({
                     application_context: {
-                        shipping_preference: 'GET_FROM_FILE'
+                        shipping_preference: 'NO_SHIPPING' // Evita que PayPal muestre sus múltiples campos de facturación/envío
                     },
                     purchase_units: [{
-                        description: "Pedido MXANGEL GEAR",
+                        description: "Pedido MXANGEL GEAR - Envío a: " + userAddress,
+                        custom_id: userAddress.substring(0, 127),
                         amount: {
                             currency_code: "MXN",
                             value: currentTotal.toFixed(2)
@@ -910,6 +961,8 @@ window.addEventListener("load", function() {
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     alert("¡Compra exitosa! Gracias por tu compra, " + details.payer.name.given_name + ".");
+                    const addressField = document.getElementById("full-address");
+                    if (addressField) addressField.value = "";
                     cart = [];
                     saveCart();
                     updateCart();
