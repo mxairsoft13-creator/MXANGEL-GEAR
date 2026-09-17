@@ -402,7 +402,7 @@ section{
 }
 
 /* ============================================================
-   VENTANAS EN PANTALLA COMPLETA (FULLSCREEN MODALS)
+   VENTANAS FULLSCREEN CON TIPOGRAFÍA BALANCEADA
 ============================================================ */
 .modal-overlay{
     position:fixed;
@@ -413,7 +413,7 @@ section{
     z-index:9999;
     display:none;
     overflow-y:auto;
-    padding:80px 8% 50px;
+    padding:70px 8% 40px;
 }
 
 .modal-overlay.active{
@@ -423,7 +423,7 @@ section{
 
 .modal-box-fullscreen{
     width:100%;
-    max-width:1300px;
+    max-width:1150px;
     margin:0 auto;
     position:relative;
     display:flex;
@@ -433,15 +433,15 @@ section{
 
 .modal-close{
     position:fixed;
-    top:25px;
-    right:6%;
+    top:20px;
+    right:5%;
     background:#111411;
     border:1px solid #9cff00;
     color:#9cff00;
-    width:48px;
-    height:48px;
+    width:40px;
+    height:40px;
     border-radius:50%;
-    font-size:26px;
+    font-size:22px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -456,94 +456,111 @@ section{
     transform:rotate(90deg);
 }
 
-/* FILAS DE PRODUCTO ESPACIOSAS */
+/* Títulos de sección dentro de modales */
+.modal-heading-title{
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+}
+
+.modal-sub-tag{
+    color:#9cff00;
+    font-size:11px;
+    letter-spacing:2px;
+    display:block;
+    margin:4px 0 20px;
+    font-weight:bold;
+}
+
+/* FILAS DE PRODUCTO AJUSTADAS */
 .cart-row-item{
     display:flex;
     align-items:center;
     justify-content:space-between;
     background:#111411;
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:8px;
-    padding:24px 35px;
-    margin-bottom:18px;
-    gap:60px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:6px;
+    padding:16px 24px;
+    margin-bottom:14px;
+    gap:35px;
     transition:.2s;
 }
 
 .cart-row-item:hover{
-    border-color:rgba(156,255,0,.4);
+    border-color:rgba(156,255,0,.35);
 }
 
 .cart-item-left{
     display:flex;
     align-items:center;
-    gap:30px;
+    gap:20px;
     flex-shrink:0;
 }
 
 .cart-item-thumb{
-    width:120px;
-    height:120px;
+    width:85px;
+    height:85px;
     background:#171c17;
-    border:2px solid rgba(156,255,0,.5);
-    border-radius:8px;
+    border:1px solid rgba(156,255,0,.4);
+    border-radius:6px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:14px;
+    font-size:11px;
     color:#9cff00;
-    font-weight:900;
+    font-weight:bold;
     text-align:center;
     text-transform:uppercase;
-    padding:8px;
+    padding:6px;
 }
 
 .cart-item-title{
-    font-size:22px;
+    font-size:16px;
     font-weight:bold;
     color:#fff;
-    letter-spacing:.5px;
+    letter-spacing:.3px;
 }
 
 .cart-item-right{
     display:flex;
     align-items:center;
-    gap:50px;
+    gap:30px;
     flex-shrink:0;
     margin-left:auto;
 }
 
 .spec-pill{
     background:#171c17;
-    border:1px solid rgba(255,255,255,.15);
-    padding:10px 20px;
-    border-radius:6px;
-    font-size:15px;
+    border:1px solid rgba(255,255,255,.12);
+    padding:7px 14px;
+    border-radius:4px;
+    font-size:13px;
     font-weight:bold;
-    color:#ddd;
+    color:#ccc;
     white-space:nowrap;
 }
 
 .spec-pill span{
     color:#9cff00;
-    margin-left:8px;
+    margin-left:5px;
 }
 
 .cart-item-price{
     color:#9cff00;
-    font-size:24px;
-    font-weight:900;
-    min-width:140px;
+    font-size:18px;
+    font-weight:bold;
+    min-width:110px;
     text-align:right;
     white-space:nowrap;
 }
 
 .btn-del-item{
     background:transparent;
-    border:1px solid rgba(255,68,68,.4);
+    border:1px solid rgba(255,68,68,.35);
     color:#ff5555;
-    padding:10px 18px;
-    font-size:12px;
+    padding:7px 14px;
+    font-size:11px;
     font-weight:bold;
     letter-spacing:1px;
     border-radius:4px;
@@ -558,44 +575,44 @@ section{
 
 .full-cart-list{
     flex:1;
-    margin:30px 0;
+    margin:20px 0;
 }
 
 .empty-cart-msg{
     text-align:center;
-    padding:80px 20px;
+    padding:60px 20px;
     color:#666;
-    font-size:18px;
+    font-size:15px;
     letter-spacing:1px;
 }
 
 .cart-modal-summary{
-    border-top:1px solid rgba(255,255,255,.15);
-    padding-top:25px;
+    border-top:1px solid rgba(255,255,255,.12);
+    padding-top:18px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    font-size:26px;
+    font-size:18px;
     font-weight:bold;
-    margin-bottom:30px;
+    margin-bottom:22px;
 }
 
 .modal-action-buttons{
     display:flex;
-    gap:20px;
+    gap:15px;
     margin-top:auto;
 }
 
 .btn-continue{
     flex:1;
-    padding:18px;
+    padding:14px;
     background:transparent;
     border:1px solid rgba(255,255,255,.2);
     color:#ddd;
-    font-size:14px;
+    font-size:13px;
     font-weight:bold;
     letter-spacing:1px;
-    border-radius:6px;
+    border-radius:4px;
     cursor:pointer;
     transition:.2s;
 }
@@ -607,14 +624,14 @@ section{
 
 .btn-go-checkout{
     flex:1;
-    padding:18px;
+    padding:14px;
     background:#9cff00;
     border:1px solid #9cff00;
     color:#000;
-    font-size:14px;
+    font-size:13px;
     font-weight:900;
     letter-spacing:1px;
-    border-radius:6px;
+    border-radius:4px;
     cursor:pointer;
     transition:.2s;
 }
@@ -626,30 +643,30 @@ section{
 
 /* MODAL DE PAGO */
 .checkout-dark-container{
-    max-width:650px;
+    max-width:550px;
     margin:0 auto;
     width:100%;
 }
 
 #direct-paypal-container iframe{
     filter: invert(0.92) hue-rotate(180deg) contrast(1.15) !important;
-    border-radius: 6px !important;
+    border-radius: 4px !important;
 }
 
 /* VISTA PREVIA */
 .preview-image-box{
     width:100%;
-    height:450px;
+    height:360px;
     background:#111411;
-    border:1px solid rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.08);
     display:flex;
     align-items:center;
     justify-content:center;
     color:#888;
-    font-size:18px;
+    font-size:15px;
     font-weight:bold;
-    margin:25px 0;
-    border-radius:8px;
+    margin:18px 0;
+    border-radius:6px;
 }
 
 .collections{
@@ -809,16 +826,16 @@ footer p{
     .cart-row-item{
         flex-direction:column;
         align-items:flex-start;
-        gap:20px;
-        padding:20px;
+        gap:16px;
+        padding:16px;
     }
     .cart-item-right{
         width:100%;
         justify-content:space-between;
-        gap:15px;
+        gap:12px;
     }
     .modal-overlay{
-        padding:70px 5% 30px;
+        padding:60px 5% 30px;
     }
 }
 
@@ -881,14 +898,14 @@ footer p{
 <div class="modal-overlay" id="large-cart-modal">
     <div class="modal-box-fullscreen">
         <button class="modal-close" onclick="closeModal('large-cart-modal')">×</button>
-        <h2 style="font-size: clamp(28px, 4vw, 42px); font-weight:1000; letter-spacing:-1px;">TU CARRITO DE COMPRAS</h2>
-        <span style="color:#9cff00; font-size:13px; letter-spacing:3px; display:block; margin:8px 0 25px; font-weight:bold;">EQUIPAMIENTO SELECCIONADO</span>
+        <h2 class="modal-heading-title">TU CARRITO DE COMPRAS</h2>
+        <span class="modal-sub-tag">EQUIPAMIENTO SELECCIONADO</span>
 
         <div class="full-cart-list" id="large-cart-items"></div>
 
         <div class="cart-modal-summary">
             <span>TOTAL ACUMULADO:</span>
-            <span id="large-cart-total" style="color:#9cff00; font-size: clamp(26px, 4vw, 36px);">$0 MXN</span>
+            <span id="large-cart-total" style="color:#9cff00; font-size:22px;">$0 MXN</span>
         </div>
 
         <div class="modal-action-buttons">
@@ -902,8 +919,8 @@ footer p{
 <div class="modal-overlay" id="added-modal">
     <div class="modal-box-fullscreen">
         <button class="modal-close" onclick="closeModal('added-modal')">×</button>
-        <div style="display:inline-flex; align-items:center; gap:12px; color:#9cff00; font-weight:bold; font-size: clamp(20px, 3vw, 28px); margin-bottom:25px;">
-            <span style="font-size:32px;">✓</span> AGREGADO EXITOSAMENTE AL CARRITO
+        <div style="display:inline-flex; align-items:center; gap:8px; color:#9cff00; font-weight:bold; font-size:18px; margin-bottom:18px;">
+            <span style="font-size:22px;">✓</span> AGREGADO EXITOSAMENTE AL CARRITO
         </div>
         
         <div class="cart-row-item">
@@ -921,7 +938,7 @@ footer p{
 
         <div class="cart-modal-summary" style="margin-top:auto;">
             <span>SUBTOTAL DE TU CARRITO:</span>
-            <span id="added-subtotal" style="color:#9cff00; font-size: clamp(26px, 4vw, 36px);">$0 MXN</span>
+            <span id="added-subtotal" style="color:#9cff00; font-size:22px;">$0 MXN</span>
         </div>
 
         <div class="modal-action-buttons">
@@ -935,12 +952,12 @@ footer p{
 <div class="modal-overlay" id="checkout-modal">
     <div class="modal-box-fullscreen">
         <button class="modal-close" onclick="cancelDirectBuy()">×</button>
-        <div style="text-align:center; margin-bottom:30px;">
-            <h2 style="font-size: clamp(28px, 4vw, 40px); font-weight:1000; letter-spacing:-1px;">CHECKOUT SEGURO</h2>
-            <p style="color:#888; font-size:14px; letter-spacing:2px; margin-top:6px;">MXANGEL GEAR • PASARELA OFICIAL</p>
-            <div style="margin:20px auto; padding:15px; border-bottom:1px solid rgba(255,255,255,.1); max-width:650px; display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:18px; font-weight:bold;">TOTAL A PAGAR:</span>
-                <span id="checkout-total" style="color:#9cff00; font-size:32px; font-weight:1000;">$0 MXN</span>
+        <div style="text-align:center; margin-bottom:24px;">
+            <h2 class="modal-heading-title">CHECKOUT SEGURO</h2>
+            <p style="color:#888; font-size:12px; letter-spacing:1px; margin-top:4px;">MXANGEL GEAR • PASARELA OFICIAL</p>
+            <div style="margin:16px auto; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.1); max-width:550px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:15px; font-weight:bold;">TOTAL A PAGAR:</span>
+                <span id="checkout-total" style="color:#9cff00; font-size:24px; font-weight:bold;">$0 MXN</span>
             </div>
         </div>
 
@@ -954,14 +971,14 @@ footer p{
 <div class="modal-overlay" id="preview-modal">
     <div class="modal-box-fullscreen">
         <button class="modal-close" onclick="closeModal('preview-modal')">×</button>
-        <h2 style="font-size: clamp(28px, 4vw, 42px); font-weight:1000;" id="pv-title">PRODUCTO</h2>
-        <span style="color:#9cff00; font-size:13px; letter-spacing:3px; display:block; margin:6px 0 20px;">EDICIÓN MXANGEL GEAR</span>
+        <h2 class="modal-heading-title" id="pv-title">PRODUCTO</h2>
+        <span class="modal-sub-tag">EDICIÓN MXANGEL GEAR</span>
         
         <div class="preview-image-box" id="pv-img">
             VISTA PREVIA DE ESTILO Y CORTE
         </div>
         
-        <p style="color:#bbb; font-size:18px; line-height:1.8; max-width:800px;" id="pv-desc">
+        <p style="color:#bbb; font-size:15px; line-height:1.7; max-width:750px;" id="pv-desc">
             Descripción técnica y acabados del producto.
         </p>
     </div>
@@ -1350,7 +1367,7 @@ function updateCart(){
     if (largeCartTotal) largeCartTotal.textContent = "$" + total + " MXN";
 }
 
-// GESTIÓN DE MODALES
+// CONTROL DE MODALES
 function openModal(modalId){
     closeAllModals();
     const modal = document.getElementById(modalId);
