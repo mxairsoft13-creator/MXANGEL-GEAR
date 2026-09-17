@@ -456,7 +456,6 @@ section{
     transform:rotate(90deg);
 }
 
-/* Títulos de sección dentro de modales */
 .modal-heading-title{
     font-size:24px;
     font-weight:900;
@@ -473,7 +472,7 @@ section{
     font-weight:bold;
 }
 
-/* FILAS DE PRODUCTO AJUSTADAS */
+/* FILAS DE PRODUCTO */
 .cart-row-item{
     display:flex;
     align-items:center;
@@ -669,6 +668,9 @@ section{
     border-radius:6px;
 }
 
+/* ============================================================
+   COLECCIONES Y BOTONES DE APERTURA
+============================================================ */
 .collections{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -676,7 +678,7 @@ section{
 }
 
 .collection{
-    min-height:350px;
+    min-height:360px;
     padding:40px;
     display:flex;
     flex-direction:column;
@@ -685,6 +687,11 @@ section{
     border:1px solid rgba(255,255,255,.08);
     position:relative;
     overflow:hidden;
+    transition:.3s;
+}
+
+.collection:hover{
+    border-color:#9cff00;
 }
 
 .collection:before{
@@ -697,6 +704,29 @@ section{
     opacity:.08;
     right:-80px;
     top:-80px;
+}
+
+.btn-open-collection{
+    align-self:flex-start;
+    margin-bottom:auto;
+    background:#111411;
+    border:1px solid #9cff00;
+    color:#9cff00;
+    padding:9px 18px;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    border-radius:3px;
+    cursor:pointer;
+    position:relative;
+    z-index:3;
+    transition:.2s;
+}
+
+.btn-open-collection:hover{
+    background:#9cff00;
+    color:#000;
 }
 
 .collection h3{
@@ -813,6 +843,9 @@ footer p{
     .products{
         grid-template-columns:1fr 1fr;
     }
+    .collections{
+        grid-template-columns:1fr;
+    }
     .benefits{
         grid-template-columns:1fr;
     }
@@ -859,9 +892,6 @@ footer p{
         font-size:38px;
     }
     .products{
-        grid-template-columns:1fr;
-    }
-    .collections{
         grid-template-columns:1fr;
     }
     footer{
@@ -981,6 +1011,30 @@ footer p{
         <p style="color:#bbb; font-size:15px; line-height:1.7; max-width:750px;" id="pv-desc">
             Descripción técnica y acabados del producto.
         </p>
+    </div>
+</div>
+
+<!-- 5. PANTALLA COMPLETA: MODAL DE COLECCIÓN -->
+<div class="modal-overlay" id="collection-modal">
+    <div class="modal-box-fullscreen">
+        <button class="modal-close" onclick="closeModal('collection-modal')">×</button>
+        <h2 class="modal-heading-title" id="col-title">COLECCIÓN</h2>
+        <span class="modal-sub-tag" id="col-tag">EDICIÓN TÁCTICA MXANGEL GEAR</span>
+        
+        <p style="color:#bbb; font-size:15px; line-height:1.7; margin-bottom:25px;" id="col-desc">
+            Descripción oficial de la colección.
+        </p>
+
+        <h3 style="font-size:18px; font-weight:bold; color:#9cff00; margin-bottom:15px; letter-spacing:1px;">PRENDAS DE ESTA COLECCIÓN</h3>
+
+        <div class="full-cart-list" id="col-items-list">
+            <!-- Filas dinámicas de prendas de la colección -->
+        </div>
+
+        <div class="modal-action-buttons" style="margin-top:auto;">
+            <button class="btn-continue" onclick="closeModal('collection-modal')">← REGRESAR A COLECCIONES</button>
+            <button class="btn-go-checkout" onclick="closeModal('collection-modal'); window.location.href='#tienda';">VER EN TIENDA →</button>
+        </div>
     </div>
 </div>
 
@@ -1155,6 +1209,7 @@ footer p{
     </div>
 </section>
 
+<!-- SECCIÓN COLECCIONES CON BOTONES -->
 <section id="colecciones">
     <div class="section-title">
         <small>MXANGEL GEAR</small>
@@ -1163,11 +1218,17 @@ footer p{
 
     <div class="collections">
         <div class="collection">
+            <button class="btn-open-collection" onclick="openCollectionModal('origen')">
+                EXPLORAR COLECCIÓN ↗
+            </button>
             <h3>ORIGEN</h3>
             <p>Una colección que representa la esencia de MXANGEL GEAR y el comienzo de todo.</p>
         </div>
 
         <div class="collection">
+            <button class="btn-open-collection" onclick="openCollectionModal('simulacion')">
+                EXPLORAR COLECCIÓN ↗
+            </button>
             <h3>SIMULACIÓN</h3>
             <p>Inspirada en videojuegos, operaciones tácticas y el mundo militar.</p>
         </div>
@@ -1396,6 +1457,60 @@ function openPreview(title, desc){
     document.getElementById("pv-desc").innerText = desc;
     document.getElementById("pv-img").innerText = "CORTE TÁCTICO: " + title;
     openModal("preview-modal");
+}
+
+// DATOS DE LAS COLECCIONES
+const collectionsData = {
+    origen: {
+        title: "COLECCIÓN ORIGEN",
+        tag: "LÍNEA FUNDACIONAL MXANGEL GEAR",
+        desc: "Una colección concebida para definir los estándares de comodidad, resistencia táctica y elegancia urbana. Representa la esencia principal de la marca y nuestras primeras creaciones oficiales.",
+        items: [
+            { name: "PLAYERA MXANGEL / CORE", price: "$449 MXN", desc: "Diseño clásico MXANGEL GEAR, corte ergonómico de algodón peinado." },
+            { name: "HOODIE / ORIGEN", price: "$799 MXN", desc: "Sudadera táctica térmica con capucha, tacto prémium y felpa suave." }
+        ]
+    },
+    simulacion: {
+        title: "COLECCIÓN SIMULACIÓN",
+        tag: "INSPIRACIÓN MILITAR & GAMING",
+        desc: "Línea técnica inspirada en simuladores militares, operaciones especiales y la adrenalina del mundo competitivo. Diseñada para un rendimiento duradero y estilo agresivo.",
+        items: [
+            { name: "PLAYERA / SIMULATION", price: "$499 MXN", desc: "Gráficos de alta durabilidad, tejido transpirable para uso intensivo." }
+        ]
+    }
+};
+
+// APERTURA DE VENTANA DE COLECCIÓN
+function openCollectionModal(type){
+    const data = collectionsData[type];
+    if(!data) return;
+
+    document.getElementById("col-title").innerText = data.title;
+    document.getElementById("col-tag").innerText = data.tag;
+    document.getElementById("col-desc").innerText = data.desc;
+
+    const listContainer = document.getElementById("col-items-list");
+    listContainer.innerHTML = "";
+
+    data.items.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "cart-row-item";
+        row.innerHTML = `
+            <div class="cart-item-left">
+                <div class="cart-item-thumb">GEAR</div>
+                <div>
+                    <div class="cart-item-title">${item.name}</div>
+                    <div style="color:#888; font-size:12px; margin-top:3px;">${item.desc}</div>
+                </div>
+            </div>
+            <div class="cart-item-right">
+                <div class="cart-item-price">${item.price}</div>
+            </div>
+        `;
+        listContainer.appendChild(row);
+    });
+
+    openModal("collection-modal");
 }
 
 // PAYPAL
