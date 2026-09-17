@@ -1248,11 +1248,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-1" class="tactical-select" onchange="updateProductPrice(449, 'size-1', 'price-display-1')">
-                            <option value="S">S (-$20)</option>
-                            <option value="M" selected>M (Base)</option>
-                            <option value="L">L (+$20)</option>
-                            <option value="XL">XL (+$40)</option>
-                            <option value="XXL">XXL (+$60)</option>
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -1289,11 +1289,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-2" class="tactical-select" onchange="updateProductPrice(799, 'size-2', 'price-display-2')">
-                            <option value="S">S (-$20)</option>
-                            <option value="M" selected>M (Base)</option>
-                            <option value="L">L (+$20)</option>
-                            <option value="XL">XL (+$40)</option>
-                            <option value="XXL">XXL (+$60)</option>
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -1330,11 +1330,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-3" class="tactical-select" onchange="updateProductPrice(499, 'size-3', 'price-display-3')">
-                            <option value="S">S (-$20)</option>
-                            <option value="M" selected>M (Base)</option>
-                            <option value="L">L (+$20)</option>
-                            <option value="XL">XL (+$40)</option>
-                            <option value="XXL">XXL (+$60)</option>
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -1402,11 +1402,11 @@ footer p{
                 <div class="control-group">
                     <label style="font-size:12px; color:#9cff00; letter-spacing:1.5px; font-weight:bold; text-transform:uppercase;">3. Talla</label>
                     <select id="custom-size" class="tactical-select" onchange="updateCustomPriceAndSummary()">
-                        <option value="S">S (-$20)</option>
-                        <option value="M" selected>M (Base)</option>
-                        <option value="L">L (+$20)</option>
-                        <option value="XL">XL (+$40)</option>
-                        <option value="XXL">XXL (+$60)</option>
+                        <option value="S">S</option>
+                        <option value="M" selected>M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
                     </select>
                 </div>
                 <div class="control-group">
@@ -1514,24 +1514,24 @@ function getCartTotal(){
     return cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
 }
 
-// CÁLCULO INDIVIDUAL DE PRECIO POR CADA TALLA
+// CÁLCULO AUTOMÁTICO DE PRECIO SEGÚN TALLA
 function calculateSizePrice(basePrice, size){
     let adjustment = 0;
     if(size === "S") {
-        adjustment = -20; // Entrada económica accesible
+        adjustment = -20;
     } else if(size === "M") {
-        adjustment = 0;   // Precio base oficial
+        adjustment = 0;
     } else if(size === "L") {
-        adjustment = 20;  // Incremento ligero accesible
+        adjustment = 20;
     } else if(size === "XL") {
-        adjustment = 40;  // Incremento moderado
+        adjustment = 40;
     } else if(size === "XXL") {
-        adjustment = 60;  // Incremento máximo accesible
+        adjustment = 60;
     }
     return basePrice + adjustment;
 }
 
-// ACTUALIZACIÓN VISUAL EN VIVO
+// ACTUALIZACIÓN AUTOMÁTICA EN LA TARJETA
 function updateProductPrice(basePrice, selectId, displayId){
     const size = document.getElementById(selectId).value;
     const finalPrice = calculateSizePrice(basePrice, size);
@@ -1681,7 +1681,7 @@ function updateCart(){
     if (largeCartTotal) largeCartTotal.textContent = "$" + total + " MXN";
 }
 
-// PERSONALIZACIÓN CON VARIACIÓN INDIVIDUAL POR TALLA
+// PERSONALIZACIÓN
 let customConfig = {
     colorName: "Negro",
     sides: "1 Lado (Frente)",
