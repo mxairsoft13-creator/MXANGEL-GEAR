@@ -826,6 +826,14 @@ section{
     border-radius:6px;
 }
 
+
+/* VISTA PREVIA REAL - PLAYERA MXANGEL / CORE */
+.real-product-preview{width:100%;height:100%;object-fit:contain;display:block;}
+.pv-real-image{width:100%;height:100%;object-fit:contain;display:block;}
+.preview-view-controls{display:flex;justify-content:center;gap:12px;margin:0 0 18px;}
+.preview-view-btn{min-width:120px;padding:11px 18px;background:#111411;border:1px solid rgba(255,255,255,.18);color:#ddd;font-size:12px;font-weight:900;letter-spacing:1.5px;border-radius:4px;cursor:pointer;transition:.2s;}
+.preview-view-btn:hover,.preview-view-btn.active{background:#9cff00;border-color:#9cff00;color:#000;}
+
 /* COLECCIONES */
 .collections{
     display:grid;
@@ -1241,10 +1249,8 @@ footer p{
         <!-- PRODUCTO 1 -->
         <div class="product">
             <div class="product-img-container">
-                <div class="product-img-placeholder">PLAYERA MXANGEL</div>
-                <button class="preview-btn" onclick="openPreview('PLAYERA MXANGEL / CORE', 'Algodón peinado premium 100%, serigrafía táctica de alta duración y ajuste ergonómico reforzado.')">
-                    👁 VISTA PREVIA
-                </button>
+                <img src="core-blanca-frente.png" alt="PLAYERA MXANGEL CORE blanca - frente" class="real-product-preview">
+                <button class="preview-btn" onclick="openCorePreview()">👁 VISTA PREVIA</button>
             </div>
 
             <div class="product-info">
@@ -1852,7 +1858,40 @@ function closeAllModals(){
 function openPreview(title, desc){
     document.getElementById("pv-title").innerText = title;
     document.getElementById("pv-desc").innerText = desc;
-    document.getElementById("pv-img").innerText = "CORTE TÁCTICO: " + title;
+    const pvImg = document.getElementById("pv-img");
+    pvImg.innerHTML = "";
+    pvImg.innerText = "CORTE TÁCTICO: " + title;
+    const controls = document.getElementById("pv-view-controls");
+    if(controls) controls.style.display = "none";
+    openModal("preview-modal");
+}
+
+const corePreviewImages = {
+    front: "core-blanca-frente.png",
+    back: "core-blanca-espalda.png"
+};
+
+let corePreviewView = "front";
+
+function renderCorePreview(){
+    const pvImg = document.getElementById("pv-img");
+    if(!pvImg) return;
+    pvImg.innerHTML = `<img src="${corePreviewImages[corePreviewView]}" class="pv-real-image" alt="PLAYERA MXANGEL CORE blanca - ${corePreviewView === "front" ? "frente" : "espalda"}">`;
+    document.getElementById("pv-front-btn").classList.toggle("active", corePreviewView === "front");
+    document.getElementById("pv-back-btn").classList.toggle("active", corePreviewView === "back");
+}
+
+function changeCorePreviewView(view){
+    corePreviewView = view;
+    renderCorePreview();
+}
+
+function openCorePreview(){
+    corePreviewView = "front";
+    document.getElementById("pv-title").innerText = "PLAYERA MXANGEL / CORE";
+    document.getElementById("pv-desc").innerText = "Vista previa de PLAYERA MXANGEL / CORE en color blanco. Selecciona FRENTE o ESPALDA para ver ambos lados de la prenda.";
+    document.getElementById("pv-view-controls").style.display = "flex";
+    renderCorePreview();
     openModal("preview-modal");
 }
 
