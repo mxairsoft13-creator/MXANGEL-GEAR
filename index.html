@@ -422,10 +422,14 @@ section{
     border:1px solid #9cff00;
     box-shadow:0 0 35px rgba(156,255,0,.2);
     border-radius:6px;
-    max-width:520px;
+    max-width:540px;
     width:100%;
     padding:30px 25px;
     position:relative;
+}
+
+.modal-box-large{
+    max-width:680px;
 }
 
 .modal-close{
@@ -443,7 +447,7 @@ section{
     color:#9cff00;
 }
 
-/* MODAL AMAZON-STYLE (AÑADIDO AL CARRITO) */
+/* MODAL DE CONFIRMACIÓN AL AGREGAR */
 .added-badge{
     display:inline-flex;
     align-items:center;
@@ -525,119 +529,83 @@ section{
     border-color:#fff;
 }
 
+/* LISTA DE ITEMS DENTRO DE LA VENTANA GRANDE DEL CARRITO */
+.full-cart-list{
+    max-height:48vh;
+    overflow-y:auto;
+    padding-right:8px;
+    margin:15px 0 20px 0;
+}
+
+.full-cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#151915;
+    padding:14px 16px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:4px;
+    margin-bottom:10px;
+    gap:15px;
+}
+
+.full-cart-item h4{
+    font-size:15px;
+    margin-bottom:4px;
+}
+
+.full-cart-item p{
+    color:#9cff00;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.btn-del-item{
+    background:transparent;
+    border:1px solid rgba(255,68,68,.3);
+    color:#ff5555;
+    padding:6px 12px;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:1px;
+    border-radius:3px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn-del-item:hover{
+    background:#ff4444;
+    color:#fff;
+}
+
+.empty-cart-msg{
+    text-align:center;
+    padding:35px 20px;
+    color:#777;
+    font-size:14px;
+    letter-spacing:1px;
+}
+
 /* MODAL DE PAGO DIRECTO */
 .checkout-dark-container{
-    max-height:60vh;
+    max-height:55vh;
     overflow-y:auto;
     padding:10px 4px;
 }
 
-#direct-paypal-container iframe,
-#drawer-paypal-container iframe{
+#direct-paypal-container iframe{
     filter: invert(0.92) hue-rotate(180deg) contrast(1.15) !important;
     border-radius: 4px !important;
 }
 
-/* CARRITO LATERAL */
-.cart-drawer{
-    position:fixed;
-    top:0;
-    right:-440px;
-    width:420px;
-    max-width:92%;
-    height:100vh;
-    background:#101310;
-    z-index:2000;
-    padding:24px;
-    transition:.4s;
-    box-shadow:-10px 0 40px rgba(0,0,0,.6);
-    display:flex;
-    flex-direction:column;
+.checkout-dark-container::-webkit-scrollbar,
+.full-cart-list::-webkit-scrollbar{
+    width:5px;
 }
-
-.cart-drawer.active{
-    right:0;
-}
-
-.cart-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
-    padding-bottom:12px;
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.cart-header h2{
-    font-size:22px;
-    letter-spacing:1px;
-}
-
-.close-cart{
-    background:none;
-    border:none;
-    color:#fff;
-    font-size:26px;
-    cursor:pointer;
-}
-
-.cart-items{
-    flex:1;
-    overflow-y:auto;
-    padding-right:5px;
-}
-
-.cart-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    padding:12px 0;
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.cart-item h4{
-    font-size:14px;
-}
-
-.cart-item p{
-    color:#9cff00;
-    font-size:13px;
-    margin-top:4px;
-}
-
-.remove-item{
-    background:none;
-    border:none;
-    color:#888;
-    cursor:pointer;
-    font-size:12px;
-}
-
-.remove-item:hover{
-    color:#ff4444;
-}
-
-.cart-total{
-    margin:15px 0 12px 0;
-    display:flex;
-    justify-content:space-between;
-    font-size:18px;
-    font-weight:bold;
-    border-top:1px solid rgba(255,255,255,.08);
-    padding-top:12px;
-}
-
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.7);
-    z-index:1500;
-    display:none;
-}
-
-.overlay.active{
-    display:block;
+.checkout-dark-container::-webkit-scrollbar-thumb,
+.full-cart-list::-webkit-scrollbar-thumb{
+    background:rgba(156,255,0,0.3);
+    border-radius:4px;
 }
 
 /* VISTA PREVIA */
@@ -856,14 +824,36 @@ footer p{
         <a href="#redes">REDES</a>
     </nav>
 
-    <button class="cart-btn" onclick="openCart()">
+    <!-- BOTÓN SUPERIOR DE CARRITO QUE ABRE LA VENTANILLA GRANDE -->
+    <button class="cart-btn" onclick="openLargeCartModal()">
         CARRITO (<span id="cart-count">0</span>)
     </button>
 </header>
 
-<div class="overlay" id="overlay" onclick="closeAllModals()"></div>
+<!-- 1. VENTANILLA GRANDE DE PRODUCTOS EN EL CARRITO -->
+<div class="modal-overlay" id="large-cart-modal" onclick="modalClickOutside(event, 'large-cart-modal')">
+    <div class="modal-box modal-box-large">
+        <button class="modal-close" onclick="closeModal('large-cart-modal')">×</button>
+        <h3 style="font-size:24px; font-weight:900; letter-spacing:1px; margin-bottom:5px;">TU CARRITO DE COMPRAS</h3>
+        <span style="color:#9cff00; font-size:11px; letter-spacing:2px; display:block; margin-bottom:15px; font-weight:bold;">EQUIPAMIENTO SELECCIONADO</span>
 
-<!-- VENTANILLA AMAZON: AGREGADO AL CARRITO -->
+        <div class="full-cart-list" id="large-cart-items">
+            <!-- Los productos del carrito se renderizan aquí dinámicamente -->
+        </div>
+
+        <div class="added-cart-summary">
+            <span>Total acumulado:</span>
+            <span id="large-cart-total" style="color:#9cff00;">$0 MXN</span>
+        </div>
+
+        <div class="modal-action-buttons">
+            <button class="btn-continue" onclick="closeModal('large-cart-modal')">SEGUIR COMPRANDO</button>
+            <button class="btn-go-checkout" onclick="openDirectCheckoutFromCartModal()">PROCEDER AL PAGO</button>
+        </div>
+    </div>
+</div>
+
+<!-- 2. VENTANILLA DE CONFIRMACIÓN AL AGREGAR PRODUCTO -->
 <div class="modal-overlay" id="added-modal" onclick="modalClickOutside(event, 'added-modal')">
     <div class="modal-box">
         <button class="modal-close" onclick="closeModal('added-modal')">×</button>
@@ -884,13 +874,13 @@ footer p{
         </div>
 
         <div class="modal-action-buttons">
-            <button class="btn-continue" onclick="closeModal('added-modal')">SEGUIR COMPRANDO</button>
-            <button class="btn-go-checkout" onclick="openDirectCheckoutFromCart()">PROCEDER AL PAGO</button>
+            <button class="btn-continue" onclick="openLargeCartModal()">VER CARRITO COMPLETO</button>
+            <button class="btn-go-checkout" onclick="openDirectCheckoutFromAdded()">PROCEDER AL PAGO</button>
         </div>
     </div>
 </div>
 
-<!-- VENTANILLA DE COMPRA: PROCEDER DIRECTAMENTE AL PAGO -->
+<!-- 3. VENTANILLA DE PROCEDER DIRECTAMENTE AL PAGO -->
 <div class="modal-overlay" id="checkout-modal" onclick="modalClickOutside(event, 'checkout-modal')">
     <div class="modal-box">
         <button class="modal-close" onclick="closeModal('checkout-modal')">×</button>
@@ -908,7 +898,7 @@ footer p{
     </div>
 </div>
 
-<!-- MODAL FLOTANTE DE VISTA PREVIA -->
+<!-- 4. MODAL DE VISTA PREVIA -->
 <div class="modal-overlay" id="preview-modal" onclick="modalClickOutside(event, 'preview-modal')">
     <div class="modal-box">
         <button class="modal-close" onclick="closeModal('preview-modal')">×</button>
@@ -920,25 +910,6 @@ footer p{
         <p style="color:#bbb; font-size:14px; line-height:1.6;" id="pv-desc">
             Descripción técnica y acabados del producto.
         </p>
-    </div>
-</div>
-
-<!-- CARRITO LATERAL TRADICIONAL -->
-<div class="cart-drawer" id="cart-drawer">
-    <div class="cart-header">
-        <h2>Tu carrito</h2>
-        <button class="close-cart" onclick="closeCart()">×</button>
-    </div>
-
-    <div class="cart-items" id="cart-items"></div>
-
-    <div class="cart-total">
-        <span>Total</span>
-        <span id="cart-total">$0 MXN</span>
-    </div>
-
-    <div class="checkout-dark-container">
-        <div id="drawer-paypal-container"></div>
     </div>
 </div>
 
@@ -978,7 +949,7 @@ footer p{
     </div>
 </div>
 
-<!-- SECCIÓN TIENDA -->
+<!-- SECCIÓN TIENDA CON PRODUCTOS -->
 <section id="tienda">
     <div class="section-title">
         <small>PRODUCTOS</small>
@@ -1174,7 +1145,13 @@ function getCartTotal(){
     return cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
 }
 
-// 1. FLUJO ESTILO AMAZON: VENTANILLA AL AGREGAR AL CARRITO
+// 1. APERTURA DE LA VENTANILLA GRANDE DEL CARRITO
+function openLargeCartModal(){
+    updateCart();
+    openModal("large-cart-modal");
+}
+
+// 2. AGREGAR AL CARRITO (Muestra confirmación)
 function triggerAddToCart(baseName, price, sizeId, qtyId){
     const size = document.getElementById(sizeId).value;
     const quantity = parseInt(document.getElementById(qtyId).value) || 1;
@@ -1190,7 +1167,6 @@ function triggerAddToCart(baseName, price, sizeId, qtyId){
     saveCart();
     updateCart();
 
-    // Rellenar datos en la ventanilla de confirmación
     document.getElementById("added-name").innerText = fullName;
     document.getElementById("added-price").innerText = `$${itemTotal} MXN`;
     document.getElementById("added-subtotal").innerText = `$${getCartTotal()} MXN`;
@@ -1198,7 +1174,7 @@ function triggerAddToCart(baseName, price, sizeId, qtyId){
     openModal("added-modal");
 }
 
-// 2. FLUJO DIRECTO: VENTANILLA DE PAGO DIRECTO
+// 3. PAGAR AHORA DIRECTO
 function triggerDirectBuy(baseName, price, sizeId, qtyId){
     const size = document.getElementById(sizeId).value;
     const quantity = parseInt(document.getElementById(qtyId).value) || 1;
@@ -1216,8 +1192,17 @@ function triggerDirectBuy(baseName, price, sizeId, qtyId){
     openDirectCheckout();
 }
 
-function openDirectCheckoutFromCart(){
+function openDirectCheckoutFromAdded(){
     closeModal("added-modal");
+    openDirectCheckout();
+}
+
+function openDirectCheckoutFromCartModal(){
+    if (cart.length === 0) {
+        alert("Tu carrito está vacío. Agrega una prenda antes de pagar.");
+        return;
+    }
+    closeModal("large-cart-modal");
     openDirectCheckout();
 }
 
@@ -1225,6 +1210,57 @@ function openDirectCheckout(){
     document.getElementById("checkout-total").innerText = `$${getCartTotal()} MXN`;
     openModal("checkout-modal");
     renderDirectPaypal();
+}
+
+// RENDERIZADO DE ELEMENTOS EN EL CARRITO
+function removeFromCart(index){
+    cart.splice(index, 1);
+    saveCart();
+    updateCart();
+}
+
+function updateCart(){
+    const cartCount = document.getElementById("cart-count");
+    const largeCartContainer = document.getElementById("large-cart-items");
+    const largeCartTotal = document.getElementById("large-cart-total");
+
+    let total = 0;
+    let totalCount = 0;
+
+    if (largeCartContainer) {
+        largeCartContainer.innerHTML = "";
+
+        if (cart.length === 0) {
+            largeCartContainer.innerHTML = '<div class="empty-cart-msg">Tu carrito está vacío actualmente.</div>';
+        } else {
+            cart.forEach((item, index) => {
+                const itemQty = item.quantity || 1;
+                const subtotal = item.price * itemQty;
+                total += subtotal;
+                totalCount += itemQty;
+
+                const div = document.createElement("div");
+                div.className = "full-cart-item";
+                div.innerHTML = `
+                    <div>
+                        <h4>${item.name}</h4>
+                        <p>$${subtotal} MXN</p>
+                    </div>
+                    <button class="btn-del-item" onclick="removeFromCart(${index})">ELIMINAR</button>
+                `;
+                largeCartContainer.appendChild(div);
+            });
+        }
+    } else {
+        cart.forEach((item) => {
+            const itemQty = item.quantity || 1;
+            total += item.price * itemQty;
+            totalCount += itemQty;
+        });
+    }
+
+    if (cartCount) cartCount.textContent = totalCount;
+    if (largeCartTotal) largeCartTotal.textContent = "$" + total + " MXN";
 }
 
 // GESTIÓN DE MODALES
@@ -1241,68 +1277,12 @@ function closeModal(modalId){
 
 function closeAllModals(){
     document.querySelectorAll(".modal-overlay").forEach(m => m.classList.remove("active"));
-    closeCart();
 }
 
 function modalClickOutside(event, modalId){
     if(event.target.id === modalId){
         closeModal(modalId);
     }
-}
-
-// CARRITO LATERAL
-function removeFromCart(index){
-    cart.splice(index, 1);
-    saveCart();
-    updateCart();
-}
-
-function updateCart(){
-    const cartItems = document.getElementById("cart-items");
-    const cartCount = document.getElementById("cart-count");
-    const cartTotal = document.getElementById("cart-total");
-
-    if (cartItems) {
-        cartItems.innerHTML = "";
-        let total = 0;
-        let totalCount = 0;
-
-        cart.forEach((item, index) => {
-            const itemQty = item.quantity || 1;
-            const subtotal = item.price * itemQty;
-            total += subtotal;
-            totalCount += itemQty;
-
-            const div = document.createElement("div");
-            div.className = "cart-item";
-            div.innerHTML = `
-                <div>
-                    <h4>${item.name}</h4>
-                    <p>$${subtotal} MXN</p>
-                </div>
-                <button class="remove-item" onclick="removeFromCart(${index})">ELIMINAR</button>
-            `;
-            cartItems.appendChild(div);
-        });
-
-        if (cartCount) cartCount.textContent = totalCount;
-        if (cartTotal) cartTotal.textContent = "$" + total + " MXN";
-    }
-}
-
-function openCart(){
-    closeAllModals();
-    const drawer = document.getElementById("cart-drawer");
-    const overlay = document.getElementById("overlay");
-    if (drawer) drawer.classList.add("active");
-    if (overlay) overlay.classList.add("active");
-}
-
-function closeCart(){
-    const drawer = document.getElementById("cart-drawer");
-    const overlay = document.getElementById("overlay");
-    if (drawer) drawer.classList.remove("active");
-    if (overlay) overlay.classList.remove("active");
 }
 
 // VISTA PREVIA
@@ -1313,7 +1293,7 @@ function openPreview(title, desc){
     openModal("preview-modal");
 }
 
-// CONFIGURACIÓN DE LOS BOTONES DE PAYPAL
+// PAYPAL
 function getPaypalConfig(){
     return {
         onClick: function(data, actions) {
@@ -1354,7 +1334,6 @@ function getPaypalConfig(){
     };
 }
 
-let directPaypalRendered = false;
 function renderDirectPaypal(){
     const container = document.getElementById('direct-paypal-container');
     if (window.paypal && window.paypal.Buttons && container) {
@@ -1365,16 +1344,7 @@ function renderDirectPaypal(){
 
 window.addEventListener("load", function() {
     updateCart();
-
-    if (window.paypal && window.paypal.Buttons) {
-        const drawerContainer = document.getElementById('drawer-paypal-container');
-        if (drawerContainer) {
-            paypal.Buttons(getPaypalConfig()).render('#drawer-paypal-container');
-        }
-    }
 });
-
-updateCart();
 </script>
 
 </body>
