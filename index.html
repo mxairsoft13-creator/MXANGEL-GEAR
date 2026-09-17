@@ -233,7 +233,7 @@ section{
     letter-spacing:-2px;
 }
 
-/* CUADROS DE PRODUCTO */
+/* PRODUCTOS */
 .products{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -401,6 +401,160 @@ section{
     color:#9cff00;
 }
 
+/* ============================================================
+   SECCIÓN PERSONALIZACIÓN TÁCTICA
+============================================================ */
+.custom-lab-container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    background:#111411;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:8px;
+    padding:40px;
+}
+
+.custom-preview-box{
+    background:#171c17;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    min-height:420px;
+    text-align:center;
+}
+
+.custom-tshirt-svg{
+    width:180px;
+    height:180px;
+    fill:#1a1a1a;
+    stroke:#9cff00;
+    stroke-width:2;
+    transition:fill .3s;
+}
+
+.custom-design-slot{
+    width:130px;
+    height:130px;
+    margin-top:20px;
+    border:1px dashed rgba(156,255,0,.4);
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:rgba(0,0,0,.3);
+}
+
+.custom-design-slot img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:none;
+}
+
+.custom-options{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.custom-group{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.custom-group label{
+    font-size:12px;
+    color:#9cff00;
+    letter-spacing:1.5px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.color-options{
+    display:flex;
+    gap:12px;
+}
+
+.color-btn{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:.2s;
+}
+
+.color-btn.active{
+    border-color:#9cff00;
+    transform:scale(1.15);
+}
+
+.btn-radio-group{
+    display:flex;
+    gap:12px;
+}
+
+.radio-tactical-btn{
+    flex:1;
+    padding:12px;
+    background:#171c17;
+    border:1px solid rgba(255,255,255,.15);
+    color:#ccc;
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:1px;
+    cursor:pointer;
+    border-radius:4px;
+    transition:.2s;
+    text-align:center;
+}
+
+.radio-tactical-btn.active{
+    border-color:#9cff00;
+    color:#000;
+    background:#9cff00;
+}
+
+.file-upload-box{
+    position:relative;
+    border:1px dashed rgba(156,255,0,.4);
+    border-radius:4px;
+    padding:20px;
+    text-align:center;
+    background:#171c17;
+    cursor:pointer;
+}
+
+.file-upload-box input{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    cursor:pointer;
+    width:100%;
+    height:100%;
+}
+
+.file-upload-box span{
+    font-size:13px;
+    color:#bbb;
+}
+
+.custom-price-display{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.1);
+    font-size:20px;
+    font-weight:bold;
+}
+
 /* MODALES PANTALLA COMPLETA */
 .modal-overlay{
     position:fixed;
@@ -470,7 +624,6 @@ section{
     font-weight:bold;
 }
 
-/* FILAS DE PRODUCTO EN CARRITO */
 .cart-row-item{
     display:flex;
     align-items:center;
@@ -839,6 +992,9 @@ footer p{
     .products{
         grid-template-columns:1fr 1fr;
     }
+    .custom-lab-container{
+        grid-template-columns:1fr;
+    }
     .collections{
         grid-template-columns:1fr;
     }
@@ -909,6 +1065,7 @@ footer p{
     <nav>
         <a href="#inicio">INICIO</a>
         <a href="#tienda">TIENDA</a>
+        <a href="#personalizar">PERSONALIZAR</a>
         <a href="#colecciones">COLECCIONES</a>
         <a href="#nosotros">NOSOTROS</a>
         <a href="#redes">REDES</a>
@@ -1009,7 +1166,7 @@ footer p{
     </div>
 </div>
 
-<!-- 5. PANTALLA COMPLETA: MODAL DE COLECCIÓN (CON CUADROS COMPLETOS DE PRODUCTOS) -->
+<!-- 5. PANTALLA COMPLETA: MODAL DE COLECCIÓN -->
 <div class="modal-overlay" id="collection-modal">
     <div class="modal-box-fullscreen">
         <button class="modal-close" onclick="closeModal('collection-modal')">×</button>
@@ -1020,11 +1177,11 @@ footer p{
             Descripción oficial de la colección.
         </p>
 
-        <!-- Cuadrícula con los mismos cuadros de productos de la tienda -->
         <div class="products" id="col-products-grid" style="margin-bottom:40px;"></div>
 
         <div class="modal-action-buttons" style="margin-top:auto;">
             <button class="btn-continue" onclick="closeModal('collection-modal')">← REGRESAR A COLECCIONES</button>
+            <button class="btn-go-checkout" onclick="closeModal('collection-modal'); window.location.href='#tienda';">IR A LA TIENDA →</button>
         </div>
     </div>
 </div>
@@ -1045,7 +1202,7 @@ footer p{
         </p>
         <div class="hero-buttons">
             <a href="#tienda" class="btn btn-primary">VER TIENDA</a>
-            <a href="#colecciones" class="btn btn-secondary">COLECCIONES</a>
+            <a href="#personalizar" class="btn btn-secondary">CUSTOM LAB</a>
         </div>
     </div>
 </section>
@@ -1197,6 +1354,99 @@ footer p{
             </div>
         </div>
 
+    </div>
+</section>
+
+<!-- ============================================================
+     SECCIÓN PERSONALIZAR ROPA (CUSTOM LAB)
+============================================================ -->
+<section id="personalizar">
+    <div class="section-title">
+        <small>MXANGEL LAB</small>
+        <h2>DISEÑA TU EQUIPAMIENTO</h2>
+    </div>
+
+    <div class="custom-lab-container">
+        <!-- Preview de la playera -->
+        <div class="custom-preview-box">
+            <svg class="custom-tshirt-svg" id="custom-tshirt-svg" viewBox="0 0 100 100">
+                <path d="M 30,10 L 40,22 C 45,24 55,24 60,22 L 70,10 L 95,28 L 82,48 L 74,42 L 74,90 L 26,90 L 26,42 L 18,48 L 5,28 Z" />
+            </svg>
+            <div class="custom-design-slot" id="custom-design-slot">
+                <span id="slot-placeholder" style="font-size:11px; color:#777; text-transform:uppercase; font-weight:bold;">Tu Diseño</span>
+                <img id="custom-preview-img" alt="Vista previa de diseño">
+            </div>
+            <p id="custom-summary-text" style="color:#aaa; font-size:12px; margin-top:15px; letter-spacing:1px;">
+                PLAYERA NEGRA • UN LADO • TALLA M
+            </p>
+        </div>
+
+        <!-- Opciones de personalización -->
+        <div class="custom-options">
+            <!-- 1. Color de playera -->
+            <div class="custom-group">
+                <label>1. Color de la playera</label>
+                <div class="color-options">
+                    <button class="color-btn active" style="background:#141414;" onclick="setShirtColor('#141414', 'Negro', this)"></button>
+                    <button class="color-btn" style="background:#f4f4f4;" onclick="setShirtColor('#e8e8e8', 'Blanco', this)"></button>
+                    <button class="color-btn" style="background:#2d3a2d;" onclick="setShirtColor('#2d3a2d', 'Verde Militar', this)"></button>
+                    <button class="color-btn" style="background:#1c2430;" onclick="setShirtColor('#1c2430', 'Azul Táctico', this)"></button>
+                </div>
+            </div>
+
+            <!-- 2. Lados de estampado -->
+            <div class="custom-group">
+                <label>2. Lados de estampado</label>
+                <div class="btn-radio-group">
+                    <button class="radio-tactical-btn active" id="btn-side-1" onclick="setShirtSides('1 Lado (Frente)', 499, this)">
+                        Solo Frente ($499 MXN)
+                    </button>
+                    <button class="radio-tactical-btn" id="btn-side-2" onclick="setShirtSides('2 Lados (Frente y Espalda)', 599, this)">
+                        Ambos Lados ($599 MXN)
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Talla y Cantidad -->
+            <div class="product-controls">
+                <div class="control-group">
+                    <label style="font-size:12px; color:#9cff00; letter-spacing:1.5px; font-weight:bold; text-transform:uppercase;">3. Talla</label>
+                    <select id="custom-size" class="tactical-select" onchange="updateCustomSummary()">
+                        <option value="S">S</option>
+                        <option value="M" selected>M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label style="font-size:12px; color:#9cff00; letter-spacing:1.5px; font-weight:bold; text-transform:uppercase;">4. Cantidad</label>
+                    <input type="number" id="custom-qty" class="tactical-input" value="1" min="1" max="10" onchange="updateCustomSummary()">
+                </div>
+            </div>
+
+            <!-- 4. Subir archivo de diseño -->
+            <div class="custom-group">
+                <label>5. Subir diseño / logotipo (PNG, JPG)</label>
+                <div class="file-upload-box">
+                    <input type="file" id="custom-file-input" accept="image/*" onchange="handleCustomFileUpload(event)">
+                    <span id="upload-status-text">📁 Toca aquí para subir tu imagen o vector</span>
+                </div>
+            </div>
+
+            <!-- Precio y botones de acción -->
+            <div class="custom-price-display">
+                <span>Precio Unitario:</span>
+                <span id="custom-price-tag" style="color:#9cff00;">$499 MXN</span>
+            </div>
+
+            <button class="btn-buy-now" onclick="triggerCustomDirectBuy()">
+                ⚡ PAGAR AHORA
+            </button>
+            <button class="add-cart" onclick="triggerCustomAddToCart()">
+                AGREGAR AL CARRITO
+            </button>
+        </div>
     </div>
 </section>
 
@@ -1419,6 +1669,102 @@ function updateCart(){
     if (largeCartTotal) largeCartTotal.textContent = "$" + total + " MXN";
 }
 
+// ============================================================
+// LÓGICA DE PERSONALIZACIÓN
+// ============================================================
+let customConfig = {
+    colorName: "Negro",
+    sides: "1 Lado (Frente)",
+    price: 499,
+    fileName: ""
+};
+
+function setShirtColor(hex, name, btn){
+    document.getElementById("custom-tshirt-svg").style.fill = hex;
+    document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    customConfig.colorName = name;
+    updateCustomSummary();
+}
+
+function setShirtSides(sidesText, price, btn){
+    document.querySelectorAll(".radio-tactical-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    customConfig.sides = sidesText;
+    customConfig.price = price;
+    document.getElementById("custom-price-tag").innerText = `$${price} MXN`;
+    updateCustomSummary();
+}
+
+function handleCustomFileUpload(event){
+    const file = event.target.files[0];
+    if(file){
+        customConfig.fileName = file.name;
+        document.getElementById("upload-status-text").innerText = `✓ ${file.name}`;
+        
+        const reader = new FileReader();
+        reader.onload = function(e){
+            const img = document.getElementById("custom-preview-img");
+            img.src = e.target.result;
+            img.style.display = "block";
+            document.getElementById("slot-placeholder").style.display = "none";
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function updateCustomSummary(){
+    const size = document.getElementById("custom-size").value;
+    const summary = `PLAYERA ${customConfig.colorName.toUpperCase()} • ${customConfig.sides.toUpperCase()} • TALLA ${size}`;
+    document.getElementById("custom-summary-text").innerText = summary;
+}
+
+function triggerCustomAddToCart(){
+    const size = document.getElementById("custom-size").value;
+    const quantity = Math.max(1, parseInt(document.getElementById("custom-qty").value) || 1);
+    const name = `PLAYERA CUSTOM [${customConfig.colorName}] - ${customConfig.sides} ${customConfig.fileName ? '(' + customConfig.fileName + ')' : ''}`;
+
+    cart.push({
+        baseName: name,
+        size: size,
+        price: customConfig.price,
+        quantity: quantity,
+        tag: "CUSTOM"
+    });
+
+    saveCart();
+    updateCart();
+
+    const itemTotal = customConfig.price * quantity;
+    document.getElementById("added-thumb").innerText = "CUSTOM";
+    document.getElementById("added-name").innerText = name;
+    document.getElementById("added-size").innerText = size;
+    document.getElementById("added-qty").innerText = quantity;
+    document.getElementById("added-price").innerText = `$${itemTotal} MXN`;
+    document.getElementById("added-subtotal").innerText = `$${getCartTotal()} MXN`;
+
+    openModal("added-modal");
+}
+
+function triggerCustomDirectBuy(){
+    const size = document.getElementById("custom-size").value;
+    const quantity = Math.max(1, parseInt(document.getElementById("custom-qty").value) || 1);
+    const name = `PLAYERA CUSTOM [${customConfig.colorName}] - ${customConfig.sides}`;
+
+    directBuyItem = {
+        baseName: name,
+        size: size,
+        price: customConfig.price,
+        quantity: quantity,
+        tag: "CUSTOM"
+    };
+
+    const directTotal = customConfig.price * quantity;
+    document.getElementById("checkout-total").innerText = `$${directTotal} MXN`;
+    openModal("checkout-modal");
+    renderDirectPaypal(directTotal, `Compra Express MXANGEL GEAR: ${name} [${size}] x${quantity}`);
+}
+
 // CONTROL DE MODALES
 function openModal(modalId){
     closeAllModals();
@@ -1450,7 +1796,7 @@ function openPreview(title, desc){
     openModal("preview-modal");
 }
 
-// DEFINICIÓN COMPLETA DE COLECCIONES CON CUADROS IDÉNTICOS A LA TIENDA
+// DATOS DE COLECCIONES (SOLO EXPOSICIÓN)
 const collectionsData = {
     origen: {
         title: "COLECCIÓN ORIGEN",
@@ -1460,22 +1806,14 @@ const collectionsData = {
             {
                 name: "PLAYERA MXANGEL / CORE",
                 subtitle: "Diseño clásico MXANGEL GEAR.",
-                price: 449,
                 placeholder: "PLAYERA MXANGEL",
-                tag: "CORE",
-                desc: "Algodón peinado premium 100%, serigrafía táctica de alta duración y ajuste ergonómico reforzado.",
-                sizeId: "col-size-core",
-                qtyId: "col-qty-core"
+                desc: "Algodón peinado premium 100%, serigrafía táctica de alta duración y ajuste ergonómico reforzado."
             },
             {
                 name: "HOODIE / ORIGEN",
                 subtitle: "Comodidad y estilo para cualquier ocasión.",
-                price: 799,
                 placeholder: "HOODIE ORIGEN",
-                tag: "HOODIE",
-                desc: "Sudadera con capucha táctica, felpa interior térmica ultrasuave, bolsillo canguro y cordones ajustables reforzados.",
-                sizeId: "col-size-hoodie",
-                qtyId: "col-qty-hoodie"
+                desc: "Sudadera con capucha táctica, felpa interior térmica ultrasuave, bolsillo canguro y cordones ajustables reforzados."
             }
         ]
     },
@@ -1487,18 +1825,13 @@ const collectionsData = {
             {
                 name: "PLAYERA / SIMULATION",
                 subtitle: "Inspirada en el universo táctico.",
-                price: 499,
                 placeholder: "SIMULATION",
-                tag: "SIMULATION",
-                desc: "Inspirada en simulaciones tácticas militares. Gráficos de alta definición, transpirable y resistente a lavados intensos.",
-                sizeId: "col-size-sim",
-                qtyId: "col-qty-sim"
+                desc: "Inspirada en simulaciones tácticas militares. Gráficos de alta definición, transpirable y resistente a lavados intensos."
             }
         ]
     }
 };
 
-// APERTURA DE LA COLECCIÓN CON CUADROS FUNCIONALES
 function openCollectionModal(type){
     const data = collectionsData[type];
     if(!data) return;
@@ -1524,32 +1857,6 @@ function openCollectionModal(type){
             <div class="product-info">
                 <h3>${p.name}</h3>
                 <p>${p.subtitle}</p>
-                <div class="price">$${p.price} MXN</div>
-
-                <div class="product-controls">
-                    <div class="control-group">
-                        <label>Talla</label>
-                        <select id="${p.sizeId}" class="tactical-select">
-                            <option value="S">S</option>
-                            <option value="M" selected>M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                            <option value="XXL">XXL</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label>Cantidad</label>
-                        <input type="number" id="${p.qtyId}" class="tactical-input" value="1" min="1" max="10">
-                    </div>
-                </div>
-
-                <button class="btn-buy-now" onclick="triggerDirectBuy('${p.name}', ${p.price}, '${p.sizeId}', '${p.qtyId}', '${p.tag}')">
-                    ⚡ PAGAR AHORA
-                </button>
-
-                <button class="add-cart" onclick="triggerAddToCart('${p.name}', ${p.price}, '${p.sizeId}', '${p.qtyId}', '${p.tag}')">
-                    AGREGAR AL CARRITO
-                </button>
             </div>
         `;
         grid.appendChild(card);
