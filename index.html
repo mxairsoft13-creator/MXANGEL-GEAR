@@ -1221,7 +1221,7 @@ footer p{
     </div>
 </div>
 
-<!-- SECCIÓN TIENDA CON VARIACIÓN DE PRECIO POR TALLA -->
+<!-- SECCIÓN TIENDA -->
 <section id="tienda">
     <div class="section-title">
         <small>PRODUCTOS</small>
@@ -1248,11 +1248,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-1" class="tactical-select" onchange="updateProductPrice(449, 'size-1', 'price-display-1')">
-                            <option value="S">S</option>
-                            <option value="M" selected>M</option>
-                            <option value="L">L</option>
+                            <option value="S">S (-$20)</option>
+                            <option value="M" selected>M (Base)</option>
+                            <option value="L">L (+$20)</option>
                             <option value="XL">XL (+$40)</option>
-                            <option value="XXL">XXL (+$70)</option>
+                            <option value="XXL">XXL (+$60)</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -1289,11 +1289,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-2" class="tactical-select" onchange="updateProductPrice(799, 'size-2', 'price-display-2')">
-                            <option value="S">S</option>
-                            <option value="M" selected>M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL (+$50)</option>
-                            <option value="XXL">XXL (+$90)</option>
+                            <option value="S">S (-$20)</option>
+                            <option value="M" selected>M (Base)</option>
+                            <option value="L">L (+$20)</option>
+                            <option value="XL">XL (+$40)</option>
+                            <option value="XXL">XXL (+$60)</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -1330,11 +1330,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-3" class="tactical-select" onchange="updateProductPrice(499, 'size-3', 'price-display-3')">
-                            <option value="S">S</option>
-                            <option value="M" selected>M</option>
-                            <option value="L">L</option>
+                            <option value="S">S (-$20)</option>
+                            <option value="M" selected>M (Base)</option>
+                            <option value="L">L (+$20)</option>
                             <option value="XL">XL (+$40)</option>
-                            <option value="XXL">XXL (+$70)</option>
+                            <option value="XXL">XXL (+$60)</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -1356,7 +1356,7 @@ footer p{
     </div>
 </section>
 
-<!-- SECCIÓN PERSONALIZAR ROPA (CUSTOM LAB: SOLO BLANCO Y NEGRO) -->
+<!-- SECCIÓN PERSONALIZAR ROPA (CUSTOM LAB) -->
 <section id="personalizar">
     <div class="section-title">
         <small>MXANGEL LAB</small>
@@ -1402,11 +1402,11 @@ footer p{
                 <div class="control-group">
                     <label style="font-size:12px; color:#9cff00; letter-spacing:1.5px; font-weight:bold; text-transform:uppercase;">3. Talla</label>
                     <select id="custom-size" class="tactical-select" onchange="updateCustomPriceAndSummary()">
-                        <option value="S">S</option>
-                        <option value="M" selected>M</option>
-                        <option value="L">L</option>
+                        <option value="S">S (-$20)</option>
+                        <option value="M" selected>M (Base)</option>
+                        <option value="L">L (+$20)</option>
                         <option value="XL">XL (+$40)</option>
-                        <option value="XXL">XXL (+$70)</option>
+                        <option value="XXL">XXL (+$60)</option>
                     </select>
                 </div>
                 <div class="control-group">
@@ -1514,18 +1514,24 @@ function getCartTotal(){
     return cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
 }
 
-// CÁLCULO DE PRECIO SEGÚN TALLA
+// CÁLCULO INDIVIDUAL DE PRECIO POR CADA TALLA
 function calculateSizePrice(basePrice, size){
-    let extra = 0;
-    if(size === "XL") {
-        extra = basePrice >= 700 ? 50 : 40;
+    let adjustment = 0;
+    if(size === "S") {
+        adjustment = -20; // Entrada económica accesible
+    } else if(size === "M") {
+        adjustment = 0;   // Precio base oficial
+    } else if(size === "L") {
+        adjustment = 20;  // Incremento ligero accesible
+    } else if(size === "XL") {
+        adjustment = 40;  // Incremento moderado
     } else if(size === "XXL") {
-        extra = basePrice >= 700 ? 90 : 70;
+        adjustment = 60;  // Incremento máximo accesible
     }
-    return basePrice + extra;
+    return basePrice + adjustment;
 }
 
-// ACTUALIZACIÓN DE PRECIO EN CUADROS
+// ACTUALIZACIÓN VISUAL EN VIVO
 function updateProductPrice(basePrice, selectId, displayId){
     const size = document.getElementById(selectId).value;
     const finalPrice = calculateSizePrice(basePrice, size);
@@ -1675,7 +1681,7 @@ function updateCart(){
     if (largeCartTotal) largeCartTotal.textContent = "$" + total + " MXN";
 }
 
-// PERSONALIZACIÓN (SOLO BLANCO Y NEGRO)
+// PERSONALIZACIÓN CON VARIACIÓN INDIVIDUAL POR TALLA
 let customConfig = {
     colorName: "Negro",
     sides: "1 Lado (Frente)",
