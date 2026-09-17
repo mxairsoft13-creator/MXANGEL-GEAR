@@ -428,36 +428,18 @@ section{
 
 .shirt-preview-stage{
     position:relative;
-    width:180px;
-    height:180px;
+    width:280px;
+    height:280px;
     display:flex;
     align-items:center;
     justify-content:center;
+    margin-bottom:20px;
 }
 
 .custom-tshirt-svg{
-    width:180px;
-    height:180px;
-    fill:#141414;
-    stroke:#9cff00;
-    stroke-width:2;
-    transition:fill .3s;
-    position:absolute;
-    inset:0;
-    z-index:1;
-}
-
-.shirt-design-preview{
-    position:absolute;
-    z-index:2;
-    width:62px;
-    height:72px;
-    object-fit:contain;
-    top:67px;
-    left:50%;
-    transform:translateX(-50%);
-    display:none;
-    pointer-events:none;
+    width:280px;
+    height:280px;
+    overflow:visible;
 }
 
 .custom-design-slot{
@@ -1393,10 +1375,28 @@ footer p{
         <div class="custom-preview-box">
             <div class="shirt-preview-stage">
                 <svg class="custom-tshirt-svg" id="custom-tshirt-svg" viewBox="0 0 100 100">
-                <path d="M 30,10 L 40,22 C 45,24 55,24 60,22 L 70,10 L 95,28 L 82,48 L 74,42 L 74,90 L 26,90 L 26,42 L 18,48 L 5,28 Z" />
-            </svg>
+                    <defs>
+                        <clipPath id="shirt-clip">
+                            <path d="M 30,10 L 40,22 C 45,24 55,24 60,22 L 70,10 L 95,28 L 82,48 L 74,42 L 74,90 L 26,90 L 26,42 L 18,48 L 5,28 Z" />
+                        </clipPath>
+                    </defs>
 
-                <img id="shirt-design-preview" class="shirt-design-preview" alt="Diseño sobre la playera">
+                    <path id="shirt-base"
+                          d="M 30,10 L 40,22 C 45,24 55,24 60,22 L 70,10 L 95,28 L 82,48 L 74,42 L 74,90 L 26,90 L 26,42 L 18,48 L 5,28 Z"
+                          fill="#141414" />
+
+                    <image id="shirt-design-preview"
+                           x="5" y="10"
+                           width="90" height="80"
+                           preserveAspectRatio="xMidYMid slice"
+                           clip-path="url(#shirt-clip)"
+                           style="display:none;" />
+
+                    <path d="M 30,10 L 40,22 C 45,24 55,24 60,22 L 70,10 L 95,28 L 82,48 L 74,42 L 74,90 L 26,90 L 26,42 L 18,48 L 5,28 Z"
+                          fill="none"
+                          stroke="#9cff00"
+                          stroke-width="2" />
+                </svg>
             </div>
 
             <div class="custom-design-slot" id="custom-design-slot">
@@ -1721,9 +1721,15 @@ let customConfig = {
 };
 
 function setShirtColor(hex, name, btn){
-    document.getElementById("custom-tshirt-svg").style.fill = hex;
+    const shirtBase = document.getElementById("shirt-base");
+
+    if(shirtBase){
+        shirtBase.setAttribute("fill", hex);
+    }
+
     document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
+
     customConfig.colorName = name;
     updateCustomPriceAndSummary();
 }
@@ -1758,12 +1764,10 @@ function handleCustomFileUpload(event){
             const shirtPreview = document.getElementById("shirt-design-preview");
             const placeholder = document.getElementById("slot-placeholder");
 
-            // Vista previa en el cuadrito de abajo
             lowerPreview.src = e.target.result;
             lowerPreview.style.display = "block";
 
-            // La misma imagen sobre el boceto de la playera
-            shirtPreview.src = e.target.result;
+            shirtPreview.setAttribute("href", e.target.result);
             shirtPreview.style.display = "block";
 
             placeholder.style.display = "none";
