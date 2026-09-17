@@ -357,6 +357,163 @@ section{
     margin-top:20px;
 }
 
+/* ====================================
+   SECCIÓN DE REDES Y CÓDIGO QR
+==================================== */
+.social-qr-section{
+    background:#050705;
+    border-top:1px solid rgba(255,255,255,.08);
+    text-align:center;
+    padding:80px 6%;
+}
+
+.social-qr-section small{
+    color:#9cff00;
+    font-size:12px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+.social-qr-section h2{
+    font-size:42px;
+    margin:12px 0;
+    letter-spacing:-1px;
+}
+
+.social-qr-section p{
+    color:#aaa;
+    max-width:550px;
+    margin:0 auto 30px;
+    font-size:15px;
+    line-height:1.6;
+}
+
+.qr-trigger-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 28px;
+    background:#9cff00;
+    color:#000;
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    border:none;
+    cursor:pointer;
+    transition:.3s;
+    border-radius:4px;
+}
+
+.qr-trigger-btn:hover{
+    background:#fff;
+    transform:translateY(-3px);
+    box-shadow:0 0 25px rgba(156,255,0,.4);
+}
+
+.social-links{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.social-link-btn{
+    padding:12px 22px;
+    background:#111411;
+    border:1px solid rgba(156,255,0,.4);
+    color:#9cff00;
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:1.5px;
+    border-radius:4px;
+    transition:.2s;
+}
+
+.social-link-btn:hover{
+    background:#9cff00;
+    color:#000;
+}
+
+/* MODAL DE CÓDIGO QR */
+.qr-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(8px);
+    z-index:3000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.qr-modal.active{
+    display:flex;
+}
+
+.qr-modal-content{
+    background:#101310;
+    border:1px solid #9cff00;
+    box-shadow:0 0 40px rgba(156,255,0,.2);
+    border-radius:6px;
+    padding:35px 25px;
+    max-width:420px;
+    width:100%;
+    text-align:center;
+    position:relative;
+}
+
+.qr-modal-close{
+    position:absolute;
+    top:12px;
+    right:15px;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:26px;
+    cursor:pointer;
+}
+
+.qr-modal-close:hover{
+    color:#9cff00;
+}
+
+.qr-modal-content h3{
+    font-size:24px;
+    margin-bottom:6px;
+}
+
+.qr-modal-content p{
+    color:#9cff00;
+    font-size:12px;
+    letter-spacing:2px;
+    margin-bottom:20px;
+    text-transform:uppercase;
+    font-weight:bold;
+}
+
+.qr-box{
+    background:#fff;
+    padding:12px;
+    border-radius:6px;
+    display:inline-block;
+    border:2px solid #9cff00;
+}
+
+.qr-box img{
+    width:230px;
+    height:230px;
+    display:block;
+}
+
+.qr-tip{
+    color:#888;
+    font-size:12px;
+    margin-top:18px;
+    line-height:1.5;
+}
+
 footer{
     padding:50px 8%;
     background:#050605;
@@ -470,7 +627,6 @@ footer p{
     padding-top:12px;
 }
 
-/* Área de botones y formulario de PayPal con tema oscuro táctico */
 .checkout-dark-container{
     max-height:50vh;
     overflow-y:auto;
@@ -567,6 +723,7 @@ footer p{
         <a href="#tienda">TIENDA</a>
         <a href="#colecciones">COLECCIONES</a>
         <a href="#nosotros">NOSOTROS</a>
+        <a href="#redes">REDES</a>
     </nav>
 
     <button class="cart-btn" onclick="openCart()">
@@ -590,7 +747,6 @@ footer p{
         <span id="cart-total">$0 MXN</span>
     </div>
 
-    <!-- Contenedor directo de botones PayPal -->
     <div class="checkout-dark-container">
         <div id="paypal-button-container"></div>
     </div>
@@ -794,6 +950,43 @@ footer p{
 
 </section>
 
+<!-- ====================================
+     SECCIÓN DE REDES Y ESCÁNER QR
+==================================== -->
+<section class="social-qr-section" id="redes">
+    <small>COMUNIDAD & REDES</small>
+    <h2>ÚNETE AL DESPLIEGUE</h2>
+    <p>Escanea con tu celular para acceder a todas mis plataformas oficiales y comunidad.</p>
+    
+    <button class="qr-trigger-btn" onclick="openQrModal()">
+        <span>📲</span> ESCANEAR CÓDIGO QR DE REDES
+    </button>
+
+    <div class="social-links">
+        <a href="https://mxairsoft13-creator.github.io/MxAngelYt2311/" target="_blank" class="social-link-btn">
+            PORTAL OFICIAL DE REDES SOCIALES ↗
+        </a>
+    </div>
+</section>
+
+<!-- VENTANA MODAL DEL CÓDIGO QR -->
+<div class="qr-modal" id="qr-modal" onclick="closeQrModal(event)">
+    <div class="qr-modal-content">
+        <button class="qr-modal-close" onclick="closeQrModal()">×</button>
+        <h3>MXANGEL</h3>
+        <p>REDES SOCIALES OFICIALES</p>
+        
+        <div class="qr-box">
+            <!-- QR generado para tu portal de redes -->
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://mxairsoft13-creator.github.io/MxAngelYt2311/&format=png" alt="QR Redes Sociales MXANGEL" />
+        </div>
+
+        <div class="qr-tip">
+            Apunta la cámara de tu celular para abrir el portal con todos mis perfiles oficiales.
+        </div>
+    </div>
+</div>
+
 <footer>
 
     <div class="footer-logo">
@@ -880,6 +1073,19 @@ function closeCart(){
     if (overlay) overlay.classList.remove("active");
 }
 
+// CONTROL DEL MODAL DE CÓDIGO QR
+function openQrModal(){
+    const modal = document.getElementById("qr-modal");
+    if (modal) modal.classList.add("active");
+}
+
+function closeQrModal(e){
+    const modal = document.getElementById("qr-modal");
+    if (!e || e.target === modal || e.target.classList.contains("qr-modal-close")) {
+        if (modal) modal.classList.remove("active");
+    }
+}
+
 window.addEventListener("load", function() {
     updateCart();
 
@@ -897,7 +1103,7 @@ window.addEventListener("load", function() {
                 const currentTotal = getCartTotal();
                 return actions.order.create({
                     application_context: {
-                        shipping_preference: 'GET_FROM_FILE' // Solicita el domicilio dentro del flujo de pago de PayPal
+                        shipping_preference: 'GET_FROM_FILE'
                     },
                     purchase_units: [{
                         description: "Pedido MXANGEL GEAR",
