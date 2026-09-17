@@ -907,7 +907,7 @@ footer p{
 
 </div>
 
-<!-- SECCIÓN TIENDA CON MINI-INTERFAZ Y HOVER PREVIEW -->
+<!-- SECCIÓN TIENDA CON TALLAS S, M, L, XL, XXL -->
 <section id="tienda">
 
     <div class="section-title">
@@ -936,10 +936,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-1" class="tactical-select">
-                            <option value="CH">CH</option>
+                            <option value="S">S</option>
                             <option value="M" selected>M</option>
-                            <option value="G">G</option>
+                            <option value="L">L</option>
                             <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -979,10 +980,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-2" class="tactical-select">
-                            <option value="CH">CH</option>
+                            <option value="S">S</option>
                             <option value="M" selected>M</option>
-                            <option value="G">G</option>
+                            <option value="L">L</option>
                             <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -1022,10 +1024,11 @@ footer p{
                     <div class="control-group">
                         <label>Talla</label>
                         <select id="size-3" class="tactical-select">
-                            <option value="CH">CH</option>
+                            <option value="S">S</option>
                             <option value="M" selected>M</option>
-                            <option value="G">G</option>
+                            <option value="L">L</option>
                             <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -1179,7 +1182,6 @@ function buyNow(baseName, price, sizeId, qtyId){
     updateCart();
     openCart();
 
-    // Desplaza la vista suavemente hasta los botones de pago
     setTimeout(() => {
         const container = document.querySelector('.checkout-dark-container');
         if(container) container.scrollIntoView({ behavior: 'smooth' });
