@@ -2367,18 +2367,16 @@ TIENDA
 
             <div class="product-img-container">
 
-                <div class="product-img-placeholder">
-                    HOODIE ORIGEN
-                </div>
+                <img
+                    src="hoodie-origen.jpg"
+                    alt="HOODIE ORIGEN frente y espalda"
+                    class="real-product-preview"
+                >
 
                 <button
                     class="preview-btn"
-                    onclick="
-                        openPreview(
-                            'HOODIE / ORIGEN',
-                            'Sudadera con capucha táctica, felpa interior térmica ultrasuave, bolsillo canguro y cordones ajustables reforzados.'
-                        )
-                    ">
+                    type="button"
+                    onclick="openHoodieOrigenPreview()">
 
                     👁 VISTA PREVIA
 
@@ -4629,10 +4627,11 @@ function openPreview(
 
 
 /* =====================================================
-VISTAS PREVIAS: NIGHT OPS + ZONA ROJA
+VISTAS PREVIAS: NIGHT OPS + ZONA ROJA + HOODIE ORIGEN
 ===================================================== */
 
 const productPreviewData = {
+
     nightops: {
         title: "PLAYERA MXANGEL / NIGHT OPS",
         desc: "Selecciona FRENTE o ESPALDA para ver ambos lados de la playera.",
@@ -4645,7 +4644,15 @@ const productPreviewData = {
         desc: "Selecciona FRENTE o ESPALDA para ver ambos lados de la PLAYERA / SIMULATION ZONA ROJA.",
         front: "zonaroja-blanca-frente.png",
         back: "zonaroja-blanca-espalda.png"
+    },
+
+    hoodieorigen: {
+        title: "HOODIE / ORIGEN",
+        desc: "Selecciona FRENTE o ESPALDA para ver ambos lados del HOODIE / ORIGEN.",
+        front: "hoodie-origen-frente.jpg",
+        back: "hoodie-origen-espalda.jpg"
     }
+
 };
 
 let currentPreviewProduct = null;
@@ -4662,16 +4669,23 @@ function openProductPreview(productKey){
     currentPreviewProduct = productKey;
     currentPreviewView = "front";
 
-    document.getElementById("pv-title").innerText = product.title;
-    document.getElementById("pv-desc").innerText = product.desc;
+    document
+    .getElementById("pv-title")
+    .innerText = product.title;
 
-    const controls = document.getElementById("pv-view-controls");
+    document
+    .getElementById("pv-desc")
+    .innerText = product.desc;
+
+    const controls =
+        document.getElementById("pv-view-controls");
 
     if(controls){
         controls.style.display = "flex";
     }
 
     renderProductPreview();
+
     openModal("preview-modal");
 }
 
@@ -4683,20 +4697,28 @@ function openZoneRojaPreview(){
     openProductPreview("zonaroja");
 }
 
+function openHoodieOrigenPreview(){
+    openProductPreview("hoodieorigen");
+}
+
 function renderProductPreview(){
 
     if(!currentPreviewProduct){
         return;
     }
 
-    const product = productPreviewData[currentPreviewProduct];
-    const pvImg = document.getElementById("pv-img");
+    const product =
+        productPreviewData[currentPreviewProduct];
+
+    const pvImg =
+        document.getElementById("pv-img");
 
     if(!pvImg){
         return;
     }
 
-    const imagePath = product[currentPreviewView];
+    const imagePath =
+        product[currentPreviewView];
 
     pvImg.innerHTML =
         '<img src="' +
@@ -4705,8 +4727,11 @@ function renderProductPreview(){
         product.title +
         '">';
 
-    const frontBtn = document.getElementById("pv-front-btn");
-    const backBtn = document.getElementById("pv-back-btn");
+    const frontBtn =
+        document.getElementById("pv-front-btn");
+
+    const backBtn =
+        document.getElementById("pv-back-btn");
 
     if(frontBtn){
         frontBtn.classList.toggle(
@@ -4730,6 +4755,7 @@ function changeProductPreviewView(view){
     }
 
     currentPreviewView = view;
+
     renderProductPreview();
 }
 
