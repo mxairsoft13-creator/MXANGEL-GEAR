@@ -1311,6 +1311,87 @@ UBICACIÓN DE ENTREGA
     height:256px !important;
 }
 
+
+.delivery-search-row{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.delivery-address-input{
+    width:100%;
+    min-height:46px;
+    background:#0b0d0b;
+    border:1px solid rgba(255,255,255,.15);
+    color:#fff;
+    border-radius:4px;
+    padding:11px 13px;
+    font-size:14px;
+    outline:none;
+}
+
+.delivery-address-input:focus{
+    border-color:#9cff00;
+}
+
+.delivery-search-btn{
+    min-height:46px;
+    padding:0 18px;
+    background:#171c17;
+    border:1px solid #9cff00;
+    color:#9cff00;
+    border-radius:4px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.delivery-search-btn:hover{
+    background:#9cff00;
+    color:#000;
+}
+
+.delivery-address-result{
+    margin-top:12px;
+    padding:12px 14px;
+    background:#0b0d0b;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:4px;
+    color:#aaa;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.delivery-address-result strong{
+    color:#fff;
+}
+
+.delivery-reference-input{
+    width:100%;
+    min-height:76px;
+    resize:vertical;
+    margin-top:10px;
+    background:#0b0d0b;
+    border:1px solid rgba(255,255,255,.12);
+    color:#fff;
+    border-radius:4px;
+    padding:11px 13px;
+    font-size:13px;
+    outline:none;
+}
+
+.delivery-reference-input:focus{
+    border-color:#9cff00;
+}
+
+@media(max-width:600px){
+    .delivery-search-row{
+        grid-template-columns:1fr;
+    }
+}
+
 .delivery-location-controls{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -2164,7 +2245,39 @@ CHECKOUT
 
             </div>
 
+            <div class="delivery-search-row">
+
+                <input
+                    type="text"
+                    id="delivery-address-input"
+                    class="delivery-address-input"
+                    placeholder="Escribe calle, colonia, ciudad, estado/departamento..."
+                    autocomplete="street-address"
+                >
+
+                <button
+                    type="button"
+                    class="delivery-search-btn"
+                    id="search-address-btn">
+                    BUSCAR DIRECCIÓN
+                </button>
+
+            </div>
+
             <div id="delivery-map"></div>
+
+            <div
+                class="delivery-address-result"
+                id="delivery-address-result">
+                <strong>Dirección:</strong>
+                todavía no seleccionada.
+            </div>
+
+            <textarea
+                id="delivery-reference-input"
+                class="delivery-reference-input"
+                placeholder="Referencia de entrega (opcional): portón negro, frente al parque, etc."
+            ></textarea>
 
             <div class="delivery-location-controls">
 
@@ -2189,7 +2302,7 @@ CHECKOUT
                 class="delivery-coordinates"
                 id="delivery-coordinates">
                 <strong>Ubicación:</strong>
-                todavía no seleccionada.
+                selecciona una dirección o un punto en el mapa.
             </div>
 
             <div class="delivery-warning">
@@ -3623,6 +3736,9 @@ let deliveryMarker = null;
 let deliveryLocation = {
     lat:null,
     lng:null,
+    address:"",
+    displayAddress:"",
+    reference:"",
     confirmed:false
 };
 
@@ -3632,12 +3748,25 @@ function resetDeliveryLocation(){
     deliveryLocation = {
         lat:null,
         lng:null,
+        address:"",
+        displayAddress:"",
+        reference:"",
         confirmed:false
     };
 
     const status =
         document.getElementById(
             "delivery-location-status"
+        );
+
+    const addressResult =
+        document.getElementById(
+            "delivery-address-result"
+        );
+
+    const referenceInput =
+        document.getElementById(
+            "delivery-reference-input"
         );
 
     const coords =
@@ -3666,9 +3795,18 @@ function resetDeliveryLocation(){
             "delivery-location-status";
     }
 
+    if(addressResult){
+        addressResult.innerHTML =
+            "<strong>Dirección:</strong> todavía no seleccionada.";
+    }
+
+    if(referenceInput){
+        referenceInput.value = "";
+    }
+
     if(coords){
         coords.innerHTML =
-            "<strong>Ubicación:</strong> todavía no seleccionada.";
+            "<strong>Ubicación:</strong> selecciona una dirección o un punto en el mapa.";
     }
 
     if(confirmBtn){
@@ -3699,7 +3837,230 @@ function resetDeliveryLocation(){
 }
 
 
-function setDeliveryPoint(lat,lng){
+
+async function searchDeliveryAddress(){
+
+    const input =
+        document.getElementById(
+            "delivery-address-input"
+        );
+
+    if(!input){
+        return;
+    }
+
+    const query =
+        input.value.trim();
+
+    if(!query){
+
+        alert(
+            "Escribe una dirección antes de buscar."
+        );
+
+        return;
+    }
+
+    const button =
+        document.getElementById(
+            "search-address-btn"
+        );
+
+    if(button){
+        button.disabled = true;
+        button.textContent = "BUSCANDO...";
+    }
+
+    try{
+
+        const url =
+            "https://nominatim.openstreetmap.org/search" +
+            "?format=jsonv2" +
+            "&limit=1" +
+            "&addressdetails=1" +
+            "&q=" +
+            encodeURIComponent(query);
+
+        const response =
+            await fetch(
+                url,
+                {
+                    headers:{
+                        "Accept":"application/json"
+                    }
+                }
+            );
+
+        if(!response.ok){
+            throw new Error(
+                "No se pudo consultar la dirección."
+            );
+        }
+
+        const results =
+            await response.json();
+
+        if(!Array.isArray(results) || results.length === 0){
+
+            alert(
+                "No encontramos esa dirección. Prueba agregando ciudad y estado/departamento."
+            );
+
+            return;
+        }
+
+        const result =
+            results[0];
+
+        deliveryLocation.address =
+            query;
+
+        deliveryLocation.displayAddress =
+            result.display_name || query;
+
+        setDeliveryPoint(
+            Number(result.lat),
+            Number(result.lon),
+            false
+        );
+
+        showDeliveryAddress(
+            deliveryLocation.displayAddress
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Error buscando dirección:",
+            error
+        );
+
+        alert(
+            "No pudimos buscar la dirección en este momento. También puedes seleccionar el punto manualmente en el mapa."
+        );
+
+    }
+    finally{
+
+        if(button){
+            button.disabled = false;
+            button.textContent =
+                "BUSCAR DIRECCIÓN";
+        }
+
+    }
+
+}
+
+
+async function reverseGeocodeDelivery(lat,lng){
+
+    try{
+
+        const url =
+            "https://nominatim.openstreetmap.org/reverse" +
+            "?format=jsonv2" +
+            "&zoom=18" +
+            "&addressdetails=1" +
+            "&lat=" +
+            encodeURIComponent(lat) +
+            "&lon=" +
+            encodeURIComponent(lng);
+
+        const response =
+            await fetch(
+                url,
+                {
+                    headers:{
+                        "Accept":"application/json"
+                    }
+                }
+            );
+
+        if(!response.ok){
+            throw new Error(
+                "Reverse geocoding failed"
+            );
+        }
+
+        const result =
+            await response.json();
+
+        if(result && result.display_name){
+
+            deliveryLocation.displayAddress =
+                result.display_name;
+
+            deliveryLocation.address =
+                result.display_name;
+
+            showDeliveryAddress(
+                result.display_name
+            );
+
+            const input =
+                document.getElementById(
+                    "delivery-address-input"
+                );
+
+            if(input){
+                input.value =
+                    result.display_name;
+            }
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "No se pudo convertir el punto en dirección:",
+            error
+        );
+
+        showDeliveryAddress(
+            "Punto seleccionado en el mapa"
+        );
+
+    }
+
+}
+
+
+function showDeliveryAddress(address){
+
+    const result =
+        document.getElementById(
+            "delivery-address-result"
+        );
+
+    if(result){
+
+        result.innerHTML =
+            "<strong>Dirección seleccionada:</strong><br>" +
+            escapeDeliveryText(
+                address || "Punto seleccionado"
+            );
+
+    }
+
+}
+
+
+function escapeDeliveryText(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function setDeliveryPoint(lat,lng,lookupAddress=true){
 
     deliveryLocation.lat =
         Number(lat);
@@ -3738,7 +4099,8 @@ function setDeliveryPoint(lat,lng){
 
                     setDeliveryPoint(
                         point.lat,
-                        point.lng
+                        point.lng,
+                        true
                     );
 
                 }
@@ -3776,12 +4138,16 @@ function setDeliveryPoint(lat,lng){
     if(coords){
 
         coords.innerHTML =
-            "<strong>Ubicación seleccionada:</strong><br>" +
-            "Latitud: " +
-            deliveryLocation.lat.toFixed(6) +
-            "<br>" +
-            "Longitud: " +
-            deliveryLocation.lng.toFixed(6);
+            "<strong>Ubicación:</strong> punto seleccionado en el mapa.";
+
+    }
+
+    if(lookupAddress){
+
+        reverseGeocodeDelivery(
+            deliveryLocation.lat,
+            deliveryLocation.lng
+        );
 
     }
 
@@ -3880,7 +4246,8 @@ function initDeliveryMap(){
 
                 setDeliveryPoint(
                     event.latlng.lat,
-                    event.latlng.lng
+                    event.latlng.lng,
+                    true
                 );
 
             }
@@ -3947,7 +4314,8 @@ function useMyLocation(){
 
             setDeliveryPoint(
                 position.coords.latitude,
-                position.coords.longitude
+                position.coords.longitude,
+                true
             );
 
             if(button){
@@ -3998,6 +4366,18 @@ function confirmDeliveryLocation(){
         return;
     }
 
+    const referenceInput =
+        document.getElementById(
+            "delivery-reference-input"
+        );
+
+    deliveryLocation.reference =
+        referenceInput
+        ?
+        referenceInput.value.trim()
+        :
+        "";
+
     deliveryLocation.confirmed =
         true;
 
@@ -4028,6 +4408,18 @@ function confirmDeliveryLocation(){
 
         status.className =
             "delivery-location-status confirmed";
+
+    }
+
+    const coords =
+        document.getElementById(
+            "delivery-coordinates"
+        );
+
+    if(coords){
+
+        coords.innerHTML =
+            "<strong>Entrega:</strong> ubicación confirmada correctamente.";
 
     }
 
@@ -5851,7 +6243,25 @@ function renderDirectPaypal(
                     {
 
                         description:
-                            descriptionText,
+                            (
+                                descriptionText +
+                                (
+                                    deliveryLocation.displayAddress
+                                    ?
+                                    " | Entrega: " +
+                                    deliveryLocation.displayAddress
+                                    :
+                                    ""
+                                ) +
+                                (
+                                    deliveryLocation.reference
+                                    ?
+                                    " | Ref: " +
+                                    deliveryLocation.reference
+                                    :
+                                    ""
+                                )
+                            ).slice(0,127),
 
                         custom_id:
                             deliveryLocation.confirmed
@@ -5981,6 +6391,16 @@ window
 
     updateCart();
 
+    const searchAddressButton =
+        document.getElementById(
+            "search-address-btn"
+        );
+
+    const addressInput =
+        document.getElementById(
+            "delivery-address-input"
+        );
+
     const useLocationButton =
         document.getElementById(
             "use-my-location-btn"
@@ -5990,6 +6410,36 @@ window
         document.getElementById(
             "confirm-location-btn"
         );
+
+    if(searchAddressButton){
+
+        searchAddressButton
+        .addEventListener(
+            "click",
+            searchDeliveryAddress
+        );
+
+    }
+
+    if(addressInput){
+
+        addressInput
+        .addEventListener(
+            "keydown",
+            function(event){
+
+                if(event.key === "Enter"){
+
+                    event.preventDefault();
+
+                    searchDeliveryAddress();
+
+                }
+
+            }
+        );
+
+    }
 
     if(useLocationButton){
 
