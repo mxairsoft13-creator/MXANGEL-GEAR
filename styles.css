@@ -1311,3 +1311,17 @@ footer {
     }
 
 }
+/* QUITAR BOCETOS CSS PARA MOSTRAR IMÁGENES REALES */
+
+.product-art::after{
+    display:none !important;
+}
+
+.product-art img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    position:relative;
+    z-index:5;
+}
