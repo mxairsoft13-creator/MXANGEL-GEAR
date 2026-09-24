@@ -1152,3 +1152,162 @@ footer {
   }
 
 }
+/* =====================================================
+   MXANGEL GEAR - IMAGEN REAL EN EL CARRITO
+   ===================================================== */
+
+/* Contenedor izquierdo del producto */
+.cart-product-info{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+
+/* Miniatura del producto */
+.cart-item-thumb{
+    width:85px;
+    height:85px;
+
+    min-width:85px;
+
+    background:#171c17;
+
+    border:1px solid rgba(156,255,0,.4);
+
+    border-radius:6px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+    padding:4px;
+}
+
+
+/* Imagen real */
+.cart-item-thumb img{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:contain;
+
+    border-radius:4px;
+}
+
+
+/* Por si algún producto no tiene imagen */
+.cart-item-thumb .thumb-fallback{
+    width:100%;
+
+    color:#9cff00;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+    text-transform:uppercase;
+
+    line-height:1.3;
+}
+
+
+/* Información del producto */
+.cart-product-details{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5px;
+}
+
+
+.cart-product-name{
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    line-height:1.3;
+}
+
+
+.cart-product-meta{
+    color:#9ca39a;
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   MODAL "AGREGADO EXITOSAMENTE"
+   ===================================================== */
+
+#added-thumb{
+    width:85px;
+    height:85px;
+
+    min-width:85px;
+
+    background:#171c17;
+
+    border:1px solid rgba(156,255,0,.4);
+
+    border-radius:6px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+    padding:4px;
+
+    color:#9cff00;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    text-align:center;
+}
+
+
+#added-thumb img{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:contain;
+
+    border-radius:4px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media(max-width:600px){
+
+    .cart-item-thumb,
+    #added-thumb{
+        width:70px;
+        height:70px;
+
+        min-width:70px;
+    }
+
+}
