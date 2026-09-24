@@ -4090,20 +4090,7 @@ async function locateDeliveryAddress(){
         return;
     }
 
-    deliveryLocation.customer =
-        data;
-
-    const queryParts = [
-        data.street,
-        data.neighborhood,
-        data.city,
-        data.state,
-        data.postal
-    ]
-    .filter(Boolean);
-
-    const query =
-        queryParts.join(", ");
+    deliveryLocation.customer = data;
 
     const button =
         document.getElementById(
@@ -4112,56 +4099,106 @@ async function locateDeliveryAddress(){
 
     if(button){
         button.disabled = true;
-        button.textContent =
-            "BUSCANDO DIRECCIÓN...";
+        button.textContent = "BUSCANDO DIRECCIÓN...";
     }
+
+    /*
+      Buscamos de lo más específico a lo más general.
+      Esto ayuda cuando OpenStreetMap no tiene registrado
+      exactamente el número exterior/interior.
+    */
+    const attempts = [
+        [
+            data.street,
+            data.neighborhood,
+            data.city,
+            data.state,
+            data.postal
+        ],
+        [
+            data.street,
+            data.neighborhood,
+            data.city,
+            data.state
+        ],
+        [
+            data.neighborhood,
+            data.city,
+            data.state
+        ],
+        [
+            data.city,
+            data.state
+        ]
+    ]
+    .map(parts =>
+        parts
+            .filter(Boolean)
+            .join(", ")
+    )
+    .filter((query, index, arr) =>
+        query && arr.indexOf(query) === index
+    );
 
     try{
 
-        const url =
-            "https://nominatim.openstreetmap.org/search" +
-            "?format=jsonv2" +
-            "&limit=1" +
-            "&addressdetails=1" +
-            "&q=" +
-            encodeURIComponent(query);
+        let result = null;
+        let matchedQuery = "";
 
-        const response =
-            await fetch(
-                url,
-                {
-                    headers:{
-                        "Accept":"application/json"
+        for(const query of attempts){
+
+            const url =
+                "https://nominatim.openstreetmap.org/search" +
+                "?format=jsonv2" +
+                "&limit=1" +
+                "&addressdetails=1" +
+                "&countrycodes=gt" +
+                "&q=" +
+                encodeURIComponent(query);
+
+            const response =
+                await fetch(
+                    url,
+                    {
+                        headers:{
+                            "Accept":"application/json"
+                        }
                     }
-                }
-            );
+                );
 
-        if(!response.ok){
-            throw new Error(
-                "No se pudo consultar la dirección."
-            );
+            if(!response.ok){
+                continue;
+            }
+
+            const results =
+                await response.json();
+
+            if(
+                Array.isArray(results)
+                &&
+                results.length > 0
+            ){
+                result = results[0];
+                matchedQuery = query;
+                break;
+            }
         }
 
-        const results =
-            await response.json();
-
-        if(!Array.isArray(results) || results.length === 0){
+        if(!result){
 
             alert(
-                "No encontramos esa dirección. Revisa calle, ciudad, estado/departamento y código postal, o selecciona el punto manualmente en el mapa."
+                "No pudimos ubicar automáticamente esa dirección. " +
+                "Puedes usar “USAR MI UBICACIÓN” o seleccionar el punto manualmente en el mapa."
             );
 
             return;
         }
 
-        const result =
-            results[0];
-
         deliveryLocation.address =
-            query;
+            matchedQuery;
 
         deliveryLocation.displayAddress =
-            result.display_name || query;
+            result.display_name || matchedQuery;
 
         setDeliveryPoint(
             Number(result.lat),
@@ -4173,13 +4210,41 @@ async function locateDeliveryAddress(){
             deliveryLocation.displayAddress
         );
 
+        const resultBox =
+            document.getElementById(
+                "delivery-address-result"
+            );
+
+        if(resultBox){
+
+            resultBox.innerHTML =
+                "<strong>Zona localizada:</strong><br>" +
+                escapeDeliveryText(
+                    deliveryLocation.displayAddress
+                ) +
+                "<br><span style='color:#ffb347'>" +
+                "Mueve el marcador 📍 al punto exacto de entrega si es necesario." +
+                "</span>";
+
+        }
+
         if(deliveryMap){
+
+            deliveryMap.setView(
+                [
+                    Number(result.lat),
+                    Number(result.lon)
+                ],
+                17
+            );
+
             setTimeout(
                 function(){
                     deliveryMap.invalidateSize();
                 },
                 100
             );
+
         }
 
         document.getElementById(
@@ -4198,7 +4263,8 @@ async function locateDeliveryAddress(){
         );
 
         alert(
-            "No pudimos buscar la dirección en este momento. También puedes seleccionar el punto manualmente en el mapa."
+            "No pudimos consultar el mapa en este momento. " +
+            "También puedes usar tu ubicación actual o seleccionar el punto manualmente."
         );
 
     }
