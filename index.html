@@ -8,6 +8,14 @@
 
 <meta name="description" content="MXANGEL GEAR es una marca nacida de los videojuegos, la simulación y la comunidad. Inspirada en la esencia de MxAngelYt2311 y el mundo de Arma Reforger, combina un estilo urbano con una identidad táctica y gaming. Ropa y diseños pensados para usarse dentro y fuera de la partida. Más que un estilo, es una actitud.">
 
+<!-- Leaflet / OpenStreetMap -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIINfQ3yn5J4Jb6q9bRRgD6p9c2l0tq4w0A="
+  crossorigin=""
+>
+
 <!-- SDK de PayPal -->
 <script src="https://www.paypal.com/sdk/js?client-id=BAAhrZ-Cf3OAJOkgfhmQNTwc-Jscn8mmHgpGHLlHD9o85KH9FvUpt4S18--VlNLbGofQaS7rVG1V6BMubE&currency=MXN&locale=es_MX"></script>
 
@@ -976,17 +984,34 @@ CARRITO
 }
 
 .cart-item-thumb{
-    width:120px;
-    height:120px;
+    width:85px;
+
+    height:85px;
+
     background:#171c17;
+
     border:1px solid rgba(156,255,0,.4);
+
     border-radius:6px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
+    font-size:11px;
+
+    color:#9cff00;
+
+    font-weight:bold;
+
+    text-align:center;
+
+    text-transform:uppercase;
+
+    padding:6px;
     overflow:hidden;
-    padding:4px;
-    flex-shrink:0;
 }
 
 .cart-item-thumb img{
@@ -1196,6 +1221,167 @@ CARRITO
     background:#fff;
 
     border-color:#fff;
+}
+
+
+
+/* =====================================================
+UBICACIÓN DE ENTREGA
+===================================================== */
+
+.delivery-location-box{
+    max-width:760px;
+    width:100%;
+    margin:0 auto 26px;
+    background:#111411;
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:8px;
+    padding:22px;
+}
+
+.delivery-location-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:14px;
+}
+
+.delivery-location-head h3{
+    font-size:18px;
+    margin:0 0 6px;
+}
+
+.delivery-location-head p{
+    color:#888;
+    font-size:12px;
+    line-height:1.5;
+    margin:0;
+}
+
+.delivery-location-status{
+    flex-shrink:0;
+    padding:7px 10px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:4px;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.8px;
+    color:#aaa;
+    background:#171c17;
+}
+
+.delivery-location-status.ready{
+    color:#9cff00;
+    border-color:rgba(156,255,0,.45);
+}
+
+.delivery-location-status.confirmed{
+    color:#000;
+    background:#9cff00;
+    border-color:#9cff00;
+}
+
+#delivery-map{
+    width:100%;
+    height:330px;
+    border-radius:6px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.10);
+    background:#0c0f0c;
+}
+
+.delivery-location-controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:12px;
+}
+
+.delivery-map-btn{
+    min-height:46px;
+    border-radius:4px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+    transition:.2s;
+}
+
+.delivery-map-btn.secondary{
+    background:#171c17;
+    border:1px solid rgba(255,255,255,.18);
+    color:#eee;
+}
+
+.delivery-map-btn.secondary:hover{
+    border-color:#9cff00;
+    color:#9cff00;
+}
+
+.delivery-map-btn.primary{
+    background:#9cff00;
+    border:1px solid #9cff00;
+    color:#000;
+}
+
+.delivery-map-btn.primary:hover{
+    background:#fff;
+    border-color:#fff;
+}
+
+.delivery-map-btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+.delivery-coordinates{
+    margin-top:12px;
+    padding:12px 14px;
+    background:#0b0d0b;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:4px;
+    color:#aaa;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.delivery-coordinates strong{
+    color:#fff;
+}
+
+.delivery-warning{
+    margin-top:10px;
+    color:#ffb36b;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.paypal-location-lock{
+    max-width:550px;
+    margin:0 auto 12px;
+    padding:12px 14px;
+    text-align:center;
+    background:#16110b;
+    border:1px solid rgba(255,179,107,.35);
+    color:#ffb36b;
+    border-radius:4px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+@media(max-width:600px){
+    #delivery-map{
+        height:280px;
+    }
+
+    .delivery-location-head{
+        flex-direction:column;
+    }
+
+    .delivery-location-controls{
+        grid-template-columns:1fr;
+    }
 }
 
 
@@ -1938,7 +2124,71 @@ CHECKOUT
 
         </div>
 
-        <div class="checkout-dark-container">
+        <div class="delivery-location-box">
+
+            <div class="delivery-location-head">
+
+                <div>
+                    <h3>📍 UBICACIÓN DE ENTREGA</h3>
+                    <p>
+                        Selecciona un punto en el mapa o usa tu ubicación actual.
+                        Después confirma la ubicación para habilitar el pago.
+                    </p>
+                </div>
+
+                <div
+                    class="delivery-location-status"
+                    id="delivery-location-status">
+                    SIN CONFIRMAR
+                </div>
+
+            </div>
+
+            <div id="delivery-map"></div>
+
+            <div class="delivery-location-controls">
+
+                <button
+                    type="button"
+                    class="delivery-map-btn secondary"
+                    id="use-my-location-btn">
+                    📍 USAR MI UBICACIÓN
+                </button>
+
+                <button
+                    type="button"
+                    class="delivery-map-btn primary"
+                    id="confirm-location-btn"
+                    disabled>
+                    ✓ CONFIRMAR UBICACIÓN
+                </button>
+
+            </div>
+
+            <div
+                class="delivery-coordinates"
+                id="delivery-coordinates">
+                <strong>Ubicación:</strong>
+                todavía no seleccionada.
+            </div>
+
+            <div class="delivery-warning">
+                La ubicación del mapa complementa la dirección de entrega que
+                proporciones durante el pago. No sustituye los datos de envío de PayPal.
+            </div>
+
+        </div>
+
+        <div
+            class="paypal-location-lock"
+            id="paypal-location-lock">
+            Confirma tu ubicación de entrega para continuar con el pago.
+        </div>
+
+        <div
+            class="checkout-dark-container"
+            id="checkout-paypal-area"
+            style="display:none;">
 
             <div id="direct-paypal-container">
             </div>
@@ -3302,6 +3552,12 @@ FOOTER
 </footer>
 
 
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin="">
+</script>
+
 <!-- =====================================================
 JAVASCRIPT
 ===================================================== -->
@@ -3340,6 +3596,458 @@ catch(e){
 
 
 let directBuyItem = null;
+
+let pendingCheckout = null;
+
+let deliveryMap = null;
+let deliveryMarker = null;
+
+let deliveryLocation = {
+    lat:null,
+    lng:null,
+    confirmed:false
+};
+
+
+function resetDeliveryLocation(){
+
+    deliveryLocation = {
+        lat:null,
+        lng:null,
+        confirmed:false
+    };
+
+    const status =
+        document.getElementById(
+            "delivery-location-status"
+        );
+
+    const coords =
+        document.getElementById(
+            "delivery-coordinates"
+        );
+
+    const confirmBtn =
+        document.getElementById(
+            "confirm-location-btn"
+        );
+
+    const paypalArea =
+        document.getElementById(
+            "checkout-paypal-area"
+        );
+
+    const lock =
+        document.getElementById(
+            "paypal-location-lock"
+        );
+
+    if(status){
+        status.textContent = "SIN CONFIRMAR";
+        status.className =
+            "delivery-location-status";
+    }
+
+    if(coords){
+        coords.innerHTML =
+            "<strong>Ubicación:</strong> todavía no seleccionada.";
+    }
+
+    if(confirmBtn){
+        confirmBtn.disabled = true;
+        confirmBtn.textContent =
+            "✓ CONFIRMAR UBICACIÓN";
+    }
+
+    if(paypalArea){
+        paypalArea.style.display =
+            "none";
+    }
+
+    if(lock){
+        lock.style.display =
+            "block";
+    }
+
+    const paypalContainer =
+        document.getElementById(
+            "direct-paypal-container"
+        );
+
+    if(paypalContainer){
+        paypalContainer.innerHTML = "";
+    }
+
+}
+
+
+function setDeliveryPoint(lat,lng){
+
+    deliveryLocation.lat =
+        Number(lat);
+
+    deliveryLocation.lng =
+        Number(lng);
+
+    deliveryLocation.confirmed =
+        false;
+
+    if(deliveryMap){
+
+        if(!deliveryMarker){
+
+            deliveryMarker =
+                L.marker(
+                    [
+                        deliveryLocation.lat,
+                        deliveryLocation.lng
+                    ],
+                    {
+                        draggable:true
+                    }
+                )
+                .addTo(deliveryMap);
+
+            deliveryMarker
+            .on(
+                "dragend",
+                function(event){
+
+                    const point =
+                        event
+                        .target
+                        .getLatLng();
+
+                    setDeliveryPoint(
+                        point.lat,
+                        point.lng
+                    );
+
+                }
+            );
+
+        }
+        else{
+
+            deliveryMarker
+            .setLatLng(
+                [
+                    deliveryLocation.lat,
+                    deliveryLocation.lng
+                ]
+            );
+
+        }
+
+        deliveryMap
+        .setView(
+            [
+                deliveryLocation.lat,
+                deliveryLocation.lng
+            ],
+            16
+        );
+
+    }
+
+    const coords =
+        document.getElementById(
+            "delivery-coordinates"
+        );
+
+    if(coords){
+
+        coords.innerHTML =
+            "<strong>Ubicación seleccionada:</strong><br>" +
+            "Latitud: " +
+            deliveryLocation.lat.toFixed(6) +
+            "<br>" +
+            "Longitud: " +
+            deliveryLocation.lng.toFixed(6);
+
+    }
+
+    const status =
+        document.getElementById(
+            "delivery-location-status"
+        );
+
+    if(status){
+        status.textContent =
+            "LISTA PARA CONFIRMAR";
+
+        status.className =
+            "delivery-location-status ready";
+    }
+
+    const confirmBtn =
+        document.getElementById(
+            "confirm-location-btn"
+        );
+
+    if(confirmBtn){
+        confirmBtn.disabled =
+            false;
+
+        confirmBtn.textContent =
+            "✓ CONFIRMAR UBICACIÓN";
+    }
+
+    const paypalArea =
+        document.getElementById(
+            "checkout-paypal-area"
+        );
+
+    const lock =
+        document.getElementById(
+            "paypal-location-lock"
+        );
+
+    if(paypalArea){
+        paypalArea.style.display =
+            "none";
+    }
+
+    if(lock){
+        lock.style.display =
+            "block";
+    }
+
+}
+
+
+function initDeliveryMap(){
+
+    if(
+        !window.L
+        ||
+        !document.getElementById(
+            "delivery-map"
+        )
+    ){
+        return;
+    }
+
+    if(!deliveryMap){
+
+        deliveryMap =
+            L.map(
+                "delivery-map",
+                {
+                    zoomControl:true
+                }
+            )
+            .setView(
+                [
+                    23.6345,
+                    -102.5528
+                ],
+                5
+            );
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                maxZoom:19,
+                attribution:
+                    "&copy; OpenStreetMap contributors"
+            }
+        )
+        .addTo(deliveryMap);
+
+        deliveryMap
+        .on(
+            "click",
+            function(event){
+
+                setDeliveryPoint(
+                    event.latlng.lat,
+                    event.latlng.lng
+                );
+
+            }
+        );
+
+    }
+
+    setTimeout(
+        function(){
+
+            if(deliveryMap){
+                deliveryMap.invalidateSize();
+            }
+
+        },
+        150
+    );
+
+}
+
+
+function prepareCheckoutLocation(
+    amountToPay,
+    descriptionText
+){
+
+    pendingCheckout = {
+        amount:Number(amountToPay),
+        description:descriptionText
+    };
+
+    resetDeliveryLocation();
+
+    initDeliveryMap();
+
+}
+
+
+function useMyLocation(){
+
+    if(!navigator.geolocation){
+
+        alert(
+            "Tu navegador no permite obtener la ubicación automáticamente. Puedes seleccionar el punto manualmente en el mapa."
+        );
+
+        return;
+    }
+
+    const button =
+        document.getElementById(
+            "use-my-location-btn"
+        );
+
+    if(button){
+        button.disabled = true;
+        button.textContent =
+            "OBTENIENDO UBICACIÓN...";
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            setDeliveryPoint(
+                position.coords.latitude,
+                position.coords.longitude
+            );
+
+            if(button){
+                button.disabled = false;
+                button.textContent =
+                    "📍 USAR MI UBICACIÓN";
+            }
+
+        },
+
+        function(){
+
+            if(button){
+                button.disabled = false;
+                button.textContent =
+                    "📍 USAR MI UBICACIÓN";
+            }
+
+            alert(
+                "No pudimos obtener tu ubicación. Puedes marcar manualmente el punto de entrega en el mapa."
+            );
+
+        },
+
+        {
+            enableHighAccuracy:true,
+            timeout:12000,
+            maximumAge:0
+        }
+
+    );
+
+}
+
+
+function confirmDeliveryLocation(){
+
+    if(
+        deliveryLocation.lat === null
+        ||
+        deliveryLocation.lng === null
+    ){
+
+        alert(
+            "Selecciona primero una ubicación en el mapa."
+        );
+
+        return;
+    }
+
+    deliveryLocation.confirmed =
+        true;
+
+    const status =
+        document.getElementById(
+            "delivery-location-status"
+        );
+
+    const confirmBtn =
+        document.getElementById(
+            "confirm-location-btn"
+        );
+
+    const paypalArea =
+        document.getElementById(
+            "checkout-paypal-area"
+        );
+
+    const lock =
+        document.getElementById(
+            "paypal-location-lock"
+        );
+
+    if(status){
+
+        status.textContent =
+            "UBICACIÓN CONFIRMADA";
+
+        status.className =
+            "delivery-location-status confirmed";
+
+    }
+
+    if(confirmBtn){
+
+        confirmBtn.textContent =
+            "✓ UBICACIÓN CONFIRMADA";
+
+        confirmBtn.disabled =
+            true;
+
+    }
+
+    if(lock){
+        lock.style.display =
+            "none";
+    }
+
+    if(paypalArea){
+        paypalArea.style.display =
+            "block";
+    }
+
+    if(
+        pendingCheckout
+        &&
+        pendingCheckout.amount > 0
+    ){
+
+        renderDirectPaypal(
+            pendingCheckout.amount,
+            pendingCheckout.description
+        );
+
+    }
+
+}
+
 
 
 
@@ -3695,7 +4403,7 @@ function triggerDirectBuy(
     );
 
 
-    renderDirectPaypal(
+    prepareCheckoutLocation(
 
         directTotal,
 
@@ -3789,7 +4497,7 @@ function checkoutEntireCart(){
     );
 
 
-    renderDirectPaypal(
+    prepareCheckoutLocation(
 
         total,
 
@@ -4363,8 +5071,8 @@ function triggerCustomAddToCart(){
     .getElementById(
         "added-thumb"
     )
-    .innerHTML =
-        getCartThumbHTML("CUSTOM");
+    .innerText =
+        "CUSTOM";
 
 
     document
@@ -4492,7 +5200,7 @@ function triggerCustomDirectBuy(){
     );
 
 
-    renderDirectPaypal(
+    prepareCheckoutLocation(
 
         directTotal,
 
@@ -5127,6 +5835,16 @@ function renderDirectPaypal(
                         description:
                             descriptionText,
 
+                        custom_id:
+                            deliveryLocation.confirmed
+                            ?
+                            "DELIVERY:" +
+                            deliveryLocation.lat.toFixed(6) +
+                            "," +
+                            deliveryLocation.lng.toFixed(6)
+                            :
+                            "DELIVERY:NOT_CONFIRMED",
+
 
                         amount:{
 
@@ -5244,6 +5962,36 @@ window
 {
 
     updateCart();
+
+    const useLocationButton =
+        document.getElementById(
+            "use-my-location-btn"
+        );
+
+    const confirmLocationButton =
+        document.getElementById(
+            "confirm-location-btn"
+        );
+
+    if(useLocationButton){
+
+        useLocationButton
+        .addEventListener(
+            "click",
+            useMyLocation
+        );
+
+    }
+
+    if(confirmLocationButton){
+
+        confirmLocationButton
+        .addEventListener(
+            "click",
+            confirmDeliveryLocation
+        );
+
+    }
 
 });
 
