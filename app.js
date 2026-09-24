@@ -2,52 +2,103 @@ const products = [
 
   {
     id: 1,
-    name: "PLAYERA MXANGEL / CORE",
+
+    name: "PLAYERA MXANGEL / NIGHT OPS",
+
     price: 449,
+
     type: "shirt",
+
+    image: "nightops-negra-frente.jpg",
+
     desc:
-      "Playera comercial de corte urbano. Diseño demo frontal."
+      "Diseño táctico MXANGEL GEAR inspirado en operaciones nocturnas."
   },
+
 
   {
     id: 2,
+
     name: "HOODIE / ORIGEN",
+
     price: 799,
+
     type: "hoodie",
+
+    image: "hoodie-origen-frente.jpg",
+
     desc:
-      "Sudadera demo para la primera colección de la marca."
+      "Sudadera MXANGEL GEAR de estilo urbano y táctico."
   },
+
 
   {
     id: 3,
-    name: "GORRA / MX MARK",
-    price: 399,
-    type: "cap",
+
+    name: "PLAYERA / SIMULATION",
+
+    price: 499,
+
+    type: "shirt",
+
+    image: "zonaroja-blanca-frente.png",
+
     desc:
-      "Gorra casual con identidad MXANGEL GEAR."
+      "Diseño ZONA ROJA inspirado en simulación, estrategia y comunidad."
   }
 
 ];
 
 
-let cart =
-  JSON.parse(
-    localStorage.getItem("mxangelCart")
-    || "[]"
-  );
 
+/* =====================================================
+   CARGAR CARRITO GUARDADO
+===================================================== */
+
+let cart = [];
+
+try {
+
+  cart =
+    JSON.parse(
+      localStorage.getItem(
+        "mxangelCart"
+      ) || "[]"
+    );
+
+} catch(error) {
+
+  cart = [];
+
+}
+
+
+
+/* =====================================================
+   FORMATO DE DINERO
+===================================================== */
 
 const money = n =>
 
   new Intl.NumberFormat(
     "es-MX",
     {
+
       style: "currency",
+
       currency: "MXN",
+
       maximumFractionDigits: 0
+
     }
+
   ).format(n);
 
+
+
+/* =====================================================
+   PRODUCTOS
+===================================================== */
 
 const grid =
   document.getElementById(
@@ -55,69 +106,100 @@ const grid =
   );
 
 
-grid.innerHTML =
-  products.map(p => `
 
-    <article class="product">
+if(grid){
 
-      <div
-        class="product-art ${p.type}">
+  grid.innerHTML =
 
-        <div class="art-logo">
+    products.map(p => `
 
-          MXANGEL
-          <br>
-          GEAR
-
-        </div>
-
-      </div>
+      <article class="product">
 
 
-      <div class="product-info">
+        <div
+          class="product-art ${p.type}"
+        >
 
-        <h3>
-          ${p.name}
-        </h3>
-
-        <p>
-          ${p.desc}
-        </p>
-
-
-        <div class="row">
-
-          <span class="price">
-
-            ${money(p.price)}
-
-          </span>
-
-
-          <button
-            class="add"
-            data-id="${p.id}">
-
-            AGREGAR +
-
-          </button>
+          <img
+            src="${p.image}"
+            alt="${p.name}"
+            style="
+              width:100%;
+              height:100%;
+              object-fit:contain;
+              position:relative;
+              z-index:3;
+            "
+          >
 
         </div>
 
-      </div>
 
-    </article>
-
-  `).join("");
+        <div class="product-info">
 
 
+          <h3>
 
-function save() {
+            ${p.name}
+
+          </h3>
+
+
+          <p>
+
+            ${p.desc}
+
+          </p>
+
+
+          <div class="row">
+
+
+            <span class="price">
+
+              ${money(p.price)}
+
+            </span>
+
+
+            <button
+              class="add"
+              data-id="${p.id}"
+            >
+
+              AGREGAR +
+
+            </button>
+
+
+          </div>
+
+
+        </div>
+
+
+      </article>
+
+    `).join("");
+
+}
+
+
+
+/* =====================================================
+   GUARDAR CARRITO
+===================================================== */
+
+function save(){
 
   localStorage.setItem(
+
     "mxangelCart",
+
     JSON.stringify(cart)
+
   );
+
 
   renderCart();
 
@@ -125,23 +207,36 @@ function save() {
 
 
 
-function add(id) {
+/* =====================================================
+   AGREGAR PRODUCTO
+===================================================== */
+
+function add(id){
 
   let item =
+
     cart.find(
-      x => x.id === id
+
+      x =>
+        x.id === id
+
     );
 
 
-  if (item) {
+  if(item){
 
     item.qty++;
 
-  } else {
+  }
+
+  else{
 
     cart.push({
-      id,
+
+      id: id,
+
       qty: 1
+
     });
 
   }
@@ -149,18 +244,28 @@ function add(id) {
 
   save();
 
+
   toast();
 
 }
 
 
 
-function remove(id) {
+/* =====================================================
+   ELIMINAR PRODUCTO
+===================================================== */
+
+function remove(id){
 
   cart =
+
     cart.filter(
-      x => x.id !== id
+
+      x =>
+        x.id !== id
+
     );
+
 
   save();
 
@@ -168,12 +273,24 @@ function remove(id) {
 
 
 
-function renderCart() {
+/* =====================================================
+   RENDERIZAR CARRITO
+===================================================== */
+
+function renderCart(){
 
   const box =
+
     document.getElementById(
       "cartItems"
     );
+
+
+  if(!box){
+
+    return;
+
+  }
 
 
   let count = 0;
@@ -181,162 +298,349 @@ function renderCart() {
   let total = 0;
 
 
-  box.innerHTML =
-    cart.length
 
-    ?
-
-    cart.map(x => {
-
-      const p =
-        products.find(
-          p => p.id === x.id
-        );
+  if(cart.length > 0){
 
 
-      count += x.qty;
+    box.innerHTML =
 
-      total +=
-        p.price * x.qty;
+      cart.map(x => {
 
 
-      return `
+        const p =
 
-        <div class="cart-item">
+          products.find(
 
-          <div>
+            product =>
+              product.id === x.id
 
-            <strong>
-              ${p.name}
-            </strong>
+          );
 
-            <br>
 
-            <span>
+        if(!p){
 
-              ${x.qty}
-              ×
-              ${money(p.price)}
+          return "";
 
-            </span>
+        }
+
+
+        count += x.qty;
+
+
+        total +=
+
+          p.price *
+          x.qty;
+
+
+
+        return `
+
+          <div class="cart-item">
+
+
+            <div class="cart-product-info">
+
+
+              <!-- ==========================
+                   IMAGEN DEL PRODUCTO
+              =========================== -->
+
+              <div class="cart-item-thumb">
+
+                <img
+                  src="${p.image}"
+                  alt="${p.name}"
+                >
+
+              </div>
+
+
+              <!-- ==========================
+                   INFORMACIÓN
+              =========================== -->
+
+              <div class="cart-product-details">
+
+
+                <strong
+                  class="cart-product-name"
+                >
+
+                  ${p.name}
+
+                </strong>
+
+
+                <span
+                  class="cart-product-meta"
+                >
+
+                  ${x.qty}
+                  ×
+                  ${money(p.price)}
+
+                </span>
+
+
+                <span
+                  class="cart-product-meta"
+                >
+
+                  SUBTOTAL:
+                  ${money(
+                    p.price *
+                    x.qty
+                  )}
+
+                </span>
+
+
+              </div>
+
+
+            </div>
+
+
+
+            <!-- ==========================
+                 ELIMINAR
+            =========================== -->
+
+            <button
+              class="remove"
+              onclick="remove(${p.id})"
+            >
+
+              QUITAR
+
+            </button>
+
 
           </div>
 
+        `;
 
-          <button
-            class="remove"
-            onclick="remove(${p.id})">
 
-            QUITAR
+      }).join("");
 
-          </button>
+  }
 
-        </div>
+  else{
 
-      `;
+    box.innerHTML = `
 
-    }).join("")
+      <p
+        style="
+          color:#9ca39a;
+          padding:20px 0;
+        "
+      >
 
-    :
-
-    `
-      <p style="color:#9ca39a">
         Tu carrito está vacío.
+
       </p>
+
     `;
 
-
-  document.getElementById(
-    "cartCount"
-  ).textContent = count;
+  }
 
 
-  document.getElementById(
-    "cartTotal"
-  ).textContent = money(total);
+
+  const cartCount =
+
+    document.getElementById(
+      "cartCount"
+    );
+
+
+  const cartTotal =
+
+    document.getElementById(
+      "cartTotal"
+    );
+
+
+
+  if(cartCount){
+
+    cartCount.textContent =
+      count;
+
+  }
+
+
+  if(cartTotal){
+
+    cartTotal.textContent =
+      money(total);
+
+  }
 
 }
 
 
 
+/* =====================================================
+   BOTONES AGREGAR
+===================================================== */
+
 document
   .querySelectorAll(".add")
   .forEach(button => {
 
-    button.onclick = () =>
 
-      add(
+    button.onclick = () => {
+
+
+      const id =
+
         Number(
           button.dataset.id
-        )
-      );
+        );
+
+
+      add(id);
+
+    };
+
 
   });
 
 
 
+/* =====================================================
+   CARRITO LATERAL
+===================================================== */
+
 const drawer =
+
   document.getElementById(
     "drawer"
   );
 
 
 const overlay =
+
   document.getElementById(
     "overlay"
   );
 
 
 
-function openCart() {
+function openCart(){
 
-  drawer.classList.add(
-    "open"
-  );
+  if(drawer){
 
-  overlay.classList.add(
-    "show"
-  );
+    drawer.classList.add(
+      "open"
+    );
 
-}
+  }
 
 
+  if(overlay){
 
-function closeCart() {
+    overlay.classList.add(
+      "show"
+    );
 
-  drawer.classList.remove(
-    "open"
-  );
-
-  overlay.classList.remove(
-    "show"
-  );
+  }
 
 }
 
 
 
-document.getElementById(
-  "cartBtn"
-).onclick = openCart;
+function closeCart(){
+
+  if(drawer){
+
+    drawer.classList.remove(
+      "open"
+    );
+
+  }
 
 
-document.getElementById(
-  "closeCart"
-).onclick = closeCart;
+  if(overlay){
+
+    overlay.classList.remove(
+      "show"
+    );
+
+  }
+
+}
 
 
-overlay.onclick =
-  closeCart;
+
+/* =====================================================
+   BOTÓN CARRITO
+===================================================== */
+
+const cartButton =
+
+  document.getElementById(
+    "cartBtn"
+  );
+
+
+if(cartButton){
+
+  cartButton.onclick =
+    openCart;
+
+}
 
 
 
-function toast() {
+/* =====================================================
+   CERRAR CARRITO
+===================================================== */
+
+const closeCartButton =
+
+  document.getElementById(
+    "closeCart"
+  );
+
+
+if(closeCartButton){
+
+  closeCartButton.onclick =
+    closeCart;
+
+}
+
+
+
+if(overlay){
+
+  overlay.onclick =
+    closeCart;
+
+}
+
+
+
+/* =====================================================
+   MENSAJE PRODUCTO AGREGADO
+===================================================== */
+
+function toast(){
 
   const t =
+
     document.getElementById(
       "toast"
     );
+
+
+  if(!t){
+
+    return;
+
+  }
 
 
   t.classList.add(
@@ -345,26 +649,101 @@ function toast() {
 
 
   setTimeout(
-    () =>
+
+    () => {
+
       t.classList.remove(
         "show"
-      ),
+      );
+
+    },
+
     1600
+
   );
 
 }
 
 
 
-document.getElementById(
-  "checkoutBtn"
-).onclick = () => {
+/* =====================================================
+   CHECKOUT
+===================================================== */
 
-  alert(
-    "Esta primera versión está en modo demo. Aquí conectaremos los pagos y envíos reales."
+const checkoutButton =
+
+  document.getElementById(
+    "checkoutBtn"
   );
 
-};
 
+if(checkoutButton){
+
+  checkoutButton.onclick = () => {
+
+
+    if(cart.length === 0){
+
+      alert(
+        "Tu carrito está vacío."
+      );
+
+      return;
+
+    }
+
+
+
+    let total = 0;
+
+
+    cart.forEach(item => {
+
+
+      const product =
+
+        products.find(
+
+          p =>
+            p.id === item.id
+
+        );
+
+
+      if(product){
+
+        total +=
+
+          product.price *
+          item.qty;
+
+      }
+
+    });
+
+
+
+    alert(
+
+      "Total de tu pedido: " +
+
+      money(total) +
+
+      "\n\n" +
+
+      "Aquí conectaremos el pago con PayPal."
+
+    );
+
+
+  };
+
+}
+
+
+
+/* =====================================================
+   INICIALIZAR
+===================================================== */
 
 renderCart();
