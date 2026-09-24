@@ -977,32 +977,33 @@ CARRITO
 
 .cart-item-thumb{
     width:85px;
-
     height:85px;
-
     background:#171c17;
-
     border:1px solid rgba(156,255,0,.4);
-
     border-radius:6px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
+    overflow:hidden;
+    padding:4px;
+    flex-shrink:0;
+}
 
-    font-size:11px;
+.cart-item-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    border-radius:4px;
+}
 
+.cart-item-thumb .thumb-fallback{
+    font-size:10px;
     color:#9cff00;
-
     font-weight:bold;
-
     text-align:center;
-
     text-transform:uppercase;
-
-    padding:6px;
+    line-height:1.2;
 }
 
 .cart-item-title{
@@ -3377,6 +3378,43 @@ function getCartTotal(){
 PRECIO SEGÚN TALLA
 ===================================================== */
 
+function getCartProductImage(tag){
+
+    const images = {
+        "NIGHT OPS":"nightops-negra-frente.jpg",
+        "HOODIE":"hoodie-origen-frente.jpg",
+        "SIMULATION":"zonaroja-blanca-frente.png"
+    };
+
+    return images[tag] || "";
+}
+
+
+function getCartThumbHTML(tag){
+
+    const image =
+        getCartProductImage(tag);
+
+    if(image){
+
+        return `
+            <img
+                src="${image}"
+                alt="${tag}"
+            >
+        `;
+
+    }
+
+    return `
+        <span class="thumb-fallback">
+            ${tag || "GEAR"}
+        </span>
+    `;
+
+}
+
+
 function calculateSizePrice(
     basePrice,
     size
@@ -3536,8 +3574,8 @@ function triggerAddToCart(
     .getElementById(
         "added-thumb"
     )
-    .innerText =
-        tag;
+    .innerHTML =
+        getCartThumbHTML(tag);
 
 
     document
@@ -3869,7 +3907,7 @@ function updateCart(){
 
                         <div class="cart-item-thumb">
 
-                            ${item.tag || 'GEAR'}
+                            ${getCartThumbHTML(item.tag)}
 
                         </div>
 
@@ -4325,8 +4363,8 @@ function triggerCustomAddToCart(){
     .getElementById(
         "added-thumb"
     )
-    .innerText =
-        "CUSTOM";
+    .innerHTML =
+        getCartThumbHTML("CUSTOM");
 
 
     document
