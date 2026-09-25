@@ -2387,6 +2387,14 @@ CHECKOUT
                 </div>
 
                 <div class="delivery-field">
+                    <label for="delivery-country">País</label>
+                    <select id="delivery-country" autocomplete="country">
+                        <option value="MX" selected>México</option>
+                        <option value="GT">Guatemala</option>
+                    </select>
+                </div>
+
+                <div class="delivery-field">
                     <label for="delivery-postal">Código postal</label>
                     <input id="delivery-postal" type="text" autocomplete="postal-code">
                 </div>
@@ -4030,6 +4038,8 @@ function getDeliveryFormData(){
             document.getElementById("delivery-city")?.value.trim() || "",
         state:
             document.getElementById("delivery-state")?.value.trim() || "",
+        country:
+            document.getElementById("delivery-country")?.value || "MX",
         postal:
             document.getElementById("delivery-postal")?.value.trim() || "",
         phone:
@@ -4107,28 +4117,40 @@ async function locateDeliveryAddress(){
       Esto ayuda cuando OpenStreetMap no tiene registrado
       exactamente el número exterior/interior.
     */
+    const countryCode =
+        (data.country || "MX").toLowerCase();
+
+    const countryName =
+        countryCode === "gt"
+        ? "Guatemala"
+        : "México";
+
     const attempts = [
         [
             data.street,
             data.neighborhood,
             data.city,
             data.state,
-            data.postal
+            data.postal,
+            countryName
         ],
         [
             data.street,
             data.neighborhood,
             data.city,
-            data.state
+            data.state,
+            countryName
         ],
         [
             data.neighborhood,
             data.city,
-            data.state
+            data.state,
+            countryName
         ],
         [
             data.city,
-            data.state
+            data.state,
+            countryName
         ]
     ]
     .map(parts =>
@@ -4152,7 +4174,8 @@ async function locateDeliveryAddress(){
                 "?format=jsonv2" +
                 "&limit=1" +
                 "&addressdetails=1" +
-                "&countrycodes=gt" +
+                "&countrycodes=" +
+                encodeURIComponent(countryCode) +
                 "&q=" +
                 encodeURIComponent(query);
 
