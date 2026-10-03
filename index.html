@@ -4093,8 +4093,7 @@ function validateDeliveryForm(data){
 
 async function locateDeliveryAddress(){
 
-    const data =
-        getDeliveryFormData();
+    const data = getDeliveryFormData();
 
     if(!validateDeliveryForm(data)){
         return;
@@ -4112,11 +4111,16 @@ async function locateDeliveryAddress(){
         button.textContent = "BUSCANDO DIRECCIÓN...";
     }
 
-    /*
-      Buscamos de lo más específico a lo más general.
-      Esto ayuda cuando OpenStreetMap no tiene registrado
-      exactamente el número exterior/interior.
-    */
+    const normalizeText = (value) => {
+        return String(value || "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/[^\p{L}\p{N}\s]/gu, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+    };
+
     const countryCode =
         (data.country || "MX").toLowerCase();
 
@@ -4125,7 +4129,16 @@ async function locateDeliveryAddress(){
         ? "Guatemala"
         : "México";
 
+    /*
+        IMPORTANTE:
+        Ya NO buscamos solamente ciudad + estado.
+
+        Una búsqueda tan general puede mandar
+        el marcador al centro de la ciudad o
+        a una ubicación que no corresponde.
+    */
     const attempts = [
+
         [
             data.street,
             data.neighborhood,
@@ -4134,6 +4147,7 @@ async function locateDeliveryAddress(){
             data.postal,
             countryName
         ],
+
         [
             data.street,
             data.neighborhood,
@@ -4141,30 +4155,38 @@ async function locateDeliveryAddress(){
             data.state,
             countryName
         ],
+
+        [
+            data.street,
+            data.city,
+            data.state,
+            data.postal,
+            countryName
+        ],
+
         [
             data.neighborhood,
             data.city,
             data.state,
-            countryName
-        ],
-        [
-            data.city,
-            data.state,
+            data.postal,
             countryName
         ]
+
     ]
     .map(parts =>
         parts
             .filter(Boolean)
             .join(", ")
     )
-    .filter((query, index, arr) =>
-        query && arr.indexOf(query) === index
+    .filter((query,index,array) =>
+        query &&
+        array.indexOf(query) === index
     );
 
     try{
 
-        let result = null;
+        let bestResult = null;
+        let bestScore = -1;
         let matchedQuery = "";
 
         for(const query of attempts){
@@ -4172,7 +4194,7 @@ async function locateDeliveryAddress(){
             const url =
                 "https://nominatim.openstreetmap.org/search" +
                 "?format=jsonv2" +
-                "&limit=1" +
+                "&limit=5" +
                 "&addressdetails=1" +
                 "&countrycodes=" +
                 encodeURIComponent(countryCode) +
@@ -4196,42 +4218,260 @@ async function locateDeliveryAddress(){
             const results =
                 await response.json();
 
-            if(
-                Array.isArray(results)
-                &&
-                results.length > 0
-            ){
-                result = results[0];
-                matchedQuery = query;
+            if(!Array.isArray(results)){
+                continue;
+            }
+
+            for(const result of results){
+
+                const address =
+                    result.address || {};
+
+                const resultCity =
+                    address.city ||
+                    address.town ||
+                    address.village ||
+                    address.municipality ||
+                    address.county ||
+                    "";
+
+                const resultState =
+                    address.state || "";
+
+                const resultPostal =
+                    address.postcode || "";
+
+                const resultNeighbourhood =
+                    address.neighbourhood ||
+                    address.suburb ||
+                    address.quarter ||
+                    address.residential ||
+                    "";
+
+                const resultRoad =
+                    address.road ||
+                    address.pedestrian ||
+                    address.street ||
+                    "";
+
+                let score = 0;
+
+                /* CIUDAD */
+                if(
+                    data.city &&
+                    normalizeText(resultCity)
+                        .includes(
+                            normalizeText(data.city)
+                        )
+                ){
+                    score += 5;
+                }
+
+                /* ESTADO */
+                if(
+                    data.state &&
+                    normalizeText(resultState)
+                        .includes(
+                            normalizeText(data.state)
+                        )
+                ){
+                    score += 4;
+                }
+
+                /* CÓDIGO POSTAL */
+                if(
+                    data.postal &&
+                    resultPostal &&
+                    normalizeText(resultPostal) ===
+                    normalizeText(data.postal)
+                ){
+                    score += 6;
+                }
+
+                /* COLONIA */
+                if(
+                    data.neighborhood &&
+                    resultNeighbourhood &&
+                    (
+                        normalizeText(resultNeighbourhood)
+                            .includes(
+                                normalizeText(
+                                    data.neighborhood
+                                )
+                            )
+                        ||
+                        normalizeText(
+                            data.neighborhood
+                        )
+                        .includes(
+                            normalizeText(
+                                resultNeighbourhood
+                            )
+                        )
+                    )
+                ){
+                    score += 3;
+                }
+
+                /* CALLE */
+                if(
+                    data.street &&
+                    resultRoad
+                ){
+
+                    const streetWanted =
+                        normalizeText(data.street);
+
+                    const streetFound =
+                        normalizeText(resultRoad);
+
+                    if(
+                        streetWanted.includes(streetFound)
+                        ||
+                        streetFound.includes(streetWanted)
+                    ){
+                        score += 5;
+                    }
+
+                }
+
+                /*
+                    Penalizamos resultados que claramente
+                    pertenezcan a otra ciudad.
+                */
+                if(
+                    data.city &&
+                    resultCity &&
+                    !normalizeText(resultCity)
+                        .includes(
+                            normalizeText(data.city)
+                        )
+                    &&
+                    !normalizeText(data.city)
+                        .includes(
+                            normalizeText(resultCity)
+                        )
+                ){
+                    score -= 8;
+                }
+
+                /*
+                    También penalizamos otro estado.
+                */
+                if(
+                    data.state &&
+                    resultState &&
+                    !normalizeText(resultState)
+                        .includes(
+                            normalizeText(data.state)
+                        )
+                    &&
+                    !normalizeText(data.state)
+                        .includes(
+                            normalizeText(resultState)
+                        )
+                ){
+                    score -= 6;
+                }
+
+                if(score > bestScore){
+
+                    bestScore = score;
+                    bestResult = result;
+                    matchedQuery = query;
+
+                }
+
+            }
+
+            /*
+                Si encontramos una coincidencia fuerte,
+                dejamos de hacer búsquedas más generales.
+            */
+            if(bestScore >= 12){
                 break;
             }
+
         }
 
-        if(!result){
+
+        /*
+            No encontramos nada suficientemente confiable.
+        */
+        if(
+            !bestResult ||
+            bestScore < 5
+        ){
 
             alert(
-                "No pudimos ubicar automáticamente esa dirección. " +
-                "Puedes usar “USAR MI UBICACIÓN” o seleccionar el punto manualmente en el mapa."
+                "No pudimos localizar esa dirección con suficiente precisión.\n\n" +
+                "Revisa la calle, colonia, código postal, ciudad y estado.\n\n" +
+                "También puedes usar “USAR MI UBICACIÓN” o seleccionar manualmente el punto en el mapa."
             );
 
             return;
         }
 
+
+        const resultAddress =
+            bestResult.address || {};
+
+        const foundCity =
+            resultAddress.city ||
+            resultAddress.town ||
+            resultAddress.village ||
+            resultAddress.municipality ||
+            resultAddress.county ||
+            "";
+
+        /*
+            Última protección:
+            si el resultado pertenece claramente a
+            otra ciudad, NO movemos el marcador.
+        */
+        if(
+            data.city &&
+            foundCity &&
+            !normalizeText(foundCity)
+                .includes(
+                    normalizeText(data.city)
+                )
+            &&
+            !normalizeText(data.city)
+                .includes(
+                    normalizeText(foundCity)
+                )
+        ){
+
+            alert(
+                "Encontramos una dirección parecida, pero pertenece a otra ciudad.\n\n" +
+                "Por seguridad no movimos el marcador.\n\n" +
+                "Revisa tus datos o selecciona manualmente el punto de entrega."
+            );
+
+            return;
+        }
+
+
         deliveryLocation.address =
             matchedQuery;
 
         deliveryLocation.displayAddress =
-            result.display_name || matchedQuery;
+            bestResult.display_name ||
+            matchedQuery;
+
 
         setDeliveryPoint(
-            Number(result.lat),
-            Number(result.lon),
+            Number(bestResult.lat),
+            Number(bestResult.lon),
             false
         );
+
 
         showDeliveryAddress(
             deliveryLocation.displayAddress
         );
+
 
         const resultBox =
             document.getElementById(
@@ -4240,42 +4480,74 @@ async function locateDeliveryAddress(){
 
         if(resultBox){
 
+            let warning = "";
+
+            /*
+                Si puso CP pero OpenStreetMap no confirmó
+                exactamente ese CP, se lo avisamos.
+            */
+            if(
+                data.postal &&
+                resultAddress.postcode &&
+                normalizeText(
+                    resultAddress.postcode
+                ) !==
+                normalizeText(
+                    data.postal
+                )
+            ){
+
+                warning =
+                    "<br><span style='color:#ffb347'>" +
+                    "⚠ El código postal encontrado no coincide exactamente. " +
+                    "Verifica el marcador antes de confirmar." +
+                    "</span>";
+
+            }
+
             resultBox.innerHTML =
-                "<strong>Zona localizada:</strong><br>" +
+                "<strong>Dirección encontrada:</strong><br>" +
                 escapeDeliveryText(
                     deliveryLocation.displayAddress
                 ) +
+                warning +
                 "<br><span style='color:#ffb347'>" +
                 "Mueve el marcador 📍 al punto exacto de entrega si es necesario." +
                 "</span>";
 
         }
 
+
         if(deliveryMap){
 
             deliveryMap.setView(
                 [
-                    Number(result.lat),
-                    Number(result.lon)
+                    Number(bestResult.lat),
+                    Number(bestResult.lon)
                 ],
-                17
+                18
             );
 
             setTimeout(
                 function(){
+
                     deliveryMap.invalidateSize();
+
                 },
                 100
             );
 
         }
 
-        document.getElementById(
-            "delivery-map"
-        )?.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
+
+        document
+            .getElementById(
+                "delivery-map"
+            )
+            ?.scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
 
     }
     catch(error){
@@ -4286,17 +4558,20 @@ async function locateDeliveryAddress(){
         );
 
         alert(
-            "No pudimos consultar el mapa en este momento. " +
-            "También puedes usar tu ubicación actual o seleccionar el punto manualmente."
+            "No pudimos consultar el mapa en este momento.\n\n" +
+            "Puedes usar tu ubicación actual o seleccionar manualmente el punto en el mapa."
         );
 
     }
     finally{
 
         if(button){
+
             button.disabled = false;
+
             button.textContent =
                 "📍 LOCALIZAR MI DIRECCIÓN";
+
         }
 
     }
