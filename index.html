@@ -4258,7 +4258,9 @@ if(!response.ok){
 
 const results =
     await response.json();
-
+          
+console.log("🔎 RESULTADOS NOMINATIM PARA:", query, results);
+          
             if(!Array.isArray(results)){
                 continue;
             }
