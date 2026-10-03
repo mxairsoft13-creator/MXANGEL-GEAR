@@ -4241,22 +4241,23 @@ let bestWasExactStreet = false;
                 encodeURIComponent(query);
 console.log("🔎 BUSCANDO DIRECCIÓN:", query);
 console.log("🌎 URL NOMINATIM:", url);
-            const response =
-                await fetch(
-                    url,
-                    {
-                        headers:{
-                            "Accept":"application/json"
-                        }
-                    }
-                );
+           const proxyUrl =
+    "https://api.allorigins.win/raw?url=" +
+    encodeURIComponent(url);
 
-            if(!response.ok){
-                continue;
-            }
+const response =
+    await fetch(proxyUrl);
 
-            const results =
-                await response.json();
+if(!response.ok){
+    console.warn(
+        "Error en geocodificación:",
+        response.status
+    );
+    continue;
+}
+
+const results =
+    await response.json();
 
             if(!Array.isArray(results)){
                 continue;
