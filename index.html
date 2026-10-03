@@ -4138,58 +4138,96 @@ async function locateDeliveryAddress(){
         el marcador al centro de la ciudad o
         a una ubicación que no corresponde.
     */
-    const attempts = [
+/*
+    PREPARAMOS LA DIRECCIÓN PARA BÚSQUEDA.
 
-        [
-            data.street,
-            data.neighborhood,
-            data.city,
-            data.state,
-            data.postal,
-            countryName
-        ],
+    El campo "Dirección" puede venir como:
+    Grafito 1497
+    Grafito 1497, Altavista
+    Calle Grafito #1497
 
-        [
-            data.street,
-            data.neighborhood,
-            data.city,
-            data.state,
-            countryName
-        ],
+    La colonia ya tiene su propio campo, así que
+    evitamos depender de que venga repetida.
+*/
+const cleanStreet =
+    String(data.street || "")
+        .split(",")[0]
+        .trim();
 
-        [
-            data.street,
-            data.city,
-            data.state,
-            data.postal,
-            countryName
-        ],
 
-        [
-            data.neighborhood,
-            data.city,
-            data.state,
-            data.postal,
-            countryName
-        ]
+/*
+    Intentamos primero la dirección MÁS específica.
 
+    IMPORTANTE:
+    Las últimas búsquedas sirven solamente para
+    localizar la zona aproximada. Más adelante
+    comprobaremos si realmente encontramos la calle.
+*/
+const attempts = [
+
+    // Calle/número + colonia + CP
+    [
+        cleanStreet,
+        data.neighborhood,
+        data.postal,
+        data.city,
+        data.state,
+        countryName
+    ],
+
+    // Calle/número + CP
+    [
+        cleanStreet,
+        data.postal,
+        data.city,
+        data.state,
+        countryName
+    ],
+
+    // Calle/número + colonia
+    [
+        cleanStreet,
+        data.neighborhood,
+        data.city,
+        data.state,
+        countryName
+    ],
+
+    // Calle/número
+    [
+        cleanStreet,
+        data.city,
+        data.state,
+        countryName
+    ],
+
+    // ÚLTIMO RECURSO:
+    // solamente localiza la zona aproximada.
+    [
+        data.neighborhood,
+        data.postal,
+        data.city,
+        data.state,
+        countryName
     ]
-    .map(parts =>
-        parts
-            .filter(Boolean)
-            .join(", ")
-    )
-    .filter((query,index,array) =>
-        query &&
-        array.indexOf(query) === index
-    );
 
+]
+.map(parts =>
+    parts
+        .filter(Boolean)
+        .join(", ")
+)
+.filter((query,index,array) =>
+    query &&
+    array.indexOf(query) === index
+);
     try{
 
         let bestResult = null;
         let bestScore = -1;
         let matchedQuery = "";
-
+let bestWasExactStreet = false;
+      
         for(const query of attempts){
 
             const url =
@@ -4388,11 +4426,32 @@ if(
 
                 if(score > bestScore){
 
-                    bestScore = score;
-                    bestResult = result;
-                    matchedQuery = query;
+    bestScore = score;
+    bestResult = result;
+    matchedQuery = query;
 
-                }
+    /*
+        Guardamos si OpenStreetMap realmente
+        encontró la CALLE, no solamente la colonia.
+    */
+    const wantedStreet =
+        normalizeText(cleanStreet)
+            .replace(/\b\d+\b/g, "")
+            .trim();
+
+    const foundStreet =
+        normalizeText(resultRoad);
+
+    bestWasExactStreet =
+        Boolean(
+            wantedStreet &&
+            foundStreet &&
+            (
+                foundStreet.includes(wantedStreet) ||
+                wantedStreet.includes(foundStreet)
+            )
+        );
+}
 
             }
 
@@ -4400,10 +4459,12 @@ if(
                 Si encontramos una coincidencia fuerte,
                 dejamos de hacer búsquedas más generales.
             */
-            if(bestScore >= 12){
-                break;
-            }
-
+            if(
+    bestScore >= 12 &&
+    bestWasExactStreet
+){
+    break;
+}
         }
 
 
@@ -4500,7 +4561,77 @@ if(
             bestResult.display_name ||
             matchedQuery;
 
+/*
+    Si OpenStreetMap encontró la zona pero NO la calle,
+    usamos el punto únicamente como referencia aproximada.
+*/
+if(!bestWasExactStreet){
 
+    setDeliveryPoint(
+        Number(bestResult.lat),
+        Number(bestResult.lon),
+        false
+    );
+
+    deliveryLocation.confirmed = false;
+
+    const status =
+        document.getElementById("delivery-location-status");
+
+    if(status){
+    status.textContent = "UBICACIÓN APROXIMADA";
+    status.className = "delivery-location-status";
+}
+
+const confirmBtn =
+    document.getElementById("confirm-location-btn");
+
+if(confirmBtn){
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "AJUSTA EL PUNTO EXACTO";
+}
+
+    const resultBox =
+        document.getElementById("delivery-address-result");
+
+    if(resultBox){
+        resultBox.innerHTML =
+            "<strong>⚠ UBICACIÓN APROXIMADA</strong><br>" +
+            "Encontramos la zona, pero no pudimos confirmar la calle y número exactos.<br><br>" +
+            "<strong>Zona encontrada:</strong><br>" +
+            escapeDeliveryText(
+                deliveryLocation.displayAddress
+            ) +
+            "<br><br>" +
+            "<span style='color:#ffb347'>" +
+            "Mueve el marcador 📍 hasta tu domicilio exacto o usa el botón “USAR MI UBICACIÓN”." +
+            "</span>";
+    }
+
+    if(deliveryMap){
+
+        deliveryMap.setView(
+            [
+                Number(bestResult.lat),
+                Number(bestResult.lon)
+            ],
+            16
+        );
+
+        setTimeout(function(){
+            deliveryMap.invalidateSize();
+        },100);
+    }
+
+    document
+        .getElementById("delivery-map")
+        ?.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+    return;
+}
         setDeliveryPoint(
             Number(bestResult.lat),
             Number(bestResult.lon),
