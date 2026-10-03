@@ -4370,10 +4370,13 @@ if(
                 ){
 
                     const streetWanted =
-                        normalizeText(data.street);
+    normalizeText(cleanStreet)
+        .replace(/\b\d+\b/g, "")
+        .trim();
 
-                    const streetFound =
-                        normalizeText(resultRoad);
+const streetFound =
+    normalizeText(resultRoad)
+        .trim();
 
                     if(
                         streetWanted.includes(streetFound)
