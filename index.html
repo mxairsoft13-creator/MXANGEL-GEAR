@@ -277,7 +277,38 @@ CREAR CUENTA - PÁGINA
 
     transition:.2s;
 }
+.password-input-wrapper{
+    position:relative;
+    width:100%;
+}
 
+.password-input-wrapper input{
+    padding-right:50px;
+}
+
+.password-toggle-btn{
+    position:absolute;
+    top:50%;
+    right:14px;
+    transform:translateY(-50%);
+
+    background:transparent;
+    border:none;
+
+    color:#9cff00;
+    font-size:18px;
+
+    cursor:pointer;
+    padding:5px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.password-toggle-btn:hover{
+    opacity:.75;
+}
 .account-field input:focus{
     border-color:#9cff00;
     box-shadow:0 0 0 2px rgba(156,255,0,.08);
@@ -2487,12 +2518,23 @@ CREAR CUENTA
                     CONTRASEÑA
                 </label>
 
-                <input
-                    type="password"
-                    id="register-password"
-                    autocomplete="new-password"
-                    required>
+               <div class="password-input-wrapper">
 
+    <input
+        type="password"
+        id="register-password"
+        autocomplete="new-password"
+        required>
+
+    <button
+        type="button"
+        class="password-toggle-btn"
+        data-password-target="register-password"
+        aria-label="Mostrar contraseña">
+        👁
+    </button>
+
+</div>
             </div>
 
             <div class="password-requirements">
@@ -2525,11 +2567,23 @@ CREAR CUENTA
                     CONFIRMAR CONTRASEÑA
                 </label>
 
-                <input
-                    type="password"
-                    id="register-password-confirm"
-                    autocomplete="new-password"
-                    required>
+               <div class="password-input-wrapper">
+
+    <input
+        type="password"
+        id="register-password-confirm"
+        autocomplete="new-password"
+        required>
+
+    <button
+        type="button"
+        class="password-toggle-btn"
+        data-password-target="register-password-confirm"
+        aria-label="Mostrar contraseña">
+        👁
+    </button>
+
+</div>
 
             </div>
 
@@ -7856,15 +7910,14 @@ function validateRegisterPassword(){
             );
 
             element.textContent =
-                (
-                    rules[rule]
-                    ? "✓ "
-                    : "○ "
-                )
-                +
-                element.textContent
-                    .replace(/^[✓○]\s*/, "");
-
+    (
+        rules[rule]
+        ? "✓ "
+        : "○ "
+    )
+    +
+    element.textContent
+        .replace(/^[✓○\s]+/, "");
         }
     );
 
@@ -7884,6 +7937,50 @@ if(registerPassword){
 
 }
 
+  /* MOSTRAR / OCULTAR CONTRASEÑA */
+
+document
+.querySelectorAll(".password-toggle-btn")
+.forEach(function(button){
+
+    button.addEventListener(
+        "click",
+        function(){
+
+            const targetId =
+                button.dataset.passwordTarget;
+
+            const input =
+                document.getElementById(targetId);
+
+            if(!input){
+                return;
+            }
+
+            const showing =
+                input.type === "text";
+
+            input.type =
+                showing
+                ? "password"
+                : "text";
+
+            button.textContent =
+                showing
+                ? "👁"
+                : "🙈";
+
+            button.setAttribute(
+                "aria-label",
+                showing
+                ? "Mostrar contraseña"
+                : "Ocultar contraseña"
+            );
+
+        }
+    );
+
+});
 
 /*
     POR AHORA VALIDAMOS EL FORMULARIO.
