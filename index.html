@@ -4476,9 +4476,10 @@ const streetFound =
             No encontramos nada suficientemente confiable.
         */
         if(
-            !bestResult ||
-            bestScore < 5
-        ){
+    !bestResult ||
+    bestScore < 5 ||
+    (data.street && !bestWasExactStreet)
+){
 
             alert(
                 "No pudimos localizar esa dirección con suficiente precisión.\n\n" +
