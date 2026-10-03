@@ -113,7 +113,277 @@ nav a:hover{
     background:#9cff00;
     color:#000;
 }
+/* =====================================================
+CUENTA - HEADER
+===================================================== */
 
+.account-header-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.account-header-btn{
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent;
+    color:#fff;
+
+    padding:10px 14px;
+
+    border-radius:4px;
+    cursor:pointer;
+
+    font-weight:bold;
+    letter-spacing:1px;
+    font-size:12px;
+
+    transition:.2s;
+}
+
+.account-header-btn:hover{
+    border-color:#9cff00;
+    color:#9cff00;
+}
+
+.create-account-btn{
+    border-color:#9cff00;
+    color:#9cff00;
+}
+
+.create-account-btn:hover{
+    background:#9cff00;
+    color:#000;
+}
+  /* =====================================================
+CREAR CUENTA - PÁGINA
+===================================================== */
+
+.account-page{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5000;
+
+    background:#080a08;
+    color:#fff;
+
+    overflow-y:auto;
+    padding:40px 20px;
+}
+
+.account-page.active{
+    display:block;
+}
+
+.account-page-container{
+    width:100%;
+    max-width:720px;
+
+    margin:0 auto;
+
+    background:#101310;
+    border:1px solid rgba(156,255,0,.25);
+    border-radius:8px;
+
+    padding:35px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.account-back-btn{
+    background:transparent;
+    border:none;
+    color:#aaa;
+
+    padding:0;
+    margin-bottom:35px;
+
+    cursor:pointer;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.account-back-btn:hover{
+    color:#9cff00;
+}
+
+.account-page-header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.account-page-tag{
+    color:#9cff00;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.account-page-header h2{
+    margin:10px 0;
+    font-size:34px;
+    letter-spacing:2px;
+}
+
+.account-page-header p{
+    max-width:520px;
+    margin:0 auto;
+
+    color:#888;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.account-form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.account-form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.account-field{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.account-field label{
+    color:#ccc;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.account-field input{
+    width:100%;
+
+    background:#090b09;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:5px;
+
+    color:#fff;
+
+    padding:14px 15px;
+
+    font-size:15px;
+
+    outline:none;
+    box-sizing:border-box;
+
+    transition:.2s;
+}
+
+.account-field input:focus{
+    border-color:#9cff00;
+    box-shadow:0 0 0 2px rgba(156,255,0,.08);
+}
+
+.password-requirements{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:8px 20px;
+
+    padding:15px;
+
+    background:#090b09;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:5px;
+}
+
+.password-requirements span{
+    color:#777;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:.5px;
+}
+
+.password-requirements span.valid{
+    color:#9cff00;
+}
+
+.account-form-message{
+    min-height:18px;
+
+    color:#ff5c5c;
+    font-size:12px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.account-submit-btn{
+    width:100%;
+
+    background:#9cff00;
+    border:1px solid #9cff00;
+    border-radius:5px;
+
+    color:#000;
+
+    padding:15px;
+
+    cursor:pointer;
+
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:1.5px;
+
+    transition:.2s;
+}
+
+.account-submit-btn:hover{
+    background:transparent;
+    color:#9cff00;
+}
+
+.account-switch-text{
+    margin:5px 0 0;
+
+    color:#777;
+    text-align:center;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.account-switch-text button{
+    border:none;
+    background:transparent;
+
+    color:#9cff00;
+
+    cursor:pointer;
+    font-weight:bold;
+    letter-spacing:.5px;
+}
+
+@media(max-width:650px){
+
+    .account-page{
+        padding:20px 12px;
+    }
+
+    .account-page-container{
+        padding:25px 18px;
+    }
+
+    .account-form-row{
+        grid-template-columns:1fr;
+    }
+
+    .password-requirements{
+        grid-template-columns:1fr;
+    }
+
+    .account-page-header h2{
+        font-size:28px;
+    }
+
+}
 
 /* =====================================================
 HERO
@@ -2109,12 +2379,185 @@ HEADER
         <a href="#redes">REDES</a>
 
     </nav>
+<div class="account-header-actions">
 
+    <button
+        type="button"
+        class="account-header-btn"
+        id="login-header-btn">
+        INICIAR SESIÓN
+    </button>
+
+    <button
+        type="button"
+        class="account-header-btn create-account-btn"
+        id="register-header-btn">
+        CREAR CUENTA
+    </button>
+
+</div>
     <button class="cart-btn" onclick="openLargeCartModal()">
         CARRITO (<span id="cart-count">0</span>)
     </button>
 
 </header>
+
+<!-- =====================================================
+CREAR CUENTA
+===================================================== -->
+
+<section class="account-page" id="register-page">
+
+    <div class="account-page-container">
+
+        <button
+            type="button"
+            class="account-back-btn"
+            id="register-back-btn">
+            ← VOLVER A LA TIENDA
+        </button>
+
+        <div class="account-page-header">
+
+            <span class="account-page-tag">
+                MXANGEL GEAR
+            </span>
+
+            <h2>
+                CREAR CUENTA
+            </h2>
+
+            <p>
+                CREA TU CUENTA PARA GUARDAR TUS DATOS,
+                DIRECCIONES Y CONSULTAR TUS PEDIDOS.
+            </p>
+
+        </div>
+
+        <form
+            class="account-form"
+            id="register-form"
+            autocomplete="on">
+
+            <div class="account-form-row">
+
+                <div class="account-field">
+                    <label for="register-first-name">
+                        NOMBRE
+                    </label>
+
+                    <input
+                        type="text"
+                        id="register-first-name"
+                        autocomplete="given-name"
+                        required>
+                </div>
+
+                <div class="account-field">
+                    <label for="register-last-name">
+                        APELLIDO
+                    </label>
+
+                    <input
+                        type="text"
+                        id="register-last-name"
+                        autocomplete="family-name"
+                        required>
+                </div>
+
+            </div>
+
+            <div class="account-field">
+
+                <label for="register-email">
+                    CORREO ELECTRÓNICO
+                </label>
+
+                <input
+                    type="email"
+                    id="register-email"
+                    autocomplete="email"
+                    required>
+
+            </div>
+
+            <div class="account-field">
+
+                <label for="register-password">
+                    CONTRASEÑA
+                </label>
+
+                <input
+                    type="password"
+                    id="register-password"
+                    autocomplete="new-password"
+                    required>
+
+            </div>
+
+            <div class="password-requirements">
+
+                <span id="password-length">
+                    ○ MÍNIMO 8 CARACTERES
+                </span>
+
+                <span id="password-uppercase">
+                    ○ 1 LETRA MAYÚSCULA
+                </span>
+
+                <span id="password-lowercase">
+                    ○ 1 LETRA MINÚSCULA
+                </span>
+
+                <span id="password-number">
+                    ○ 1 NÚMERO
+                </span>
+
+                <span id="password-symbol">
+                    ○ 1 SIGNO (@ - _ . ETC.)
+                </span>
+
+            </div>
+
+            <div class="account-field">
+
+                <label for="register-password-confirm">
+                    CONFIRMAR CONTRASEÑA
+                </label>
+
+                <input
+                    type="password"
+                    id="register-password-confirm"
+                    autocomplete="new-password"
+                    required>
+
+            </div>
+
+            <div
+                class="account-form-message"
+                id="register-form-message">
+            </div>
+
+            <button
+                type="submit"
+                class="account-submit-btn">
+                CREAR CUENTA
+            </button>
+
+            <p class="account-switch-text">
+                ¿YA TIENES UNA CUENTA?
+                <button
+                    type="button"
+                    id="go-to-login-btn">
+                    INICIAR SESIÓN
+                </button>
+            </p>
+
+        </form>
+
+    </div>
+
+</section>
 
 
 <!-- =====================================================
@@ -7258,7 +7701,253 @@ window
 
 });
 
+/* =====================================================
+CUENTA - NAVEGACIÓN Y VALIDACIÓN
+===================================================== */
 
+const registerPage =
+    document.getElementById("register-page");
+
+const registerHeaderBtn =
+    document.getElementById("register-header-btn");
+
+const registerBackBtn =
+    document.getElementById("register-back-btn");
+
+const registerForm =
+    document.getElementById("register-form");
+
+const registerPassword =
+    document.getElementById("register-password");
+
+const registerPasswordConfirm =
+    document.getElementById("register-password-confirm");
+
+const registerMessage =
+    document.getElementById("register-form-message");
+
+
+function openRegisterPage(){
+
+    if(!registerPage){
+        return;
+    }
+
+    registerPage.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+    registerPage.scrollTop = 0;
+}
+
+
+function closeRegisterPage(){
+
+    if(!registerPage){
+        return;
+    }
+
+    registerPage.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+
+if(registerHeaderBtn){
+
+    registerHeaderBtn.addEventListener(
+        "click",
+        openRegisterPage
+    );
+
+}
+
+
+if(registerBackBtn){
+
+    registerBackBtn.addEventListener(
+        "click",
+        closeRegisterPage
+    );
+
+}
+
+
+/* CERRAR CON ESC */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+            &&
+            registerPage?.classList.contains("active")
+        ){
+
+            closeRegisterPage();
+
+        }
+
+    }
+);
+
+
+/* VALIDACIÓN DE CONTRASEÑA */
+
+function validateRegisterPassword(){
+
+    const password =
+        registerPassword?.value || "";
+
+    const rules = {
+
+        length:
+            password.length >= 8,
+
+        uppercase:
+            /[A-ZÁÉÍÓÚÑ]/.test(password),
+
+        lowercase:
+            /[a-záéíóúñ]/.test(password),
+
+        number:
+            /[0-9]/.test(password),
+
+        symbol:
+            /[^A-Za-z0-9ÁÉÍÓÚÑáéíóúñ]/.test(password)
+
+    };
+
+
+    const elements = {
+
+        length:
+            document.getElementById("password-length"),
+
+        uppercase:
+            document.getElementById("password-uppercase"),
+
+        lowercase:
+            document.getElementById("password-lowercase"),
+
+        number:
+            document.getElementById("password-number"),
+
+        symbol:
+            document.getElementById("password-symbol")
+
+    };
+
+
+    Object.keys(rules).forEach(
+        function(rule){
+
+            const element =
+                elements[rule];
+
+            if(!element){
+                return;
+            }
+
+            element.classList.toggle(
+                "valid",
+                rules[rule]
+            );
+
+            element.textContent =
+                (
+                    rules[rule]
+                    ? "✓ "
+                    : "○ "
+                )
+                +
+                element.textContent
+                    .replace(/^[✓○]\s*/, "");
+
+        }
+    );
+
+
+    return Object.values(rules)
+        .every(Boolean);
+
+}
+
+
+if(registerPassword){
+
+    registerPassword.addEventListener(
+        "input",
+        validateRegisterPassword
+    );
+
+}
+
+
+/*
+    POR AHORA VALIDAMOS EL FORMULARIO.
+
+    TODAVÍA NO CREAMOS LA CUENTA EN EL SERVIDOR.
+    ESO LO CONECTAREMOS DESPUÉS.
+*/
+
+if(registerForm){
+
+    registerForm.addEventListener(
+        "submit",
+        function(event){
+
+            event.preventDefault();
+
+
+            if(registerMessage){
+                registerMessage.textContent = "";
+            }
+
+
+            if(!validateRegisterPassword()){
+
+                if(registerMessage){
+
+                    registerMessage.textContent =
+                        "LA CONTRASEÑA NO CUMPLE TODOS LOS REQUISITOS.";
+
+                }
+
+                return;
+            }
+
+
+            if(
+                registerPassword.value
+                !==
+                registerPasswordConfirm.value
+            ){
+
+                if(registerMessage){
+
+                    registerMessage.textContent =
+                        "LAS CONTRASEÑAS NO COINCIDEN.";
+
+                }
+
+                return;
+            }
+
+
+            if(registerMessage){
+
+                registerMessage.textContent =
+                    "FORMULARIO CORRECTO. FALTA CONECTAR LA VERIFICACIÓN DE CORREO.";
+
+            }
+
+        }
+    );
+
+}
+  
 </script>
 
 
