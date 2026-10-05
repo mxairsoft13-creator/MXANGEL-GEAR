@@ -393,6 +393,194 @@ CREAR CUENTA - PÁGINA
 }
 
   /* =====================================================
+MI CUENTA - DASHBOARD
+===================================================== */
+
+.account-dashboard-section{
+    margin-top:18px;
+    padding:22px;
+
+    background:#090b09;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:6px;
+
+    transition:.2s;
+}
+
+.account-dashboard-section:hover{
+    border-color:rgba(156,255,0,.25);
+}
+
+.account-dashboard-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:20px;
+}
+
+.account-dashboard-title > div{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.account-dashboard-title h3{
+    margin:0;
+
+    color:#fff;
+
+    font-size:15px;
+    letter-spacing:1.5px;
+}
+
+.account-dashboard-number{
+    color:#9cff00;
+
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.account-small-btn{
+    background:transparent;
+
+    border:1px solid rgba(156,255,0,.45);
+    border-radius:4px;
+
+    color:#9cff00;
+
+    padding:8px 12px;
+
+    cursor:pointer;
+
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1px;
+
+    transition:.2s;
+}
+
+.account-small-btn:hover{
+    background:#9cff00;
+    color:#000;
+}
+
+.account-info-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap:12px;
+}
+
+.account-info-item{
+    padding:14px;
+
+    background:#101310;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:5px;
+
+    min-width:0;
+}
+
+.account-info-item span{
+    display:block;
+
+    margin-bottom:7px;
+
+    color:#777;
+
+    font-size:10px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.account-info-item strong{
+    display:block;
+
+    color:#fff;
+
+    font-size:13px;
+
+    overflow-wrap:anywhere;
+}
+
+.account-empty-state{
+    padding:22px;
+
+    border:1px dashed rgba(255,255,255,.12);
+    border-radius:5px;
+
+    color:#666;
+
+    text-align:center;
+
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:.7px;
+
+    line-height:1.6;
+}
+
+.account-secondary-action{
+    width:100%;
+
+    padding:13px;
+
+    background:transparent;
+
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:5px;
+
+    color:#ccc;
+
+    cursor:pointer;
+
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+
+    transition:.2s;
+}
+
+.account-secondary-action:hover{
+    border-color:#9cff00;
+    color:#9cff00;
+}
+
+.account-logout-btn{
+    width:100%;
+
+    margin-top:25px;
+    padding:14px;
+
+    background:transparent;
+
+    border:1px solid rgba(255,80,80,.4);
+    border-radius:5px;
+
+    color:#ff5c5c;
+
+    cursor:pointer;
+
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1.5px;
+
+    transition:.2s;
+}
+
+.account-logout-btn:hover{
+    background:#ff4d4d;
+    border-color:#ff4d4d;
+    color:#fff;
+}
+  
+  /* =====================================================
 VERIFICACIÓN DE CORREO
 ===================================================== */
 
@@ -466,6 +654,26 @@ VERIFICACIÓN DE CORREO
     width:42px;
     height:55px;
     font-size:22px;
+}
+  .account-info-grid{
+    grid-template-columns:1fr;
+}
+
+.account-dashboard-section{
+    padding:17px;
+}
+
+.account-dashboard-title{
+    align-items:flex-start;
+}
+
+.account-dashboard-title h3{
+    font-size:13px;
+}
+
+.account-small-btn{
+    padding:7px 9px;
+    font-size:9px;
 }
 }
 
@@ -2779,6 +2987,206 @@ INICIAR SESIÓN
     </div>
 
 </section>
+
+  <!-- =====================================================
+MI CUENTA
+===================================================== -->
+
+<section class="account-page" id="my-account-page">
+
+    <div class="account-page-container">
+
+        <button
+            type="button"
+            class="account-back-btn"
+            id="account-back-btn">
+            ← VOLVER A LA TIENDA
+        </button>
+
+        <div class="account-page-header">
+
+            <span class="account-page-tag">
+                MXANGEL GEAR
+            </span>
+
+            <h2>
+                MI CUENTA
+            </h2>
+
+            <p>
+                ADMINISTRA TUS DATOS, DIRECCIONES
+                Y CONSULTA EL ESTADO DE TUS PEDIDOS.
+            </p>
+
+        </div>
+
+
+        <!-- DATOS PERSONALES -->
+
+        <div class="account-dashboard-section">
+
+            <div class="account-dashboard-title">
+
+                <div>
+                    <span class="account-dashboard-number">
+                        01
+                    </span>
+
+                    <h3>
+                        MIS DATOS
+                    </h3>
+                </div>
+
+                <button
+                    type="button"
+                    class="account-small-btn"
+                    id="edit-profile-btn">
+                    EDITAR
+                </button>
+
+            </div>
+
+            <div class="account-info-grid">
+
+                <div class="account-info-item">
+                    <span>NOMBRE</span>
+                    <strong id="account-name">
+                        —
+                    </strong>
+                </div>
+
+                <div class="account-info-item">
+                    <span>APELLIDO</span>
+                    <strong id="account-last-name">
+                        —
+                    </strong>
+                </div>
+
+                <div class="account-info-item">
+                    <span>CORREO ELECTRÓNICO</span>
+                    <strong id="account-email">
+                        —
+                    </strong>
+                </div>
+
+                <div class="account-info-item">
+                    <span>TELÉFONO</span>
+                    <strong id="account-phone">
+                        SIN REGISTRAR
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DIRECCIONES -->
+
+        <div class="account-dashboard-section">
+
+            <div class="account-dashboard-title">
+
+                <div>
+                    <span class="account-dashboard-number">
+                        02
+                    </span>
+
+                    <h3>
+                        MIS DIRECCIONES
+                    </h3>
+                </div>
+
+                <button
+                    type="button"
+                    class="account-small-btn"
+                    id="add-address-btn">
+                    + AGREGAR
+                </button>
+
+            </div>
+
+            <div
+                class="account-empty-state"
+                id="saved-addresses-container">
+
+                TODAVÍA NO TIENES DIRECCIONES GUARDADAS.
+
+            </div>
+
+        </div>
+
+
+        <!-- PEDIDOS -->
+
+        <div class="account-dashboard-section">
+
+            <div class="account-dashboard-title">
+
+                <div>
+                    <span class="account-dashboard-number">
+                        03
+                    </span>
+
+                    <h3>
+                        MIS PEDIDOS
+                    </h3>
+                </div>
+
+                <button
+                    type="button"
+                    class="account-small-btn"
+                    id="view-orders-btn">
+                    VER PEDIDOS →
+                </button>
+
+            </div>
+
+            <div class="account-empty-state">
+                AQUÍ APARECERÁN TUS COMPRAS Y SU ESTADO DE ENVÍO.
+            </div>
+
+        </div>
+
+
+        <!-- SEGURIDAD -->
+
+        <div class="account-dashboard-section">
+
+            <div class="account-dashboard-title">
+
+                <div>
+                    <span class="account-dashboard-number">
+                        04
+                    </span>
+
+                    <h3>
+                        SEGURIDAD
+                    </h3>
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="account-secondary-action"
+                id="change-password-btn">
+                CAMBIAR CONTRASEÑA
+            </button>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="account-logout-btn"
+            id="logout-btn">
+            CERRAR SESIÓN
+        </button>
+
+    </div>
+
+</section>
   
   <!-- =====================================================
 VERIFICACIÓN DE CORREO
@@ -3603,8 +4011,9 @@ TIENDA
                         </label>
 
                         <select
-                            id="size-1"
-                            class="tactical-select"
+    id="size-1"
+    class="tactical-select"
+    data-product-code="NIGHT-OPS-TEE"
                             onchange="
                                 updateProductPrice(
                                     449,
@@ -3658,11 +4067,7 @@ TIENDA
 
                 </div>
 
-
-                <button
-                    class="btn-buy-now"
-                    onclick="
-                        triggerDirectBuy(
+ triggerDirectBuy(
                             'PLAYERA MXANGEL / NIGHT OPS',
                             449,
                             'size-1',
@@ -3675,17 +4080,22 @@ TIENDA
 
                 </button>
 
+                <button
+                    class="btn-buy-now"
+                    onclick="
+                       
 
                 <button
                     class="add-cart"
                     onclick="
-                        triggerAddToCart(
-                            'PLAYERA MXANGEL / NIGHT OPS',
-                            449,
-                            'size-1',
-                            'qty-1',
-                            'NIGHT OPS'
-                        )
+                        triggerDirectBuy(
+    'NIGHT-OPS-TEE',
+    'PLAYERA MXANGEL / NIGHT OPS',
+    449,
+    'size-1',
+    'qty-1',
+    'NIGHT OPS'
+)
                     ">
 
                     AGREGAR AL CARRITO
@@ -3753,6 +4163,7 @@ TIENDA
                         <select
                             id="size-2"
                             class="tactical-select"
+                          data-product-code="ORIGEN-HOODIE"
                             onchange="
                                 updateProductPrice(
                                     799,
@@ -3810,12 +4221,13 @@ TIENDA
                     class="btn-buy-now"
                     onclick="
                         triggerDirectBuy(
-                            'HOODIE / ORIGEN',
-                            799,
-                            'size-2',
-                            'qty-2',
-                            'HOODIE'
-                        )
+    'ORIGEN-HOODIE',
+    'HOODIE / ORIGEN',
+    799,
+    'size-2',
+    'qty-2',
+    'HOODIE'
+)
                     ">
 
                     ⚡ PAGAR AHORA
@@ -3827,12 +4239,13 @@ TIENDA
                     class="add-cart"
                     onclick="
                         triggerAddToCart(
-                            'HOODIE / ORIGEN',
-                            799,
-                            'size-2',
-                            'qty-2',
-                            'HOODIE'
-                        )
+    'ORIGEN-HOODIE',
+    'HOODIE / ORIGEN',
+    799,
+    'size-2',
+    'qty-2',
+    'HOODIE'
+)
                     ">
 
                     AGREGAR AL CARRITO
@@ -3899,6 +4312,7 @@ TIENDA
                         <select
                             id="size-3"
                             class="tactical-select"
+                          data-product-code="SIMULATION-TEE"
                             onchange="
                                 updateProductPrice(
                                     499,
@@ -3956,12 +4370,13 @@ TIENDA
                     class="btn-buy-now"
                     onclick="
                         triggerDirectBuy(
-                            'PLAYERA / SIMULATION',
-                            499,
-                            'size-3',
-                            'qty-3',
-                            'SIMULATION'
-                        )
+    'SIMULATION-TEE',
+    'PLAYERA / SIMULATION',
+    499,
+    'size-3',
+    'qty-3',
+    'SIMULATION'
+)
                     ">
 
                     ⚡ PAGAR AHORA
@@ -3973,12 +4388,13 @@ TIENDA
                     class="add-cart"
                     onclick="
                         triggerAddToCart(
-                            'PLAYERA / SIMULATION',
-                            499,
-                            'size-3',
-                            'qty-3',
-                            'SIMULATION'
-                        )
+    'SIMULATION-TEE',
+    'PLAYERA / SIMULATION',
+    499,
+    'size-3',
+    'qty-3',
+    'SIMULATION'
+)
                     ">
 
                     AGREGAR AL CARRITO
@@ -4657,6 +5073,7 @@ CARRITO
 
 let cart = [];
 
+  let storeProducts = [];
 
 try{
 
@@ -4680,7 +5097,198 @@ catch(e){
 
 }
 
+  /* =====================================================
+CATÁLOGO E INVENTARIO DESDE D1
+===================================================== */
 
+const PRODUCTS_API_URL =
+    "https://mxangel-geocoding.mxairsoft13.workers.dev/products";
+
+
+async function loadStoreProducts(){
+
+    try{
+
+        const response =
+            await fetch(
+                PRODUCTS_API_URL,
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "No se pudo cargar el catálogo"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(
+            !data.success ||
+            !Array.isArray(data.products)
+        ){
+
+            throw new Error(
+                "Respuesta inválida del catálogo"
+            );
+
+        }
+
+
+        storeProducts =
+            data.products;
+
+      updateInventoryDisplays();
+
+        console.log(
+            "Catálogo MXANGEL cargado:",
+            storeProducts
+        );
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Error cargando catálogo MXANGEL:",
+            error
+        );
+
+        storeProducts = [];
+
+    }
+
+}
+
+  function updateInventoryDisplays(){
+
+    const selects =
+        document.querySelectorAll(
+            "select[data-product-code]"
+        );
+
+
+    selects.forEach(select => {
+
+        const productCode =
+            select.dataset.productCode;
+
+
+        const product =
+            storeProducts.find(
+                item =>
+                item.product_code === productCode
+            );
+
+
+        if(!product || !product.sizes){
+            return;
+        }
+
+
+        let selectedIsAvailable = false;
+
+
+        Array.from(select.options)
+        .forEach(option => {
+
+            const size =
+                option.value;
+
+
+            const stock =
+                Number(
+                    product.sizes[size]?.stock ?? 0
+                );
+
+
+            option.dataset.stock =
+                String(stock);
+
+
+            if(stock <= 0){
+
+                option.textContent =
+                    `${size} — AGOTADO`;
+
+                option.disabled = true;
+
+            }
+            else{
+
+                option.disabled = false;
+
+
+                if(stock === 1){
+
+                    option.textContent =
+                        `${size} — ÚLTIMA PIEZA`;
+
+                }
+                else if(stock <= 5){
+
+                    option.textContent =
+                        `${size} — QUEDAN ${stock}`;
+
+                }
+                else{
+
+                    option.textContent =
+                        size;
+
+                }
+
+
+                if(option.selected){
+
+                    selectedIsAvailable = true;
+
+                }
+
+            }
+
+        });
+
+
+        if(!selectedIsAvailable){
+
+            const firstAvailable =
+                Array.from(select.options)
+                .find(
+                    option =>
+                    !option.disabled
+                );
+
+
+            if(firstAvailable){
+
+                select.value =
+                    firstAvailable.value;
+
+            }
+            else{
+
+                select.selectedIndex = -1;
+
+            }
+
+        }
+
+    });
+
+}
+  
+loadStoreProducts();
+  
 let directBuyItem = null;
 
 let pendingCheckout = null;
@@ -6193,6 +6801,7 @@ AGREGAR AL CARRITO
 ===================================================== */
 
 function triggerAddToCart(
+    productCode,
     baseName,
     basePrice,
     sizeId,
@@ -6216,6 +6825,67 @@ function triggerAddToCart(
             ) || 1
         );
 
+  const product =
+    storeProducts.find(
+        item =>
+        item.product_code === productCode
+    );
+
+
+if(!product){
+
+    alert(
+        "No se pudo verificar la disponibilidad de este producto. Intenta nuevamente."
+    );
+
+    return;
+
+}
+
+
+const availableStock =
+    Number(
+        product.sizes?.[size]?.stock ?? 0
+    );
+
+
+if(availableStock <= 0){
+
+    alert(
+        `La talla ${size} está agotada.`
+    );
+
+    return;
+
+}
+
+
+const alreadyInCart =
+    cart
+    .filter(
+        item =>
+        item.product_code === productCode &&
+        item.size === size
+    )
+    .reduce(
+        (total,item) =>
+            total + Number(item.quantity || 0),
+        0
+    );
+
+
+if(
+    alreadyInCart + quantity >
+    availableStock
+){
+
+    alert(
+        `Solo quedan ${availableStock} pieza(s) disponibles en talla ${size}.`
+    );
+
+    return;
+
+}
 
     const finalPrice =
         calculateSizePrice(
@@ -6224,14 +6894,14 @@ function triggerAddToCart(
         );
 
 
-    const existingIndex =
-        cart.findIndex(
+   const existingIndex =
+    cart.findIndex(
 
-            i =>
-            i.baseName === baseName &&
-            i.size === size
+        i =>
+        i.product_code === productCode &&
+        i.size === size
 
-        );
+    );
 
 
     if(existingIndex > -1){
@@ -6245,18 +6915,19 @@ function triggerAddToCart(
 
         cart.push({
 
-            baseName:baseName,
+    product_code:productCode,
 
-            size:size,
+    baseName:baseName,
 
-            price:finalPrice,
+    size:size,
 
-            quantity:quantity,
+    price:finalPrice,
 
-            tag:tag
+    quantity:quantity,
 
-        });
+    tag:tag
 
+});
     }
 
 
@@ -6331,6 +7002,7 @@ PAGAR AHORA
 ===================================================== */
 
 function triggerDirectBuy(
+    productCode,
     baseName,
     basePrice,
     sizeId,
@@ -6354,6 +7026,51 @@ function triggerDirectBuy(
             ) || 1
         );
 
+  const product =
+    storeProducts.find(
+        item =>
+        item.product_code === productCode
+    );
+
+
+if(!product){
+
+    alert(
+        "No se pudo verificar la disponibilidad de este producto. Intenta nuevamente."
+    );
+
+    return;
+
+}
+
+
+const availableStock =
+    Number(
+        product.sizes?.[size]?.stock ?? 0
+    );
+
+
+if(availableStock <= 0){
+
+    alert(
+        `La talla ${size} está agotada.`
+    );
+
+    return;
+
+}
+
+
+if(quantity > availableStock){
+
+    alert(
+        `Solo quedan ${availableStock} pieza(s) disponibles en talla ${size}.`
+    );
+
+    return;
+
+}
+  
 
     const finalPrice =
         calculateSizePrice(
@@ -6364,18 +7081,19 @@ function triggerDirectBuy(
 
     directBuyItem = {
 
-        baseName:baseName,
+    product_code:productCode,
 
-        size:size,
+    baseName:baseName,
 
-        price:finalPrice,
+    size:size,
 
-        quantity:quantity,
+    price:finalPrice,
 
-        tag:tag
+    quantity:quantity,
 
-    };
+    tag:tag
 
+};
 
     const directTotal =
         finalPrice *
