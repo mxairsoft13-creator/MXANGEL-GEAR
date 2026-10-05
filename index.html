@@ -2667,6 +2667,120 @@ CREAR CUENTA
 </section>
 
   <!-- =====================================================
+INICIAR SESIÓN
+===================================================== -->
+
+<section class="account-page" id="login-page">
+
+    <div class="account-page-container">
+
+        <button
+            type="button"
+            class="account-back-btn"
+            id="login-back-btn">
+            ← VOLVER A LA TIENDA
+        </button>
+
+        <div class="account-page-header">
+
+            <span class="account-page-tag">
+                MXANGEL GEAR
+            </span>
+
+            <h2>
+                INICIAR SESIÓN
+            </h2>
+
+            <p>
+                ACCEDE A TU CUENTA PARA CONSULTAR TUS PEDIDOS,
+                DIRECCIONES Y DATOS GUARDADOS.
+            </p>
+
+        </div>
+
+        <form
+            class="account-form"
+            id="login-form"
+            autocomplete="on">
+
+            <div class="account-field">
+
+                <label for="login-email">
+                    CORREO ELECTRÓNICO
+                </label>
+
+                <input
+                    type="email"
+                    id="login-email"
+                    autocomplete="email"
+                    required>
+
+            </div>
+
+            <div class="account-field">
+
+                <label for="login-password">
+                    CONTRASEÑA
+                </label>
+
+                <div class="password-input-wrapper">
+
+                    <input
+                        type="password"
+                        id="login-password"
+                        autocomplete="current-password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="password-toggle-btn"
+                        data-password-target="login-password"
+                        aria-label="Mostrar contraseña">
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div
+                class="account-form-message"
+                id="login-form-message">
+            </div>
+
+            <button
+                type="submit"
+                class="account-submit-btn">
+                INICIAR SESIÓN
+            </button>
+
+            <p class="account-switch-text">
+
+                <button
+                    type="button"
+                    id="forgot-password-btn">
+                    ¿OLVIDASTE TU CONTRASEÑA?
+                </button>
+
+            </p>
+
+            <p class="account-switch-text">
+                ¿NO TIENES UNA CUENTA?
+
+                <button
+                    type="button"
+                    id="login-go-to-register-btn">
+                    CREAR CUENTA
+                </button>
+            </p>
+
+        </form>
+
+    </div>
+
+</section>
+  
+  <!-- =====================================================
 VERIFICACIÓN DE CORREO
 ===================================================== -->
 
@@ -7941,6 +8055,31 @@ const registerPasswordConfirm =
 const registerMessage =
     document.getElementById("register-form-message");
 
+  /* ELEMENTOS - INICIAR SESIÓN */
+
+  const emailVerificationPage =
+    document.getElementById("email-verification-page");
+  
+const loginPage =
+    document.getElementById("login-page");
+
+const loginHeaderBtn =
+    document.getElementById("login-header-btn");
+
+const loginBackBtn =
+    document.getElementById("login-back-btn");
+
+const goToLoginBtn =
+    document.getElementById("go-to-login-btn");
+
+const loginGoToRegisterBtn =
+    document.getElementById("login-go-to-register-btn");
+
+const loginForm =
+    document.getElementById("login-form");
+
+const loginMessage =
+    document.getElementById("login-form-message");
 
 function openRegisterPage(){
 
@@ -7967,6 +8106,47 @@ function closeRegisterPage(){
     document.body.style.overflow = "";
 }
 
+  function openLoginPage(){
+
+    if(!loginPage){
+        return;
+    }
+
+    if(registerPage){
+        registerPage.classList.remove("active");
+    }
+
+    if(emailVerificationPage){
+        emailVerificationPage.classList.remove("active");
+    }
+
+    loginPage.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+    loginPage.scrollTop = 0;
+}
+
+function closeLoginPage(){
+
+    if(!loginPage){
+        return;
+    }
+
+    loginPage.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+
+function switchLoginToRegister(){
+
+    if(loginPage){
+        loginPage.classList.remove("active");
+    }
+
+    openRegisterPage();
+}
 
 if(registerHeaderBtn){
 
@@ -7987,21 +8167,78 @@ if(registerBackBtn){
 
 }
 
+  /* =====================================================
+BOTONES - INICIAR SESIÓN
+===================================================== */
 
-/* CERRAR CON ESC */
+/* BOTÓN INICIAR SESIÓN DEL HEADER */
+
+if(loginHeaderBtn){
+
+    loginHeaderBtn.addEventListener(
+        "click",
+        openLoginPage
+    );
+
+}
+
+
+/* CREAR CUENTA → INICIAR SESIÓN */
+
+if(goToLoginBtn){
+
+    goToLoginBtn.addEventListener(
+        "click",
+        openLoginPage
+    );
+
+}
+
+
+/* INICIAR SESIÓN → CREAR CUENTA */
+
+if(loginGoToRegisterBtn){
+
+    loginGoToRegisterBtn.addEventListener(
+        "click",
+        switchLoginToRegister
+    );
+
+}
+
+
+/* VOLVER A LA TIENDA DESDE LOGIN */
+
+if(loginBackBtn){
+
+    loginBackBtn.addEventListener(
+        "click",
+        closeLoginPage
+    );
+
+}
+
+/* CERRAR PÁGINAS DE CUENTA CON ESC */
 
 document.addEventListener(
     "keydown",
     function(event){
 
+        if(event.key !== "Escape"){
+            return;
+        }
+
         if(
-            event.key === "Escape"
-            &&
+            loginPage?.classList.contains("active")
+        ){
+            closeLoginPage();
+            return;
+        }
+
+        if(
             registerPage?.classList.contains("active")
         ){
-
             closeRegisterPage();
-
         }
 
     }
